@@ -14,6 +14,7 @@ public class Main {
         mezziManager mezziManager = new mezziManager(dbConnection.getConnection());
         serviziManager serviziManager = new serviziManager(dbConnection.getConnection());
         assegnazioneAutomatica assegnazioneAutomatica = new assegnazioneAutomatica(dbConnection.getConnection());
+        notificheManager notificheManager = new notificheManager(dbConnection.getConnection());
 
 
         menuManager.menuIniziale(scanner);

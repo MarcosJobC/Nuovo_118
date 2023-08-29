@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 
@@ -117,10 +119,30 @@ public class assegnazioneAutomatica {
             updateStatoStatement.setString(2, dataServizio);
             updateStatoStatement.executeUpdate();
             updateStatoStatement.close();
+
+
+            // Creazione della notifica
+            String inserisciNotificaQuery = "INSERT INTO Notifiche (Matricola_Volontario, Giorno, Data_Invio, Letta) VALUES (?, ?, ?, ?)";
+            PreparedStatement inserisciNotificaStatement = connection.prepareStatement(inserisciNotificaQuery);
+            inserisciNotificaStatement.setInt(1, matricolaVolontario);
+            inserisciNotificaStatement.setString(2, dataServizio);
+            inserisciNotificaStatement.setDate(3, Date.valueOf(LocalDate.now())); // Imposta solo la data attuale
+            inserisciNotificaStatement.setBoolean(4, false); // Inizialmente la notifica non è letta
+            inserisciNotificaStatement.executeUpdate();
+            inserisciNotificaStatement.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+
+
+
+
+
+
+
 
 
     public static boolean verificaVolontarioAssegnato(String dataServizio, int matricolaVolontario) {

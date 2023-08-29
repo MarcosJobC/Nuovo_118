@@ -316,6 +316,42 @@ public class volontariManager {
         }
     }
 
+    public static void visualizzaDisponibilitaENotificheNonLette() {
+        try {
+            // Recupera le disponibilità non confermate
+            String disponibilitaQuery = "SELECT matricola_volontario, data_disponibilita FROM Disponibilita WHERE confermata = 'Non confermata'";
+            PreparedStatement disponibilitaStatement = connection.prepareStatement(disponibilitaQuery);
+            ResultSet disponibilitaResultSet = disponibilitaStatement.executeQuery();
+
+            while (disponibilitaResultSet.next()) {
+                int matricolaVolontario = disponibilitaResultSet.getInt("matricola_volontario");
+                String dataDisponibilita = disponibilitaResultSet.getString("data_disponibilita");
+
+                System.out.println("Matricola: " + matricolaVolontario + " - Data Disponibilità: " + dataDisponibilita);
+            }
+
+            disponibilitaStatement.close();
+
+            // Recupera le notifiche non lette
+            //TODO AGGIUNGI GIORNO SERVIZIO
+            String notificheQuery = "SELECT Matricola_Volontario, Data_Invio FROM Notifiche WHERE Letta = false";
+            PreparedStatement notificheStatement = connection.prepareStatement(notificheQuery);
+            ResultSet notificheResultSet = notificheStatement.executeQuery();
+
+            while (notificheResultSet.next()) {
+                int matricolaVolontario = notificheResultSet.getInt("Matricola_Volontario");
+                String dataInvio = notificheResultSet.getString("Data_Invio");
+
+                System.out.println("Matricola (Notifica): " + matricolaVolontario + " - Data Invio Notifica: " + dataInvio);
+            }
+
+            notificheStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 }

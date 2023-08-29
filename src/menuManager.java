@@ -40,17 +40,19 @@ public class menuManager {
 
     }
 
-
-
-
-
     //MENU UTENTE
     public static void mostraMenuUtenteNormale(Scanner scanner, int matricolaVolontario) {
         System.out.println("Menu:");
         System.out.println("1. Dai disponibilità");
         System.out.println("2. Rimuovi disponibilità");
         System.out.println("3. Visualizza servizi assegnati");
-        System.out.println("4. Esci");
+
+        // Controlla se ci sono notifiche non lette e mostra l'opzione solo se necessario
+        if (notificheManager.ciSonoNotificheNonLette(matricolaVolontario)) {
+            System.out.println("4. Visualizza notifiche");
+        }
+
+        System.out.println("5. Esci");
         System.out.println(" ");
         System.out.print("Seleziona un'opzione: ");
 
@@ -71,6 +73,10 @@ public class menuManager {
                 volontariManager.visualizzaServiziAssegnati(scanner, matricolaVolontario);
                 break;
             case 4:
+                // Visualizzare le notifiche e segnarle come lette
+                notificheManager.visualizzaNotifiche(scanner, matricolaVolontario);
+                break;
+            case 5:
                 // Uscire dal menu
                 menuIniziale(scanner);
                 break;
@@ -86,7 +92,8 @@ public class menuManager {
         System.out.println("1. Gestisci mezzi");
         System.out.println("2. Gestisci volontari");
         System.out.println("3. Gestisci servizi");
-        System.out.println("4. Esci");
+        System.out.println("4. Visualizza disponibilità e notifiche non lette");
+        System.out.println("5. Esci");
         System.out.println(" ");
         System.out.println("Seleziona un'opzione:");
 
@@ -107,6 +114,10 @@ public class menuManager {
                 mostraMenuServizi(scanner);
                 break;
             case 4:
+                // Visualizza disponibilità e notifiche non lette
+                volontariManager.visualizzaDisponibilitaENotificheNonLette();
+                break;
+            case 5:
                 // Uscire dal menu
                 menuIniziale(scanner);
                 break;
@@ -114,6 +125,7 @@ public class menuManager {
                 System.out.println("Scelta non valida.");
         }
     }
+
 
     //MENU MEZZI
     public static void mostraMenuMezzi(Scanner scanner) {
