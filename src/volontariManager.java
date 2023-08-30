@@ -326,23 +326,24 @@ public class volontariManager {
             while (disponibilitaResultSet.next()) {
                 int matricolaVolontario = disponibilitaResultSet.getInt("matricola_volontario");
                 String dataDisponibilita = disponibilitaResultSet.getString("data_disponibilita");
-
+                System.out.println("ELENCO NUOVE DISPONIBILITA'");
                 System.out.println("Matricola: " + matricolaVolontario + " - Data Disponibilità: " + dataDisponibilita);
+                System.out.println(" ");
             }
 
             disponibilitaStatement.close();
 
             // Recupera le notifiche non lette
             //TODO AGGIUNGI GIORNO SERVIZIO
-            String notificheQuery = "SELECT Matricola_Volontario, Data_Invio FROM Notifiche WHERE Letta = false";
+            String notificheQuery = "SELECT Matricola_Volontario, Giorno FROM Notifiche WHERE Letta = false";
             PreparedStatement notificheStatement = connection.prepareStatement(notificheQuery);
             ResultSet notificheResultSet = notificheStatement.executeQuery();
 
             while (notificheResultSet.next()) {
                 int matricolaVolontario = notificheResultSet.getInt("Matricola_Volontario");
-                String dataInvio = notificheResultSet.getString("Data_Invio");
-
-                System.out.println("Matricola (Notifica): " + matricolaVolontario + " - Data Invio Notifica: " + dataInvio);
+                String Giorno = notificheResultSet.getString("Giorno");
+                System.out.println("ELENCO NOTIFICHE SERVIZI NON LETTE");
+                System.out.println("Matricola: " + matricolaVolontario + " - Data servizio: " + Giorno);
             }
 
             notificheStatement.close();
