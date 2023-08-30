@@ -92,7 +92,11 @@ public class menuManager {
         System.out.println("2. Gestisci volontari");
         System.out.println("3. Gestisci servizi");
         System.out.println("4. Visualizza disponibilità e notifiche non lette");
-        System.out.println("5. Esci");
+        // Verifica se ci sono richieste di rimozione
+        if (serviziManager.ciSonoRichiesteRimozione()) {
+            System.out.println("5. Visualizza RICHIESTE URGENTI rimozione disponibilità");
+        }
+        System.out.println("6. Esci");
         System.out.println(" ");
         System.out.println("Seleziona un'opzione:");
 
@@ -113,10 +117,17 @@ public class menuManager {
                 mostraMenuServizi(scanner);
                 break;
             case 4:
-                // Visualizza disponibilità e notifiche non lette
-                volontariManager.visualizzaDisponibilitaENotificheNonLette();
-                break;
+                if (serviziManager.ciSonoRichiesteRimozione()) {
+                    // Visualizza richieste di rimozione
+                    serviziManager.visualizzaRichiesteRimozione();
+                } else {
+                    System.out.print(" ");
+                }
             case 5:
+                // Visualizza richieste urgenti rimozione disponibilità
+                serviziManager.visualizzaRichiesteRimozione();
+                break;
+            case 6:
                 // Uscire dal menu
                 menuIniziale(scanner);
                 break;

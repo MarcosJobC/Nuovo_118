@@ -293,6 +293,113 @@ public class serviziManager {
             return false; // In caso di errore, restituisci false
         }
     }
+
+
+    public static void visualizzaRichiesteRimozione() {
+        try {
+            String query = "SELECT * FROM Disponibilita WHERE Richiesta_Rimozione = true";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            System.out.println("RICHIESTE URGENTI DI RIMOZIONE:");
+            while (resultSet.next()) {
+                int idDisponibilita = resultSet.getInt("ID_disponibilita");
+                int matricolaVolontario = resultSet.getInt("Matricola_volontario");
+                String dataDisponibilita = resultSet.getString("Data_disponibilita");
+                String tipologia = resultSet.getString("Tipologia");
+                String motivoRimozione = resultSet.getString("Motivo_Rimozione");
+
+                System.out.println("ID: " + idDisponibilita+ " - Matricola Volontario: " + matricolaVolontario + " - Data Disponibilità: " + dataDisponibilita+ " - Tipologia: " + tipologia+ " - Motivo Rimozione: " + motivoRimozione);
+            }
+
+            statement.close();
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Inserisci l'ID della richiesta di rimozione da accettare: ");
+            int idRichiestaDaAccettare = scanner.nextInt();
+            accettaRichiestaRimozione(idRichiestaDaAccettare);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void accettaRichiestaRimozione(int idRichiesta) {
+        try {
+            String query = "SELECT * FROM Disponibilita WHERE ID_disponibilita = ? AND Richiesta_Rimozione = true";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, idRichiesta);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String dataDisponibilita = resultSet.getString("Data_disponibilita");
+                int matricolaVolontario = resultSet.getInt("Matricola_volontario");
+
+                // Rimuovi l'assegnazione del volontario al servizio
+                rimuoviAssegnazioneServizio(dataDisponibilita, matricolaVolontario);
+
+                // Cancella la riga della richiesta dalla tabella Disponibilita
+                cancellaRichiestaRimozione(idRichiesta);
+
+                System.out.println("Richiesta di rimozione accettata. L'assegnazione del volontario al servizio è stata rimossa e la richiesta è stata cancellata.");
+            } else {
+                System.out.println("Richiesta di rimozione non valida.");
+                //TODO visualizzaRichiesteRimozione();
+            }
+
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void cancellaRichiestaRimozione(int idRichiesta) {
+        try {
+            String deleteQuery = "DELETE FROM Disponibilita WHERE ID_disponibilita = ?";
+            PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
+            deleteStatement.setInt(1, idRichiesta);
+            deleteStatement.executeUpdate();
+            deleteStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void rimuoviAssegnazioneServizio(String dataDisponibilita, int matricolaVolontario) {
+        try {
+            String updateQuery = "UPDATE Servizi SET Autista = CASE WHEN Autista = ? THEN 0 ELSE Autista END, Soccorritore = CASE WHEN Soccorritore = ? THEN 0 ELSE Soccorritore END WHERE Data = ?";
+            PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
+            updateStatement.setInt(1, matricolaVolontario);
+            updateStatement.setInt(2, matricolaVolontario);
+            updateStatement.setString(3, dataDisponibilita);
+            updateStatement.executeUpdate();
+            updateStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static boolean ciSonoRichiesteRimozione() {
+        try {
+            String query = "SELECT COUNT(*) FROM Disponibilita WHERE Richiesta_Rimozione = true";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            resultSet.next();
+            int count = resultSet.getInt(1);
+            return count > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
+
+
+
+
+
+
 }
 
 

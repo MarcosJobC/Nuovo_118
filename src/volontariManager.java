@@ -270,14 +270,32 @@ public class volontariManager {
                     deleteStatement.setInt(1, idDaRimuovere);
                     deleteStatement.executeUpdate();
 
-                    System.out.println("Disponibilità rimossa con successo!");
+                    System.out.println("Disponibilità rimossa autonomamente con successo!");
                     System.out.println(" ");
                     System.out.println(" ");
                     menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
                 } else if (confermata.equalsIgnoreCase("Reclutato")) {
 
                     //TODO RICHIEDI RIMOZIONE CON NOTIFICA AD AMMINISTRATORE
-                    System.out.println("Questa disponibilità è già stata confermata e non può esser rimossa. Vuoi richiedere la rimozione?.");
+                    System.out.println("Questa disponibilità è già stata confermata e non può esser rimossa autonomamente. Vuoi richiedere la rimozione ad un amministratore? (s/n).");
+                    String risposta = scanner.nextLine();
+                    if (risposta.equalsIgnoreCase("s")) {
+                        System.out.print("Inserisci il motivo della richiesta di rimozione: ");
+                        String motivoRimozione = scanner.nextLine();
+
+                        try {
+                            String updateRichiestaQuery = "UPDATE Disponibilita SET Richiesta_Rimozione = true, Motivo_Rimozione = ? WHERE ID_disponibilita = ?";
+                            PreparedStatement updateRichiestaStatement = connection.prepareStatement(updateRichiestaQuery);
+                            updateRichiestaStatement.setString(1, motivoRimozione);
+                            updateRichiestaStatement.setInt(2, idDaRimuovere);
+                            updateRichiestaStatement.executeUpdate();
+                            updateRichiestaStatement.close();
+
+                            System.out.println("Richiesta di rimozione inviata agli amministratori.");
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             } else {
                 System.out.println("Disponibilità non trovata.");
