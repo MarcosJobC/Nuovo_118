@@ -117,15 +117,16 @@ public class menuManager {
                 mostraMenuServizi(scanner);
                 break;
             case 4:
+                // Esegui l'azione per visualizzare le disponibilità
+                volontariManager.visualizzaDisponibilitaENotificheNonLette();
+            case 5:
+                // Visualizza richieste urgenti rimozione disponibilità
                 if (serviziManager.ciSonoRichiesteRimozione()) {
                     // Visualizza richieste di rimozione
                     serviziManager.visualizzaRichiesteRimozione();
                 } else {
                     System.out.print(" ");
                 }
-            case 5:
-                // Visualizza richieste urgenti rimozione disponibilità
-                serviziManager.visualizzaRichiesteRimozione();
                 break;
             case 6:
                 // Uscire dal menu

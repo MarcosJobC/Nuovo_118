@@ -56,7 +56,7 @@ public class notificheManager {
                 boolean letta = notificheResultSet.getBoolean("Letta");
 
                 String statoLetta = letta ? "Letta" : "Non letta";
-                System.out.println(idNotifica + ". [" + statoLetta + "] " + "Ti sono stati assegnati dei servizi per il giorno " + giornoAssegnato + ", vai sulla lista servizi per visionarli.");
+                System.out.println(idNotifica + ". " + "Servizi assegnati per il giorno " + giornoAssegnato + ", vai sulla lista servizi per visionarli.");
             }
 
             // Segna le notifiche come lette

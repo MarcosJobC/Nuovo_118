@@ -276,7 +276,6 @@ public class volontariManager {
                     menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
                 } else if (confermata.equalsIgnoreCase("Reclutato")) {
 
-                    //TODO RICHIEDI RIMOZIONE CON NOTIFICA AD AMMINISTRATORE
                     System.out.println("Questa disponibilità è già stata confermata e non può esser rimossa autonomamente. Vuoi richiedere la rimozione ad un amministratore? (s/n).");
                     String risposta = scanner.nextLine();
                     if (risposta.equalsIgnoreCase("s")) {
