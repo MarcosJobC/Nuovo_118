@@ -211,11 +211,35 @@ public class volontariManager {
 
 
     public static void inserisciDisponibilita(Scanner scanner, int matricolaVolontario) {
-        System.out.println("Inserisci la data della disponibilità (dd-mm-yyyy):");
-        String dataDisponibilita = scanner.nextLine();
 
-        System.out.println("Inserisci la tipologia (Emergenza/Sociali):");
-        String tipologia = scanner.nextLine();
+        String dataDisponibilita = "";
+        while (dataDisponibilita.isEmpty()) {
+            System.out.println("Inserisci la data della disponibilità (dd/mm/yyyy):");
+            dataDisponibilita = scanner.nextLine();
+
+            if (dataDisponibilita.isEmpty()) {
+                System.out.println("La data non può essere vuota. Riprova.");
+            }
+        }
+
+        System.out.println("Seleziona la tipologia del servizio: Emergenza(E) | Servizi sociali (S) | Centralino(C) | lascia vuoto per qualsiasi ruolo");
+        String sceltaTipologia = scanner.nextLine().toUpperCase();
+
+        String tipologia;
+        switch (sceltaTipologia) {
+            case "E":
+                tipologia = "Emergenza";
+                break;
+            case "S":
+                tipologia = "Servizi sociali";
+                break;
+            case "C":
+                tipologia = "Centralino";
+                break;
+            default:
+                System.out.println("Tipologia impostata a: qualsiasi ruolo.");
+                tipologia = "Qualsiasi";
+        }
 
         try {
             String insertQuery = "INSERT INTO Disponibilita (Matricola_volontario, Data_disponibilita, Tipologia, Confermata) VALUES (?, ?, ?, ?)";
@@ -227,7 +251,8 @@ public class volontariManager {
 
             insertStatement.executeUpdate();
 
-            System.out.println("Disponibilità inserita con successo!");
+            System.out.println(" ");
+            System.out.println("Disponibilità inserita con successo! Grazie mille!");
 
             insertStatement.close();
         } catch (SQLException e) {
@@ -336,18 +361,19 @@ public class volontariManager {
     public static void visualizzaDisponibilitaENotificheNonLette() {
         try {
             // Recupera le disponibilità non confermate
-            String disponibilitaQuery = "SELECT matricola_volontario, data_disponibilita FROM Disponibilita WHERE confermata = 'Non confermata'";
+            String disponibilitaQuery = "SELECT matricola_volontario, data_disponibilita, tipologia FROM Disponibilita WHERE confermata = 'Non confermata'";
             PreparedStatement disponibilitaStatement = connection.prepareStatement(disponibilitaQuery);
             ResultSet disponibilitaResultSet = disponibilitaStatement.executeQuery();
 
+            System.out.println("ELENCO NUOVE DISPONIBILITA'");
             while (disponibilitaResultSet.next()) {
                 int matricolaVolontario = disponibilitaResultSet.getInt("matricola_volontario");
                 String dataDisponibilita = disponibilitaResultSet.getString("data_disponibilita");
-                System.out.println("ELENCO NUOVE DISPONIBILITA'");
-                System.out.println("Matricola: " + matricolaVolontario + " - Data Disponibilità: " + dataDisponibilita);
-                System.out.println(" ");
-            }
+                String tipologia = disponibilitaResultSet.getString("tipologia");
+                System.out.println("Matricola: " + matricolaVolontario + " - Data Disponibilità: " + dataDisponibilita+ " - Tipologia: " + tipologia);
 
+            }
+            System.out.println(" ");
             disponibilitaStatement.close();
 
             // Recupera le notifiche non lette
@@ -355,10 +381,10 @@ public class volontariManager {
             PreparedStatement notificheStatement = connection.prepareStatement(notificheQuery);
             ResultSet notificheResultSet = notificheStatement.executeQuery();
 
+            System.out.println("ELENCO NOTIFICHE SERVIZI NON LETTE");
             while (notificheResultSet.next()) {
                 int matricolaVolontario = notificheResultSet.getInt("Matricola_Volontario");
                 String Giorno = notificheResultSet.getString("Giorno");
-                System.out.println("ELENCO NOTIFICHE SERVIZI NON LETTE");
                 System.out.println("Matricola: " + matricolaVolontario + " - Data servizio: " + Giorno);
             }
 

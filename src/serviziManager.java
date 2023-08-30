@@ -13,6 +13,7 @@ public class serviziManager {
 
     //GESTIONE SERVIZI
     public static void aggiungiServizio(Scanner scanner) {
+        scanner.nextLine();
         System.out.println("Inserisci la data del servizio (dd-mm-yyyy):");
         String dataServizio = scanner.nextLine();
 
@@ -58,14 +59,14 @@ public class serviziManager {
         }
 
 
-        System.out.print("Inserisci la matricola dell'autista (oppure lascia vuoto per non modificare): ");
+        System.out.print("Inserisci la matricola dell'autista (oppure lascia vuoto per non inserire): ");
         String inputAutista = scanner.nextLine();
         int Autista = 0; // Inizializza l'ID dell'autista a 0
         if (!inputAutista.isEmpty()) {
             Autista = Integer.parseInt(inputAutista);
         }
 
-        System.out.print("Inserisci la matricola del soccorritore (oppure lascia vuoto per non modificare): ");
+        System.out.print("Inserisci la matricola del soccorritore (oppure lascia vuoto per non inserire): ");
         String inputSoccorritore = scanner.nextLine();
         int Soccorritore = 0; // Inizializza l'ID del soccorritore a 0
         if (!inputSoccorritore.isEmpty()) {
@@ -90,8 +91,17 @@ public class serviziManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        if (Autista > 0) {
+            notificheManager.inviaNotificaVolontario(Autista, dataServizio);
+        }
+        if (Soccorritore > 0) {
+            notificheManager.inviaNotificaVolontario(Soccorritore, dataServizio);
+        }
     }
     public static void modificaServizio(Scanner scanner) {
+        //TODO AGGIUNGI VISUALIZZAZIONE LISTA SERVIZI CON SCELTA DEL SERVIZIO DA MODIFICARE
+
+        scanner.nextLine();
         System.out.println("Inserisci la data del servizio da modificare (dd-mm-yyyy):");
         String dataServizio = scanner.nextLine();
 
@@ -132,6 +142,10 @@ public class serviziManager {
                 System.out.print("Inserisci la nuova data (oppure lascia vuoto): ");
                 String nuovaData = scanner.nextLine();
 
+                if (nuovaData.isEmpty()) {
+                    nuovaData = dataServizio;
+                }
+
                 System.out.print("Inserisci il nuovo orario (oppure lascia vuoto): ");
                 String nuovoOrarioString = scanner.nextLine();
                 LocalTime nuovoLocalTime = nuovoOrarioString.isEmpty() ? localTime : LocalTime.parse(nuovoOrarioString);
@@ -170,6 +184,8 @@ public class serviziManager {
                     int idAutista = Integer.parseInt(inputAutista);
                     if (verificaEsistenzaVolontario(idAutista)) {
                         nuovoAutista = idAutista;
+                        //Invio notifica
+                        notificheManager.inviaNotificaVolontario(nuovoAutista, nuovaData);
                     } else {
                         System.out.println("L'ID dell'autista inserito non esiste.");
                         modificaServizio(scanner);
@@ -184,6 +200,8 @@ public class serviziManager {
                     int idSoccorritore = Integer.parseInt(inputSoccorritore);
                     if (verificaEsistenzaVolontario(idSoccorritore)) {
                         nuovoSoccorritore = idSoccorritore;
+                        //Invio notifica
+                        notificheManager.inviaNotificaVolontario(nuovoSoccorritore, nuovaData);
                     } else {
                         System.out.println("L'ID del soccorritore inserito non esiste.");
                         modificaServizio(scanner);

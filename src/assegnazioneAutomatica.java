@@ -14,12 +14,15 @@ public class assegnazioneAutomatica {
 
 
 
+
+
+
+    //ASSEGNAZIONE AUTOMATICA VOLONTARI A SERVIZI
     public static void assegnaAutomaticamente() {
         //Vengono assegnati prima tutti gli autisti e successivamente tutti i soccoritori
         assegnaAutistiAutomaticamente();
         assegnaSoccorritoriAutomaticamente();
     }
-
     public static void assegnaAutistiAutomaticamente() {
         try {
 
@@ -54,7 +57,6 @@ public class assegnazioneAutomatica {
             e.printStackTrace();
         }
     }
-
     public static void assegnaSoccorritoriAutomaticamente() {
         try {
             String serviziSenzaSoccorritoreQuery = "SELECT * FROM Servizi WHERE Soccorritore = 0";
@@ -87,7 +89,6 @@ public class assegnazioneAutomatica {
             e.printStackTrace();
         }
     }
-
     public static int trovaVolontarioDisponibileNonConfermato(String dataServizio) {
         try {
             String disponibilitaQuery = "SELECT matricola_volontario FROM Disponibilita WHERE data_disponibilita = ? AND confermata = 'Non confermata'";
@@ -110,7 +111,6 @@ public class assegnazioneAutomatica {
 
         return 0; // Nessun volontario disponibile trovato
     }
-
     public static void cambiaStatoVolontario(int matricolaVolontario, String dataServizio) {
         try {
             String updateStatoQuery = "UPDATE Disponibilita SET confermata = 'Reclutato' WHERE matricola_volontario = ? AND data_disponibilita = ? AND confermata = 'Non confermata'";
@@ -122,29 +122,12 @@ public class assegnazioneAutomatica {
 
 
             // Creazione della notifica
-            String inserisciNotificaQuery = "INSERT INTO Notifiche (Matricola_Volontario, Giorno, Data_Invio, Letta) VALUES (?, ?, ?, ?)";
-            PreparedStatement inserisciNotificaStatement = connection.prepareStatement(inserisciNotificaQuery);
-            inserisciNotificaStatement.setInt(1, matricolaVolontario);
-            inserisciNotificaStatement.setString(2, dataServizio);
-            inserisciNotificaStatement.setDate(3, Date.valueOf(LocalDate.now())); // Imposta solo la data attuale
-            inserisciNotificaStatement.setBoolean(4, false); // Inizialmente la notifica non è letta
-            inserisciNotificaStatement.executeUpdate();
-            inserisciNotificaStatement.close();
+            notificheManager.inviaNotificaVolontario(matricolaVolontario, dataServizio);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
-
-
-
-
     public static boolean verificaVolontarioAssegnato(String dataServizio, int matricolaVolontario) {
         try {
             String verificaAssegnazioneQuery = "SELECT Id FROM Servizi WHERE (Autista = ? OR Soccorritore = ?) AND Data = ?";

@@ -57,6 +57,7 @@ public class menuManager {
         System.out.print("Seleziona un'opzione: ");
 
         int choice = scanner.nextInt();
+        scanner.nextLine();
 
         switch (choice) {
             case 1:

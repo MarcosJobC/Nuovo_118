@@ -1,8 +1,6 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.Scanner;
-import java.sql.ResultSet;
 
 public class notificheManager {
 
@@ -56,7 +54,7 @@ public class notificheManager {
                 boolean letta = notificheResultSet.getBoolean("Letta");
 
                 String statoLetta = letta ? "Letta" : "Non letta";
-                System.out.println(idNotifica + ". " + "Servizi assegnati per il giorno " + giornoAssegnato + ", vai sulla lista servizi per visionarli.");
+                System.out.println("["+statoLetta+"] " + "Servizi assegnati per il giorno " + giornoAssegnato + ", vai sulla lista servizi per visionarli.");
             }
 
             // Segna le notifiche come lette
@@ -69,7 +67,20 @@ public class notificheManager {
     }
 
 
-
+    public static void inviaNotificaVolontario(int matricolaVolontario, String giorno) {
+        try {
+            String inserisciNotificaQuery = "INSERT INTO Notifiche (Matricola_Volontario, Giorno, Data_Invio, Letta) VALUES (?, ?, ?, ?)";
+            PreparedStatement inserisciNotificaStatement = connection.prepareStatement(inserisciNotificaQuery);
+            inserisciNotificaStatement.setInt(1, matricolaVolontario);
+            inserisciNotificaStatement.setString(2, giorno);
+            inserisciNotificaStatement.setDate(3, Date.valueOf(LocalDate.now())); // Imposta la data attuale
+            inserisciNotificaStatement.setBoolean(4, false); // Inizialmente la notifica non è letta
+            inserisciNotificaStatement.executeUpdate();
+            inserisciNotificaStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }
