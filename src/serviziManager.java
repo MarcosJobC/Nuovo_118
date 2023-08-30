@@ -1,6 +1,8 @@
 import java.sql.*;
 import java.time.LocalTime;
 import java.util.Scanner;
+import java.sql.ResultSet;
+
 
 public class serviziManager {
 
@@ -98,8 +100,11 @@ public class serviziManager {
             notificheManager.inviaNotificaVolontario(Soccorritore, dataServizio);
         }
     }
+
+
+    //TODO AGGIUNGI VISUALIZZAZIONE LISTA SERVIZI CON SCELTA DEL SERVIZIO DA MODIFICARE
     public static void modificaServizio(Scanner scanner) {
-        //TODO AGGIUNGI VISUALIZZAZIONE LISTA SERVIZI CON SCELTA DEL SERVIZIO DA MODIFICARE
+
 
         scanner.nextLine();
         System.out.println("Inserisci la data del servizio da modificare (dd-mm-yyyy):");
@@ -242,6 +247,21 @@ public class serviziManager {
             e.printStackTrace();
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static void eliminaServizio(Scanner scanner) {
         System.out.println("Inserisci la data del servizio da eliminare (dd-mm-yyyy):");
         String dataServizio = scanner.nextLine();
