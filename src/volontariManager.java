@@ -241,20 +241,20 @@ public class volontariManager {
             preparedStatement.setInt(1, matricolaVolontario);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            System.out.println("Lista delle tue disponibilità:");
+            System.out.println("LISTA DELLE DISPONIBILITA' FORNITE:");
             while (resultSet.next()) {
                 int idDisponibilita = resultSet.getInt("ID_disponibilita");
                 String dataDisponibilita = resultSet.getString("Data_disponibilita");
                 String tipologia = resultSet.getString("Tipologia");
                 String confermata = resultSet.getString("Confermata");
 
-                System.out.println(idDisponibilita + ": " + dataDisponibilita + " (" + tipologia + ") - " + confermata);
+                System.out.println("ID: " + idDisponibilita + " - Data disponibilità: " + dataDisponibilita + " - Tipologia: " + tipologia + " - Stato: " + confermata);
             }
 
             System.out.println(" ");
             System.out.print("Inserisci l'ID della disponibilità da rimuovere: ");
             int idDaRimuovere = scanner.nextInt();
-            scanner.nextLine(); // Consuma la nuova riga dopo nextInt()
+            scanner.nextLine();
 
             String verificaQuery = "SELECT * FROM Disponibilita WHERE ID_disponibilita = ? AND Matricola_volontario = ?";
             PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
@@ -274,7 +274,7 @@ public class volontariManager {
                     System.out.println(" ");
                     System.out.println(" ");
                     menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
-                } else if (confermata.equalsIgnoreCase("Confermata")) {
+                } else if (confermata.equalsIgnoreCase("Reclutato")) {
 
                     //TODO RICHIEDI RIMOZIONE CON NOTIFICA AD AMMINISTRATORE
                     System.out.println("Questa disponibilità è già stata confermata e non può esser rimossa. Vuoi richiedere la rimozione?.");
@@ -334,7 +334,6 @@ public class volontariManager {
             disponibilitaStatement.close();
 
             // Recupera le notifiche non lette
-            //TODO AGGIUNGI GIORNO SERVIZIO
             String notificheQuery = "SELECT Matricola_Volontario, Giorno FROM Notifiche WHERE Letta = false";
             PreparedStatement notificheStatement = connection.prepareStatement(notificheQuery);
             ResultSet notificheResultSet = notificheStatement.executeQuery();

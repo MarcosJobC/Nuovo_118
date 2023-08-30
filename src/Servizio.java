@@ -6,9 +6,8 @@ public class Servizio {
     private int id;
     private String data;
     private Time orario;
-    private List<Integer> volontariAssegnati; // Lista di matricole dei volontari assegnati
+    private List<Integer> volontariAssegnati;
     private String siglaMezzo;
-    // Altri campi e metodi
 
     public Servizio(int id, String data, Time orario, List<Integer> volontariAssegnati, String siglaMezzo) {
         this.id = id;

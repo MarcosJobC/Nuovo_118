@@ -7,7 +7,7 @@ public class Disponibilita {
     private String dataDisponibilita;
     private String tipologia;
     private String stato; // Confermata o Non confermata
-    // Altri campi e metodi
+
 
     public Disponibilita(int id, int matricolaVolontario, String dataDisponibilita, String tipologia, String stato) {
         this.id = id;

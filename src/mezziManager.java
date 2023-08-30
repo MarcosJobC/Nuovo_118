@@ -28,7 +28,7 @@ public class mezziManager {
         System.out.println("2. Ambulanza");
         System.out.println("3. Mezzo attrezzato");
         int choice = scanner.nextInt();
-        scanner.nextLine(); // Consuma la nuova riga dopo nextInt()
+        scanner.nextLine();
         switch (choice) {
             case 1:
                 tipologia = "auto";
@@ -41,7 +41,7 @@ public class mezziManager {
                 break;
             default:
                 System.out.println("Scelta non valida.");
-                return; // Aggiungi questa riga per uscire dal metodo in caso di scelta non valida
+                return;
         }
 
         try {
@@ -96,7 +96,7 @@ public class mezziManager {
                 System.out.println("2. Ambulanza");
                 System.out.println("3. Mezzo attrezzato");
                 int choice = scanner.nextInt();
-                scanner.nextLine(); // Consuma la nuova riga dopo nextInt()
+                scanner.nextLine();
                 switch (choice) {
                     case 1:
                         nuovaTipologia = "auto";

@@ -5,7 +5,6 @@ public class Mezzo {
     private String siglaMezzo;
     private String targa;
     private String tipologia;
-    // Altri campi e metodi
 
     public Mezzo(String siglaMezzo, String targa, String tipologia) {
         this.siglaMezzo = siglaMezzo;

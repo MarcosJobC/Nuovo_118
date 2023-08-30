@@ -57,7 +57,6 @@ public class menuManager {
         System.out.print("Seleziona un'opzione: ");
 
         int choice = scanner.nextInt();
-        scanner.nextLine(); // Consuma la nuova riga dopo nextInt()
 
         switch (choice) {
             case 1:
@@ -98,7 +97,7 @@ public class menuManager {
         System.out.println("Seleziona un'opzione:");
 
         int choice = scanner.nextInt();
-        scanner.nextLine(); // Consuma la nuova riga dopo nextInt()
+        scanner.nextLine();
 
         switch (choice) {
             case 1:
@@ -137,7 +136,7 @@ public class menuManager {
         System.out.println("Seleziona un'opzione:");
 
         int choice = scanner.nextInt();
-        scanner.nextLine(); // Consuma la nuova riga dopo nextInt()
+        scanner.nextLine();
 
         switch (choice) {
             case 1:
@@ -170,7 +169,6 @@ public class menuManager {
         System.out.println("Seleziona un'opzione:");
 
         int choice = scanner.nextInt();
-        scanner.nextLine(); // Consuma la nuova riga dopo nextInt()
 
         switch (choice) {
             case 1:
@@ -203,7 +201,6 @@ public class menuManager {
         System.out.println("Seleziona un'opzione:");
 
         int choice = scanner.nextInt();
-        scanner.nextLine(); // Consuma la nuova riga dopo nextInt()
 
         switch (choice) {
             case 1:
