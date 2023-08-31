@@ -92,12 +92,13 @@ public class menuManager {
         System.out.println("1. Gestisci mezzi");
         System.out.println("2. Gestisci volontari");
         System.out.println("3. Gestisci servizi");
-        System.out.println("4. Visualizza disponibilità e notifiche non lette");
+        System.out.println("4. Gestisci pazienti");
+        System.out.println("5. Visualizza disponibilità e notifiche non lette");
         // Verifica se ci sono richieste di rimozione
         if (serviziManager.ciSonoRichiesteRimozione()) {
-            System.out.println("5. Visualizza RICHIESTE URGENTI rimozione disponibilità");
+            System.out.println("6. Visualizza RICHIESTE URGENTI rimozione disponibilità");
         }
-        System.out.println("6. Esci");
+        System.out.println("7. Esci");
         System.out.println(" ");
         System.out.println("Seleziona un'opzione:");
 
@@ -118,9 +119,13 @@ public class menuManager {
                 mostraMenuServizi(scanner);
                 break;
             case 4:
+                // Esegui l'azione per gestire servizi
+                mostraMenuPazienti(scanner);
+                break;
+            case 5:
                 // Esegui l'azione per visualizzare le disponibilità
                 volontariManager.visualizzaDisponibilitaENotificheNonLette();
-            case 5:
+            case 6:
                 // Visualizza richieste urgenti rimozione disponibilità
                 if (serviziManager.ciSonoRichiesteRimozione()) {
                     // Visualizza richieste di rimozione
@@ -129,7 +134,7 @@ public class menuManager {
                     System.out.print(" ");
                 }
                 break;
-            case 6:
+            case 7:
                 // Uscire dal menu
                 menuIniziale(scanner);
                 break;
@@ -172,7 +177,6 @@ public class menuManager {
                 System.out.println("Scelta non valida.");
         }
     }
-
     //MENU VOLONTARI
     public static void mostraMenuVolontari(Scanner scanner){
         System.out.println("Menu Gestione Volontari:");
@@ -200,9 +204,6 @@ public class menuManager {
                 System.out.println("Scelta non valida.");
         }
     }
-
-
-
     //MENU SERVIZI
     public static void mostraMenuServizi(Scanner scanner) {
         System.out.println("Menu Gestione Servizi:");
@@ -240,6 +241,43 @@ public class menuManager {
         }
     }
 
+
+
+
+
+    //MENU PAZIENTI
+    public static void mostraMenuPazienti(Scanner scanner) {
+        System.out.println("Menu gestione pazienti:");
+        System.out.println("1. Aggiungi paziente");
+        System.out.println("2. Modifica paziente");
+        System.out.println("3. Elimina paziente");
+        System.out.println("4. Torna al menu amministratore");
+        System.out.println("Seleziona un'opzione:");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (choice) {
+            case 1:
+                // Esegui l'azione per aggiungere un paziente
+                pazientiManager.aggiungiPaziente(scanner);
+                break;
+            case 2:
+                // Esegui l'azione per modificare un paziente
+                pazientiManager.modificaPaziente(scanner);
+                break;
+            case 3:
+                // Esegui l'azione per eliminare un paziente
+                //TODO pazientiManager.eliminaPaziente(scanner);
+                break;
+            case 4:
+                // Torna al menu amministratore
+                mostraMenuAdmin(scanner);
+                break;
+            default:
+                System.out.println("Scelta non valida.");
+        }
+    }
 
 }
 
