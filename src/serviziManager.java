@@ -101,7 +101,6 @@ public class serviziManager {
         }
     }
 
-
     public static void modificaServizio(Scanner scanner) {
         scanner.nextLine(); // Consuma la newline rimanente
         LocalTime localTime = LocalTime.now(); // Definizione di localTime
