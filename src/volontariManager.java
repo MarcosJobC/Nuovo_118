@@ -253,8 +253,9 @@ public class volontariManager {
 
             System.out.println(" ");
             System.out.println("Disponibilità inserita con successo! Grazie mille!");
-
             insertStatement.close();
+            System.out.println(" ");
+            menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -297,7 +298,6 @@ public class volontariManager {
 
                     System.out.println("Disponibilità rimossa autonomamente con successo!");
                     System.out.println(" ");
-                    System.out.println(" ");
                     menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
                 } else if (confermata.equalsIgnoreCase("Reclutato")) {
 
@@ -328,6 +328,10 @@ public class volontariManager {
 
             verificaStatement.close();
             preparedStatement.close();
+
+            System.out.println(" ");
+            menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -353,6 +357,11 @@ public class volontariManager {
             }
 
             preparedStatement.close();
+
+
+            System.out.println(" ");
+            menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

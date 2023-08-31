@@ -59,11 +59,15 @@ public class notificheManager {
 
             // Segna le notifiche come lette
             segnaNotificheComeLette(matricolaVolontario);
-
             notificheStatement.close();
+
+            System.out.println("\nPremi qualsiasi tasto per tornare al menu precedente...");
+            scanner.nextLine();
+            menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
 

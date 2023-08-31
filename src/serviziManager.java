@@ -100,7 +100,6 @@ public class serviziManager {
             notificheManager.inviaNotificaVolontario(Soccorritore, dataServizio);
         }
     }
-
     public static void modificaServizio(Scanner scanner) {
         scanner.nextLine(); // Consuma la newline rimanente
         LocalTime localTime = LocalTime.now(); // Definizione di localTime
@@ -251,27 +250,6 @@ public class serviziManager {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public static void eliminaServizio(Scanner scanner) {
         System.out.println("Inserisci la data del servizio da eliminare (dd-mm-yyyy):");
         String dataServizio = scanner.nextLine();
@@ -341,8 +319,6 @@ public class serviziManager {
             return false; // In caso di errore, restituisci false
         }
     }
-
-
     public static void visualizzaRichiesteRimozione() {
         try {
             String query = "SELECT * FROM Disponibilita WHERE Richiesta_Rimozione = true";
@@ -369,7 +345,6 @@ public class serviziManager {
             e.printStackTrace();
         }
     }
-
     public static void accettaRichiestaRimozione(int idRichiesta) {
         try {
             String query = "SELECT * FROM Disponibilita WHERE ID_disponibilita = ? AND Richiesta_Rimozione = true";
@@ -398,7 +373,6 @@ public class serviziManager {
             e.printStackTrace();
         }
     }
-
     public static void cancellaRichiestaRimozione(int idRichiesta) {
         try {
             String deleteQuery = "DELETE FROM Disponibilita WHERE ID_disponibilita = ?";
