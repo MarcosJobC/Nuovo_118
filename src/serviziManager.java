@@ -104,43 +104,51 @@ public class serviziManager {
 
     //TODO AGGIUNGI VISUALIZZAZIONE LISTA SERVIZI CON SCELTA DEL SERVIZIO DA MODIFICARE
     public static void modificaServizio(Scanner scanner) {
-
-
-        scanner.nextLine();
-        System.out.println("Inserisci la data del servizio da modificare (dd-mm-yyyy):");
-        String dataServizio = scanner.nextLine();
-
-        System.out.println("Inserisci l'orario del servizio da modificare (HH:MM):");
-        String orarioString = scanner.nextLine();
-        LocalTime localTime = LocalTime.parse(orarioString);
-        Time orarioTime = Time.valueOf(localTime);
-
-        System.out.print("Inserisci il nome del paziente del servizio da modificare: ");
-        String paziente = scanner.nextLine();
+        scanner.nextLine(); // Consuma la newline rimanente
+        LocalTime localTime = LocalTime.now(); // Definizione di localTime
 
         try {
-            String verificaQuery = "SELECT * FROM Servizi WHERE Data = ? AND Orario = ? AND Paziente = ?";
-            PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
-            verificaStatement.setString(1, dataServizio);
-            verificaStatement.setTime(2, orarioTime);
-            verificaStatement.setString(3, paziente);
-            ResultSet resultSet = verificaStatement.executeQuery();
+            // Ottieni una lista di tutti i servizi
+            String listaServiziQuery = "SELECT * FROM Servizi";
+            PreparedStatement listaServiziStatement = connection.prepareStatement(listaServiziQuery);
+            ResultSet serviziResultSet = listaServiziStatement.executeQuery();
 
+            // Stampa la lista dei servizi con i dettagli
+            System.out.println("Lista dei servizi:");
+            while (serviziResultSet.next()) {
+                int idServizio = serviziResultSet.getInt("ID");
+                String dataServizio = serviziResultSet.getString("Data");
+                Time orarioServizio = serviziResultSet.getTime("Orario");
+                String orarioServizioString = orarioServizio.toLocalTime().toString();
+                String pazienteServizio = serviziResultSet.getString("Paziente");
+
+                System.out.println("ID: " + idServizio + " | Data: " + dataServizio + " | Orario: " + orarioServizio + " | Paziente: " + pazienteServizio);
+            }
+            System.out.println(" ");
+
+            // Chiedi all'utente di inserire l'ID del servizio da modificare
+            System.out.print("Inserisci l'ID del servizio da modificare: ");
+            int idServizioDaModificare = scanner.nextInt();
+            scanner.nextLine(); // Consuma la newline rimanente
+
+            String verificaQuery = "SELECT * FROM Servizi WHERE ID = ?";
+            PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
+            verificaStatement.setInt(1, idServizioDaModificare);
+            ResultSet resultSet = verificaStatement.executeQuery();
 
 
             if (resultSet.next()) {
                 // Il servizio esiste, procedi con la modifica
+
+                String dataServizio = resultSet.getString("Data");
+                String orarioServizio = resultSet.getString("Orario"); // Utilizza la colonna "Orario" dal result set
+                String pazienteServizio = resultSet.getString("Paziente");
                 String siglaMezzo = resultSet.getString("Sigla_Mezzo");
                 int Autista = resultSet.getInt("Autista");
                 int Soccorritore = resultSet.getInt("Soccorritore");
 
-                System.out.print("Il seguente servizio è stato trovato:");
-                System.out.print("  Data: " + dataServizio);
-                System.out.print("  Orario: " + orarioString);
-                System.out.print("  Paziente: " + paziente);
-                System.out.print("  Sigla Mezzo: " + siglaMezzo);
-                System.out.print("  Autista: " + Autista);
-                System.out.println("  Soccorritore: " + Soccorritore);
+                System.out.println("Il seguente servizio è stato trovato:");
+                System.out.println("  Data: " + dataServizio + " | Orario: " + orarioServizio + " | Paziente: " + pazienteServizio + " | Sigla Mezzo: " + siglaMezzo + " | Autista: " + Autista + " | Soccorritore: " + Soccorritore);
                 System.out.println(" ");
 
                 // Richiedi i nuovi valori o lascia vuoto per non modificare
@@ -217,18 +225,17 @@ public class serviziManager {
 
                 if (!nuovaData.isEmpty() || !nuovoOrarioString.isEmpty() || !nuovoPaziente.isEmpty() ||
                         !nuovoMezzo.isEmpty() || !inputAutista.isEmpty() && Integer.parseInt(inputAutista) != 0 || !inputSoccorritore.isEmpty() && Integer.parseInt(inputSoccorritore) != 0) {
-                    String updateQuery = "UPDATE Servizi SET Data = ?, Orario = ?, Paziente = ?, Sigla_Mezzo = ?, Autista = ?, Soccorritore = ? WHERE Data = ? AND Orario = ? AND Paziente = ?";
+                    String updateQuery = "UPDATE Servizi SET Data = ?, Orario = ?, Paziente = ?, Sigla_Mezzo = ?, Autista = ?, Soccorritore = ? WHERE ID = ?";
                     PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
 
                     updateStatement.setString(1, nuovaData.isEmpty() ? dataServizio : nuovaData);
-                    updateStatement.setTime(2, nuovoOrarioString.isEmpty() ? orarioTime : nuovoOrarioTime);
-                    updateStatement.setString(3, nuovoPaziente.isEmpty() ? paziente : nuovoPaziente);
+                    updateStatement.setTime(2, nuovoOrarioString.isEmpty() ? Time.valueOf(orarioServizio) : nuovoOrarioTime);
+                    updateStatement.setString(3, nuovoPaziente.isEmpty() ? pazienteServizio : nuovoPaziente);
                     updateStatement.setString(4, nuovoMezzo.isEmpty() ? siglaMezzo : nuovoMezzo);
                     updateStatement.setInt(5, nuovoAutista);
                     updateStatement.setInt(6, nuovoSoccorritore);
-                    updateStatement.setString(7, dataServizio);
-                    updateStatement.setTime(8, orarioTime);
-                    updateStatement.setString(9, paziente);
+                    updateStatement.setInt(7, idServizioDaModificare); // Imposta l'ID del servizio da modificare
+
                     // Esegui l'aggiornamento
                     updateStatement.executeUpdate();
                     System.out.println("Servizio modificato con successo!");
@@ -238,15 +245,20 @@ public class serviziManager {
                 }
 
             } else {
-                System.out.println("Nessun servizio trovato con i dati forniti.");
-                modificaServizio(scanner);
+                System.out.println("Nessun servizio trovato con l'ID fornito.");
             }
-
+            resultSet.close();
             verificaStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+
+
+
+
+
 
 
 
@@ -380,7 +392,7 @@ public class serviziManager {
                 System.out.println("Richiesta di rimozione accettata. L'assegnazione del volontario al servizio è stata rimossa e la richiesta è stata cancellata.");
             } else {
                 System.out.println("Richiesta di rimozione non valida.");
-                //TODO visualizzaRichiesteRimozione();
+                //TODO rimanda la lista delle richieste di rimozione - visualizzaRichiesteRimozione();
             }
 
             preparedStatement.close();
