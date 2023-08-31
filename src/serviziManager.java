@@ -102,7 +102,6 @@ public class serviziManager {
     }
 
 
-    //TODO AGGIUNGI VISUALIZZAZIONE LISTA SERVIZI CON SCELTA DEL SERVIZIO DA MODIFICARE
     public static void modificaServizio(Scanner scanner) {
         scanner.nextLine(); // Consuma la newline rimanente
         LocalTime localTime = LocalTime.now(); // Definizione di localTime
