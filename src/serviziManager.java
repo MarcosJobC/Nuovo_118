@@ -137,18 +137,10 @@ public class serviziManager {
         }
         menuManager.mostraMenuServizi(scanner);
     }
+
+
     public static void modificaServizio(Scanner scanner) {
         scanner.nextLine();
-
-        String dataServizio = "";
-        Time orarioServizio = null;
-        String orarioServizioString = "";
-        String pazienteServizio = "";
-        String siglaMezzo="";
-        int Autista = 0;
-        int Soccorritore = 0;
-
-
 
         try {
             // Ottieni una lista di tutti i servizi
@@ -160,13 +152,13 @@ public class serviziManager {
             System.out.println("Lista dei servizi:");
             while (serviziResultSet.next()) {
                 int idServizio = serviziResultSet.getInt("ID");
-                dataServizio = serviziResultSet.getString("Data");
-                orarioServizio = serviziResultSet.getTime("Orario");
-                orarioServizioString = orarioServizio.toLocalTime().toString();
-                pazienteServizio = serviziResultSet.getString("Paziente");
-                siglaMezzo = serviziResultSet.getString("sigla_mezzo");
-                Autista = serviziResultSet.getInt("Autista");
-                Soccorritore = serviziResultSet.getInt("Soccorritore");
+                String dataServizio = serviziResultSet.getString("Data");
+                Time orarioServizio = serviziResultSet.getTime("Orario");
+                String orarioServizioString = orarioServizio.toLocalTime().toString();
+                String pazienteServizio = serviziResultSet.getString("Paziente");
+                String siglaMezzo = serviziResultSet.getString("sigla_mezzo");
+                int Autista = serviziResultSet.getInt("Autista");
+                int Soccorritore = serviziResultSet.getInt("Soccorritore");
 
                 System.out.println("ID: " + idServizio + " | Data: " + dataServizio + " | Orario: " + orarioServizio + " | Paziente: " + pazienteServizio);
             }
@@ -182,8 +174,9 @@ public class serviziManager {
 
                 if (input.equalsIgnoreCase("q")) {
                     System.out.println("Annullamento dell'operazione.");
+                    System.out.println(" ");
+                    System.out.println(" ");
                     menuManager.mostraMenuServizi(scanner);
-                    return; // Termina il metodo
                 } else {
                     try {
                         idServizioDaModificare = Integer.parseInt(input);
@@ -206,6 +199,30 @@ public class serviziManager {
                 }
             }
 
+            // Ora che abbiamo l'ID valido, otteniamo i dati del servizio da modificare
+            String dataServizio = "";
+            Time orarioServizio = null;
+            String orarioServizioString = "";
+            String pazienteServizio = "";
+            String siglaMezzo = "";
+            int Autista = 0;
+            int Soccorritore = 0;
+
+            String servizioQuery = "SELECT * FROM Servizi WHERE ID = ?";
+            PreparedStatement servizioStatement = connection.prepareStatement(servizioQuery);
+            servizioStatement.setInt(1, idServizioDaModificare);
+            ResultSet servizioResultSet = servizioStatement.executeQuery();
+
+            if (servizioResultSet.next()) {
+                dataServizio = servizioResultSet.getString("Data");
+                orarioServizio = servizioResultSet.getTime("Orario");
+                orarioServizioString = orarioServizio.toLocalTime().toString();
+                pazienteServizio = servizioResultSet.getString("Paziente");
+                siglaMezzo = servizioResultSet.getString("sigla_mezzo");
+                Autista = servizioResultSet.getInt("Autista");
+                Soccorritore = servizioResultSet.getInt("Soccorritore");
+            }
+
             System.out.print("Inserisci la nuova data (lascia vuoto per non modificare): ");
             String nuovaData = scanner.nextLine();
 
@@ -222,22 +239,27 @@ public class serviziManager {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
                     LocalTime localTime = LocalTime.parse(nuovoOrarioString, formatter);
                     nuovoOrarioTime = Time.valueOf(localTime);
-
-                    // Copia il valore del nuovoOrarioTime all'oggetto esistente
-                    orarioServizio.setTime(nuovoOrarioTime.getTime());
                 } catch (DateTimeParseException e) {
                     System.out.println("Formato orario non valido. Utilizzare il formato HH:mm");
                     // Gestire l'eccezione o uscire dal metodo, a seconda delle tue esigenze
                     return;
                 }
             } else {
-                nuovoOrarioTime = orarioServizio; // Usa il valore attuale se la stringa è vuota
+                nuovoOrarioTime = orarioServizio;
             }
 
             System.out.print("Inserisci il nuovo nome del paziente (lascia vuoto per non modificare): ");
             String nuovoPaziente = scanner.nextLine();
-            System.out.print("Inserisci il nuovo mezzo (oppure lascia vuoto): ");
+            if (nuovoPaziente.isEmpty()) {
+                nuovoPaziente = pazienteServizio;
+            }
+
+            System.out.print("Inserisci il nuovo mezzo (lascia vuoto per non modificare): ");
             String nuovoMezzo = scanner.nextLine();
+            if (nuovoMezzo.isEmpty()) {
+                nuovoMezzo = siglaMezzo;
+            }
+
             // Verifica se il mezzo esiste nella tabella Mezzi
             while (!nuovoMezzo.isEmpty()) {
                 try {
@@ -260,62 +282,75 @@ public class serviziManager {
                 }
             }
 
-            int nuovoAutista = Autista; // Inizializza con il valore attuale
+            int nuovoAutista = 0;
             System.out.print("Inserisci la matricola dell'autista (lascia vuoto per non modificare): ");
             String inputAutista = scanner.nextLine();
             if (!inputAutista.isEmpty()) {
                 int idAutista = Integer.parseInt(inputAutista);
                 if (verificaEsistenzaVolontario(idAutista)) {
                     nuovoAutista = idAutista;
-                    // Invio notifica
-                    notificheManager.inviaNotificaVolontario(nuovoAutista, nuovaData);
                 } else {
                     System.out.println("L'ID dell'autista inserito non esiste.");
                     modificaServizio(scanner);
                     return; // Interrompi il metodo senza eseguire l'aggiornamento
                 }
+            } else {
+                nuovoAutista = Autista;
             }
 
-            int nuovoSoccorritore = Soccorritore; // Inizializza con il valore attuale
+            int nuovoSoccorritore = 0;
             System.out.print("Inserisci la matricola del soccorritore (lascia vuoto per non modificare): ");
             String inputSoccorritore = scanner.nextLine();
             if (!inputSoccorritore.isEmpty()) {
                 int idSoccorritore = Integer.parseInt(inputSoccorritore);
                 if (verificaEsistenzaVolontario(idSoccorritore)) {
                     nuovoSoccorritore = idSoccorritore;
-                    // Invio notifica
-                    notificheManager.inviaNotificaVolontario(nuovoSoccorritore, nuovaData);
                 } else {
                     System.out.println("L'ID del soccorritore inserito non esiste.");
                     modificaServizio(scanner);
                     return; // Interrompi il metodo senza eseguire l'aggiornamento
                 }
+            } else {
+                nuovoSoccorritore = Soccorritore;
             }
 
-            if (!nuovaData.isEmpty() || !nuovoOrarioString.isEmpty() || !nuovoPaziente.isEmpty() ||
-                    !nuovoMezzo.isEmpty() || !inputAutista.isEmpty() && Integer.parseInt(inputAutista) != 0 || !inputSoccorritore.isEmpty() && Integer.parseInt(inputSoccorritore) != 0) {
+            if (!nuovaData.equals(dataServizio) || !nuovoOrarioTime.equals(orarioServizio) || !nuovoPaziente.equals(pazienteServizio)
+                    || !nuovoMezzo.equals(siglaMezzo) || nuovoAutista != Autista || nuovoSoccorritore != Soccorritore) {
+
                 String updateQuery = "UPDATE Servizi SET Data = ?, Orario = ?, Paziente = ?, Sigla_Mezzo = ?, Autista = ?, Soccorritore = ? WHERE ID = ?";
                 PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
-
-                updateStatement.setString(1, nuovaData.isEmpty() ? dataServizio : nuovaData);
-                updateStatement.setTime(2, nuovoOrarioString.isEmpty() ? Time.valueOf(orarioServizio.toLocalTime()) : nuovoOrarioTime);
-                updateStatement.setString(3, nuovoPaziente.isEmpty() ? pazienteServizio : nuovoPaziente);
-                updateStatement.setString(4, nuovoMezzo.isEmpty() ? siglaMezzo : nuovoMezzo);
+                updateStatement.setString(1, nuovaData);
+                updateStatement.setTime(2, nuovoOrarioTime);
+                updateStatement.setString(3, nuovoPaziente);
+                updateStatement.setString(4, nuovoMezzo);
                 updateStatement.setInt(5, nuovoAutista);
                 updateStatement.setInt(6, nuovoSoccorritore);
-                updateStatement.setInt(7, idServizioDaModificare); // Imposta l'ID del servizio da modificare
+                updateStatement.setInt(7, idServizioDaModificare);
 
                 // Esegui l'aggiornamento
                 updateStatement.executeUpdate();
                 System.out.println("Servizio modificato con successo!");
                 updateStatement.close();
+                System.out.println(" ");
+                System.out.println(" ");
+                menuManager.mostraMenuServizi(scanner);
             } else {
                 System.out.println("Nessuna modifica effettuata.");
+                System.out.println(" ");
+                System.out.println(" ");
+                menuManager.mostraMenuServizi(scanner);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
+
+
+
+
+
 
 
 

@@ -38,8 +38,8 @@ Aggiunta servizio
 // non permettere venga inserita ora precedente  ad ora se inserisco un servizio per il giorno odierno o ora vuota
 // Dopo aver aggiunto il servizio rimandare al menu mezzi
 Modifica servizio
-//TODO metti che admin vede lista servizi e sceglie il servizio da modificare in base al suo ID
-//TODO Dopo aver modificato il servizio rimandare al menu servizi
+// metti che admin vede lista servizi e sceglie il servizio da modificare in base al suo ID
+// Dopo aver modificato il servizio rimandare al menu servizi
 Elimina servizio
 // metti che admin vede lista servizi e sceglie il servizio da eliminare in base al suo ID
 // Dopo aver eliminato il servizio rimandare al menu servizi
