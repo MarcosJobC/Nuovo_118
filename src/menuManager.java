@@ -124,12 +124,12 @@ public class menuManager {
                 break;
             case 5:
                 // Esegui l'azione per visualizzare le disponibilità
-                volontariManager.visualizzaDisponibilitaENotificheNonLette();
+                volontariManager.visualizzaDisponibilitaENotificheNonLette(scanner);
             case 6:
                 // Visualizza richieste urgenti rimozione disponibilità
                 if (serviziManager.ciSonoRichiesteRimozione()) {
                     // Visualizza richieste di rimozione
-                    serviziManager.visualizzaRichiesteRimozione();
+                    serviziManager.visualizzaRichiesteRimozione(scanner);
                 } else {
                     System.out.print(" ");
                 }
@@ -179,6 +179,7 @@ public class menuManager {
     }
     //MENU VOLONTARI
     public static void mostraMenuVolontari(Scanner scanner){
+        //TODO METODO PER MOSTRARE TUTTI I VOLONTARI
         System.out.println("Menu Gestione Volontari:");
         System.out.println("1. Modifica anagrafe volontari");
         System.out.println("2. Elimina volontari");
@@ -248,10 +249,11 @@ public class menuManager {
     //MENU PAZIENTI
     public static void mostraMenuPazienti(Scanner scanner) {
         System.out.println("Menu gestione pazienti:");
-        System.out.println("1. Aggiungi paziente");
-        System.out.println("2. Modifica paziente");
-        System.out.println("3. Elimina paziente");
-        System.out.println("4. Torna al menu amministratore");
+        System.out.println("1. Visualizza tutti i pazienti");
+        System.out.println("2. Aggiungi paziente");
+        System.out.println("3. Modifica paziente");
+        System.out.println("4. Elimina paziente");
+        System.out.println("5. Torna al menu amministratore");
         System.out.println("Seleziona un'opzione:");
 
         int choice = scanner.nextInt();
@@ -260,17 +262,21 @@ public class menuManager {
         switch (choice) {
             case 1:
                 // Esegui l'azione per aggiungere un paziente
-                pazientiManager.aggiungiPaziente(scanner);
+                pazientiManager.visualizzaPazienti(scanner);
                 break;
             case 2:
+                // Esegui l'azione per aggiungere un paziente
+                pazientiManager.aggiungiPaziente(scanner);
+                break;
+            case 3:
                 // Esegui l'azione per modificare un paziente
                 pazientiManager.modificaPaziente(scanner);
                 break;
-            case 3:
+            case 4:
                 // Esegui l'azione per eliminare un paziente
                 pazientiManager.eliminaPaziente(scanner);
                 break;
-            case 4:
+            case 5:
                 // Torna al menu amministratore
                 mostraMenuAdmin(scanner);
                 break;

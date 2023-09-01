@@ -367,7 +367,7 @@ public class volontariManager {
         }
     }
 
-    public static void visualizzaDisponibilitaENotificheNonLette() {
+    public static void visualizzaDisponibilitaENotificheNonLette(Scanner scanner) {
         try {
             // Recupera le disponibilità non confermate
             String disponibilitaQuery = "SELECT matricola_volontario, data_disponibilita, tipologia FROM Disponibilita WHERE confermata = 'Non confermata'";
@@ -401,6 +401,9 @@ public class volontariManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("Premi un tasto qualsiasi per tornare al menu pazienti.");
+        scanner.nextLine();
+        menuManager.mostraMenuAdmin(scanner);
     }
 
 

@@ -1,2 +1,57 @@
-//USCITA DA MENU UTENTE FATTA
-//TODO FARE USCITE DA MENU ADMIN
+-----------------------------------------------------ADMIN-----------------------------------------------------
+
+MEZZI
+Aggiunta mezzo
+// Non può esser lasciato vuoto alcun campo nell'aggiunta del mezzo nuovo
+// Metti che dev'esser selezionato solo 1|2|3 per la scelta della tipologia mezzo, sennò viene richiesto di inserire ancora fino al numero giusto
+// Dopo aver aggiunto il mezzo rimandare al menu mezzi
+Modifica mezzo
+// inserire la formattazione Sigla mezzo: | Targa: | Tipologia: etc etc
+// Metti che dev'esser selezionato solo 1|2|3 per la scelta della tipologia mezzo, sennò viene richiesto di inserire ancora fino al numero giusto
+// Dopo aver modificato il mezzo rimandare al menu mezzi
+Eliminazione mezzo
+// Se viene inserita la sigla mezzo errata continua a chiederla oppure chiede di annullare l'eliminazione
+// Dopo aver eliminato il mezzo rimandare al menu mezzi
+
+
+VOLONTARI
+Modifica anagrafe volontari
+//TODO inserire la formattazione Codice fiscale: | Nome: | Cognome: etc etc
+//TODO chiedere "Inserisci il codice fiscale del volontario da modificare (oppure lascia vuoto per tornare al menu precedente:"
+//TODO togliere spazi tra richieste modifica nome-cognome-etc-etc
+//TODO Dopo aver modificato il volontario rimandare al menu volontari
+Elimina volontari
+//TODO inserire la formattazione Codice fiscale: | Nome: | Cognome: etc etc
+//TODO chiedere "Inserisci il codice fiscale del volontario da modificare (oppure lascia vuoto per tornare al menu precedente:"
+//TODO Dopo aver eliminato il volontario rimandare al menu volontari
+
+
+SERVIZI
+Aggiunta servizio
+//TODO non permettere venga inserita data precedente ad oggi o data vuota
+//TODO non permettere venga inserita ora precedente  ad ora se inserisco un servizio per il giorno odierno o ora vuota
+//TODO Dopo aver aggiunto il servizio rimandare al menu mezzi
+Elimina servizio
+//TODO metti che admin vede lista servizi e sceglie il servizio da eliminare in base al suo ID
+//TODO Dopo aver eliminato il servizio rimandare al menu servizi
+Modifica servizio
+//TODO metti che admin vede lista servizi e sceglie il servizio da modificare in base al suo ID
+//TODO Dopo aver modificato il servizio rimandare al menu servizi
+
+Assegazione automatica servizi-volontari
+//TODO cambia formato data da String a Date in tabella e adegua il codice
+
+Visualizza disponibilità e notifiche non lette
+//TODO non far visualizzare la voce se non ce ne sono
+//TODO Premi un tasto qualsiasi per tornare al menu pazienti. -----> Premi un tasto qualsiasi per tornare al menu Amministratore.
+
+
+
+
+
+
+
+
+-----------------------------------------------------UTENTI-----------------------------------------------------
+//TODO Togli rimozione disponibiltà se non c'è alcuna disponibiltà data
+//TODO Togli visualizzazione servizi assegnati se non c'è alcun servizio asseganto

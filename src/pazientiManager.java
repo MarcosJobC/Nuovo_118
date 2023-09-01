@@ -12,6 +12,8 @@ public class pazientiManager {
     }
 
 
+
+    //METODI PAZIENTI
     public static void aggiungiPaziente(Scanner scanner) {
         System.out.println("INSERIMENTO NUOVO PAZIENTE:");
         try {
@@ -49,8 +51,8 @@ public class pazientiManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        menuManager.mostraMenuPazienti(scanner);
     }
-
     public static void modificaPaziente(Scanner scanner) {
         System.out.println("MODIFICA PAZIENTE:");
 
@@ -158,9 +160,8 @@ public class pazientiManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        menuManager.mostraMenuPazienti(scanner);
     }
-
-
     public static void eliminaPaziente(Scanner scanner) {
         scanner.nextLine();
 
@@ -220,6 +221,39 @@ public class pazientiManager {
             }
             resultSet.close();
             verificaStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        menuManager.mostraMenuPazienti(scanner);
+    }
+    public static void visualizzaPazienti(Scanner scanner) {
+        try {
+            // Ottieni una lista di tutti i pazienti
+            String listaPazientiQuery = "SELECT * FROM Pazienti";
+            PreparedStatement listaPazientiStatement = connection.prepareStatement(listaPazientiQuery);
+            ResultSet pazientiResultSet = listaPazientiStatement.executeQuery();
+
+            System.out.println("Lista dei pazienti:");
+            while (pazientiResultSet.next()) {
+                int idPaziente = pazientiResultSet.getInt("ID");
+                String nomePaziente = pazientiResultSet.getString("Nome");
+                String cognomePaziente = pazientiResultSet.getString("Cognome");
+                LocalDate dataNascita = pazientiResultSet.getDate("DataNascita").toLocalDate();
+                String luogoNascita = pazientiResultSet.getString("LuogoNascita");
+                String indirizzoResidenza = pazientiResultSet.getString("IndirizzoResidenza");
+
+                System.out.println("ID: " + idPaziente + " | Nome: " + nomePaziente + " | Cognome: " + cognomePaziente);
+                System.out.println("Data di Nascita: " + dataNascita + " | Luogo di Nascita: " + luogoNascita);
+                System.out.println("Indirizzo di Residenza: " + indirizzoResidenza);
+                System.out.println();
+            }
+
+            System.out.println("Premi un tasto qualsiasi per tornare al menu pazienti.");
+            scanner.nextLine();
+            menuManager.mostraMenuPazienti(scanner);
+
+
+            listaPazientiStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

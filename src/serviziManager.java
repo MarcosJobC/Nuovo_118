@@ -319,7 +319,7 @@ public class serviziManager {
             return false; // In caso di errore, restituisci false
         }
     }
-    public static void visualizzaRichiesteRimozione() {
+    public static void visualizzaRichiesteRimozione(Scanner scanner) {
         try {
             String query = "SELECT * FROM Disponibilita WHERE Richiesta_Rimozione = true";
             PreparedStatement statement = connection.prepareStatement(query);
@@ -333,14 +333,31 @@ public class serviziManager {
                 String tipologia = resultSet.getString("Tipologia");
                 String motivoRimozione = resultSet.getString("Motivo_Rimozione");
 
-                System.out.println("ID: " + idDisponibilita+ " - Matricola Volontario: " + matricolaVolontario + " - Data Disponibilità: " + dataDisponibilita+ " - Tipologia: " + tipologia+ " - Motivo Rimozione: " + motivoRimozione);
+                System.out.println("ID: " + idDisponibilita + " - Matricola Volontario: " + matricolaVolontario + " - Data Disponibilità: " + dataDisponibilita + " - Tipologia: " + tipologia + " - Motivo Rimozione: " + motivoRimozione);
+            }
+
+            // Aggiungi il messaggio per accettare o tornare indietro
+            System.out.print("Inserisci l'ID della richiesta di rimozione da accettare oppure lascia vuoto per tornare indietro: ");
+
+            //Scanner scanner = new Scanner(System.in);
+            String input = scanner.nextLine().trim(); // Leggi l'input e rimuovi spazi iniziali e finali
+
+            // Loop finché l'input non è vuoto o un ID valido
+            while (!input.isEmpty() && !input.matches("\\d+")) {
+                System.out.println("Input non valido. Inserisci l'ID della richiesta o lascia vuoto per tornare indietro.");
+                System.out.print("Inserisci l'ID della richiesta di rimozione da accettare oppure lascia vuoto per tornare indietro: ");
+                input = scanner.nextLine().trim();
+            }
+
+            if (!input.isEmpty()) {
+                int idRichiestaDaAccettare = Integer.parseInt(input);
+                accettaRichiestaRimozione(idRichiestaDaAccettare);
+            } else {
+                // L'utente ha lasciato vuoto, torna indietro
+                menuManager.mostraMenuAdmin(scanner);
             }
 
             statement.close();
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Inserisci l'ID della richiesta di rimozione da accettare: ");
-            int idRichiestaDaAccettare = scanner.nextInt();
-            accettaRichiestaRimozione(idRichiestaDaAccettare);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -384,8 +401,6 @@ public class serviziManager {
             e.printStackTrace();
         }
     }
-
-
     public static void rimuoviAssegnazioneServizio(String dataDisponibilita, int matricolaVolontario) {
         try {
             String updateQuery = "UPDATE Servizi SET Autista = CASE WHEN Autista = ? THEN 0 ELSE Autista END, Soccorritore = CASE WHEN Soccorritore = ? THEN 0 ELSE Soccorritore END WHERE Data = ?";
@@ -399,7 +414,6 @@ public class serviziManager {
             e.printStackTrace();
         }
     }
-
     public static boolean ciSonoRichiesteRimozione() {
         try {
             String query = "SELECT COUNT(*) FROM Disponibilita WHERE Richiesta_Rimozione = true";
