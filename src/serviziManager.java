@@ -1,5 +1,8 @@
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.sql.ResultSet;
 
@@ -16,89 +19,124 @@ public class serviziManager {
     //GESTIONE SERVIZI
     public static void aggiungiServizio(Scanner scanner) {
         scanner.nextLine();
+
+        LocalDate dataOggi = LocalDate.now();
+        LocalTime orarioOggi = LocalTime.now();
+
         System.out.println("Inserisci la data del servizio (dd-mm-yyyy):");
         String dataServizio = scanner.nextLine();
 
-        System.out.println("Inserisci l'orario del servizio (HH:MM):");
-        String orarioString = scanner.nextLine();
-        LocalTime localTime = LocalTime.parse(orarioString);
-        Time orarioTime = Time.valueOf(localTime);
+        LocalTime orarioServizio = null;
 
-        String paziente = "";
-        while (paziente.isEmpty()) {
-            System.out.print("Inserisci il nome del paziente: ");
-            paziente = scanner.nextLine();
+        try {
+            // Converti la data del servizio in un oggetto LocalDate
+            LocalDate dataInserita = LocalDate.parse(dataServizio, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
-            if (paziente.isEmpty()) {
-                System.out.println("Il nome del paziente non può essere lasciato vuoto.");
+            // Verifica se la data inserita è antecedente a oggi
+            if (dataInserita.isBefore(dataOggi)) {
+                System.out.println("La data del servizio non può essere antecedente a oggi.");
+                aggiungiServizio(scanner);
             }
-        }
 
-        boolean siglaValida = false;
-        String siglaMezzo = "";
+            // Se la data è oggi, verifica anche l'orario
+            if (dataInserita.isEqual(dataOggi)) {
+                boolean orarioValido = false;
 
-        while (!siglaValida) {
-            System.out.print("Inserisci la sigla del mezzo: ");
-            siglaMezzo = scanner.nextLine();
+                do {
+                    System.out.println("Inserisci l'orario del servizio (HH:MM):");
+                    String orarioString = scanner.nextLine();
+
+                    LocalTime localTime = LocalTime.parse(orarioString, DateTimeFormatter.ofPattern("HH:mm"));
+
+                    if (localTime.isBefore(orarioOggi)) {
+                        System.out.println("L'orario del servizio non può essere antecedente all'orario attuale.");
+                    } else {
+                        orarioServizio = localTime;
+                        orarioValido = true;
+                    }
+                } while (!orarioValido);
+            }
+
+            String paziente = "";
+            while (paziente.isEmpty()) {
+                System.out.print("Inserisci il nome del paziente: ");
+                paziente = scanner.nextLine();
+
+                if (paziente.isEmpty()) {
+                    System.out.println("Il nome del paziente non può essere lasciato vuoto.");
+                }
+            }
+
+            boolean siglaValida = false;
+            String siglaMezzo = "";
+
+            while (!siglaValida) {
+                System.out.print("Inserisci la sigla del mezzo: ");
+                siglaMezzo = scanner.nextLine();
+
+                try {
+                    String verificaQuery = "SELECT * FROM Mezzi WHERE Sigla_mezzo = ?";
+                    PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
+                    verificaStatement.setString(1, siglaMezzo);
+                    ResultSet resultSet = verificaStatement.executeQuery();
+
+                    if (resultSet.next()) {
+                        // La sigla del mezzo esiste, interrompi il ciclo
+                        siglaValida = true;
+                    } else {
+                        System.out.println("Il mezzo non risulta presente in deposito.");
+                    }
+
+                    verificaStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            System.out.print("Inserisci la matricola dell'autista (oppure lascia vuoto per non inserire): ");
+            String inputAutista = scanner.nextLine();
+            int Autista = 0; // Inizializza l'ID dell'autista a 0
+            if (!inputAutista.isEmpty()) {
+                Autista = Integer.parseInt(inputAutista);
+            }
+
+            System.out.print("Inserisci la matricola del soccorritore (oppure lascia vuoto per non inserire): ");
+            String inputSoccorritore = scanner.nextLine();
+            int Soccorritore = 0; // Inizializza l'ID del soccorritore a 0
+            if (!inputSoccorritore.isEmpty()) {
+                Soccorritore = Integer.parseInt(inputSoccorritore);
+            }
 
             try {
-                String verificaQuery = "SELECT * FROM Mezzi WHERE Sigla_mezzo = ?";
-                PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
-                verificaStatement.setString(1, siglaMezzo);
-                ResultSet resultSet = verificaStatement.executeQuery();
+                String query = "INSERT INTO Servizi (Data, Orario, Paziente, Sigla_Mezzo, Autista, Soccorritore) VALUES (?, ?, ?, ?, ?, ?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, dataServizio);
+                preparedStatement.setTime(2, java.sql.Time.valueOf(orarioServizio));
+                preparedStatement.setString(3, paziente);
+                preparedStatement.setString(4, siglaMezzo);
+                preparedStatement.setInt(5, Autista);
+                preparedStatement.setInt(6, Soccorritore);
 
-                if (resultSet.next()) {
-                    // La sigla del mezzo esiste, interrompi il ciclo
-                    siglaValida = true;
-                } else {
-                    System.out.println("Il mezzo non risulta presente in deposito.");
-                }
+                preparedStatement.executeUpdate();
 
-                verificaStatement.close();
+                System.out.println("Servizio aggiunto con successo!");
+
+                preparedStatement.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            if (Autista > 0) {
+                notificheManager.inviaNotificaVolontario(Autista, dataServizio);
+            }
+            if (Soccorritore > 0) {
+                notificheManager.inviaNotificaVolontario(Soccorritore, dataServizio);
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Formato data non valido. Utilizza il formato dd-mm-yyyy.");
+            aggiungiServizio(scanner);
         }
-
-
-        System.out.print("Inserisci la matricola dell'autista (oppure lascia vuoto per non inserire): ");
-        String inputAutista = scanner.nextLine();
-        int Autista = 0; // Inizializza l'ID dell'autista a 0
-        if (!inputAutista.isEmpty()) {
-            Autista = Integer.parseInt(inputAutista);
-        }
-
-        System.out.print("Inserisci la matricola del soccorritore (oppure lascia vuoto per non inserire): ");
-        String inputSoccorritore = scanner.nextLine();
-        int Soccorritore = 0; // Inizializza l'ID del soccorritore a 0
-        if (!inputSoccorritore.isEmpty()) {
-            Soccorritore = Integer.parseInt(inputSoccorritore);
-        }
-
-        try {
-            String query = "INSERT INTO Servizi (Data, Orario, Paziente, Sigla_Mezzo, Autista, Soccorritore) VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, dataServizio);
-            preparedStatement.setTime(2, orarioTime);
-            preparedStatement.setString(3, paziente);
-            preparedStatement.setString(4, siglaMezzo);
-            preparedStatement.setInt(5, Autista);
-            preparedStatement.setInt(6, Soccorritore);
-
-            preparedStatement.executeUpdate();
-
-            System.out.println("Servizio aggiunto con successo!");
-
-            preparedStatement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if (Autista > 0) {
-            notificheManager.inviaNotificaVolontario(Autista, dataServizio);
-        }
-        if (Soccorritore > 0) {
-            notificheManager.inviaNotificaVolontario(Soccorritore, dataServizio);
-        }
+        menuManager.mostraMenuServizi(scanner);
     }
     public static void modificaServizio(Scanner scanner) {
         scanner.nextLine();

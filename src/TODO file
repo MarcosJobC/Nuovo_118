@@ -3,6 +3,7 @@
 //TODO QUALIFICA VOLONTARIO TRA AUTISTA-SOCCORITORE-TIROCINANTE-CENTRALINISTA
 //TODO dopo registrazione rimanda a menu principale
 //TODO problema quando si vuole eliminare un volontario che ha notifiche, con il voglontario devono andare via anche le notifiche
+//TODO non permettere venga inserita data di nascita volontari successiva ad oggi o data vuota durante registrazione
 
 -----------------------------------------------------ADMIN-----------------------------------------------------
 MEZZI
@@ -33,7 +34,7 @@ Elimina volontari
 
 SERVIZI
 Aggiunta servizio
-//TODO non permettere venga inserita data precedente ad oggi o data vuota
+//non permettere venga inserita data precedente ad oggi o data vuota
 //TODO non permettere venga inserita ora precedente  ad ora se inserisco un servizio per il giorno odierno o ora vuota
 //TODO Dopo aver aggiunto il servizio rimandare al menu mezzi
 Elimina servizio
