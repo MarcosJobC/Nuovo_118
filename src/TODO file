@@ -40,6 +40,9 @@ Aggiunta servizio
 Modifica servizio
 // metti che admin vede lista servizi e sceglie il servizio da modificare in base al suo ID
 // Dopo aver modificato il servizio rimandare al menu servizi
+// non permettere venga inserita data precedente ad oggi o data vuota
+// non permettere venga inserita ora precedente  ad ora se inserisco un servizio per il giorno odierno o ora vuota
+
 Elimina servizio
 // metti che admin vede lista servizi e sceglie il servizio da eliminare in base al suo ID
 // Dopo aver eliminato il servizio rimandare al menu servizi
