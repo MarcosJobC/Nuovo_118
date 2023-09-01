@@ -91,6 +91,7 @@ public class volontariManager {
         }
     }
     public static void modificaAnagrafeVolontari(Scanner scanner) {
+        scanner.nextLine();
         try {
             String query = "SELECT * FROM Volontari";
             PreparedStatement preparedStatement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -101,66 +102,82 @@ public class volontariManager {
                 String nome = resultSet.getString("Nome");
                 String cognome = resultSet.getString("Cognome");
                 String codiceFiscale = resultSet.getString("codice_fiscale");
-                System.out.println(nome + " " + cognome + " (" + codiceFiscale + ")");
+                System.out.println("Nome: "+nome + " | Cognome: " + cognome + " | CF: (" + codiceFiscale + ")");
             }
 
-            System.out.println("Inserisci il codice fiscale del volontario da modificare:");
-            String codiceFiscaleVolontario = scanner.nextLine();
+            boolean volontarioTrovato = false;
 
-            String verificaQuery = "SELECT * FROM Volontari WHERE Codice_fiscale = ?";
-            PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            verificaStatement.setString(1, codiceFiscaleVolontario);
-            ResultSet volontarioResultSet = verificaStatement.executeQuery();
+            while (!volontarioTrovato) {
+                System.out.print("Inserisci il codice fiscale del volontario da modificare o premi 'q' per tornare al menu precedente: ");
+                String codiceFiscaleVolontario = scanner.nextLine();
 
-            if (volontarioResultSet.next()) {
-                System.out.println("Volontario trovato. Inserisci i nuovi dati:");
-
-                System.out.println("Nuovo nome (lascia vuoto per mantenere invariato):");
-                String nuovoNome = scanner.nextLine();
-
-                System.out.println("Nuovo cognome (lascia vuoto per mantenere invariato):");
-                String nuovoCognome = scanner.nextLine();
-
-                System.out.println("Nuova data di nascita (dd-mm-yyyy, lascia vuoto per mantenere invariato):");
-                String nuovaDataDiNascita = scanner.nextLine();
-
-                System.out.println("Nuova qualifica (lascia vuoto per mantenere invariato):");
-                String nuovaQualifica = scanner.nextLine();
-
-                System.out.println("Nuovo codice fiscale (lascia vuoto per mantenere invariato):");
-                String nuovocodicefiscale = scanner.nextLine();
-
-                if (!nuovoNome.isEmpty()) {
-                    volontarioResultSet.updateString("Nome", nuovoNome);
-                }
-                if (!nuovoCognome.isEmpty()) {
-                    volontarioResultSet.updateString("Cognome", nuovoCognome);
-                }
-                if (!nuovaDataDiNascita.isEmpty()) {
-                    volontarioResultSet.updateString("data_di_nascita", nuovaDataDiNascita);
-                }
-                if (!nuovaQualifica.isEmpty()) {
-                    volontarioResultSet.updateString("Qualifica", nuovaQualifica);
-                }
-                if (!nuovaQualifica.isEmpty()) {
-                    volontarioResultSet.updateString("codice_fiscale", nuovocodicefiscale);
+                if (codiceFiscaleVolontario.equalsIgnoreCase("q")) {
+                    System.out.println("Annullamento dell'operazione.");
+                    System.out.println("  ");
+                    System.out.println("  ");
+                    menuManager.mostraMenuVolontari(scanner);
                 }
 
-                volontarioResultSet.updateRow();
+                String verificaQuery = "SELECT * FROM Volontari WHERE Codice_fiscale = ?";
+                PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                verificaStatement.setString(1, codiceFiscaleVolontario);
+                ResultSet volontarioResultSet = verificaStatement.executeQuery();
 
-                System.out.println("Anagrafe volontario modificata con successo!");
-            } else {
-                System.out.println("Volontario non trovato.");
-                modificaAnagrafeVolontari(scanner);
+                if (volontarioResultSet.next()) {
+                    System.out.print("Volontario trovato. Inserisci i nuovi dati: ");
+
+                    System.out.print("Nuovo nome (lascia vuoto per mantenere invariato): ");
+                    String nuovoNome = scanner.nextLine();
+
+                    System.out.print("Nuovo cognome (lascia vuoto per mantenere invariato): ");
+                    String nuovoCognome = scanner.nextLine();
+
+                    System.out.print("Nuova data di nascita (dd-mm-yyyy, lascia vuoto per mantenere invariato): ");
+                    String nuovaDataDiNascita = scanner.nextLine();
+
+                    System.out.print("Nuova qualifica (lascia vuoto per mantenere invariato): ");
+                    String nuovaQualifica = scanner.nextLine();
+
+                    System.out.print("Nuovo codice fiscale (lascia vuoto per mantenere invariato): ");
+                    String nuovocodicefiscale = scanner.nextLine();
+
+                    if (!nuovoNome.isEmpty()) {
+                        volontarioResultSet.updateString("Nome", nuovoNome);
+                    }
+                    if (!nuovoCognome.isEmpty()) {
+                        volontarioResultSet.updateString("Cognome", nuovoCognome);
+                    }
+                    if (!nuovaDataDiNascita.isEmpty()) {
+                        volontarioResultSet.updateString("data_di_nascita", nuovaDataDiNascita);
+                    }
+                    if (!nuovaQualifica.isEmpty()) {
+                        volontarioResultSet.updateString("Qualifica", nuovaQualifica);
+                    }
+                    if (!nuovocodicefiscale.isEmpty()) {
+                        volontarioResultSet.updateString("codice_fiscale", nuovocodicefiscale);
+                    }
+
+                    volontarioResultSet.updateRow();
+
+                    System.out.println("Anagrafe volontario modificata con successo!");
+                    System.out.println("  ");
+                    System.out.println("  ");
+                    volontarioTrovato = true;
+                } else {
+                    System.out.println("Volontario non trovato.");
+                }
+
+                verificaStatement.close();
             }
 
-            verificaStatement.close();
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        menuManager.mostraMenuVolontari(scanner);
     }
     public static void eliminaVolontario(Scanner scanner) {
+        scanner.nextLine();
         try {
             String query = "SELECT * FROM Volontari";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -171,41 +188,54 @@ public class volontariManager {
                 String nome = resultSet.getString("Nome");
                 String cognome = resultSet.getString("Cognome");
                 String codiceFiscale = resultSet.getString("codice_fiscale");
-                System.out.println(nome + " " + cognome + " (" + codiceFiscale + ")");
+                System.out.println("Nome: "+nome + " | Cognome: " + cognome + " | CF: (" + codiceFiscale + ")");
             }
 
-            System.out.println("Inserisci il codice fiscale del volontario da eliminare:");
-            String codiceFiscaleVolontario = scanner.nextLine();
+            boolean volontarioTrovato = false;
 
-            String verificaQuery = "SELECT * FROM Volontari WHERE Codice_fiscale = ?";
-            PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
-            verificaStatement.setString(1, codiceFiscaleVolontario);
-            ResultSet risultatoVerifica = verificaStatement.executeQuery();
+            while (!volontarioTrovato) {
+                System.out.print("Inserisci il codice fiscale del volontario da modificare o premi 'q' per tornare al menu precedente: ");
+                String codiceFiscaleVolontario = scanner.nextLine();
 
-            if (risultatoVerifica.next()) {
-                System.out.println("Volontario trovato. Sei sicuro di volerlo eliminare? (s/n)");
-                String conferma = scanner.nextLine();
-
-                if (conferma.equalsIgnoreCase("s")) {
-                    String deleteQuery = "DELETE FROM Volontari WHERE Codice_fiscale = ?";
-                    PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
-                    deleteStatement.setString(1, codiceFiscaleVolontario);
-                    deleteStatement.executeUpdate();
-
-                    System.out.println("Volontario eliminato con successo!");
-                } else {
-                    System.out.println("Operazione di eliminazione annullata.");
+                if (codiceFiscaleVolontario.equalsIgnoreCase("q")) {
+                    System.out.println("Annullamento dell'operazione.");
+                    System.out.println("  ");
+                    System.out.println("  ");
+                    menuManager.mostraMenuVolontari(scanner);
                 }
-            } else {
-                System.out.println("Volontario non trovato.");
-                eliminaVolontario(scanner);
-            }
 
-            verificaStatement.close();
+                String verificaQuery = "SELECT * FROM Volontari WHERE Codice_fiscale = ?";
+                PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
+                verificaStatement.setString(1, codiceFiscaleVolontario);
+                ResultSet risultatoVerifica = verificaStatement.executeQuery();
+
+                if (risultatoVerifica.next()) {
+                    System.out.println("Volontario trovato. Sei sicuro di volerlo eliminare? (s/n)");
+                    String conferma = scanner.nextLine();
+
+                    if (conferma.equalsIgnoreCase("s")) {
+                        String deleteQuery = "DELETE FROM Volontari WHERE Codice_fiscale = ?";
+                        PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
+                        deleteStatement.setString(1, codiceFiscaleVolontario);
+                        deleteStatement.executeUpdate();
+
+                        System.out.println("Volontario eliminato con successo!");
+                        System.out.println("  ");
+                        System.out.println("  ");
+                        volontarioTrovato = true;
+                    } else {
+                        System.out.println("Operazione di eliminazione annullata.");
+                    }
+                } else {
+                    System.out.println("Volontario non trovato.");
+                }
+                verificaStatement.close();
+            }
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        menuManager.mostraMenuVolontari(scanner);
     }
 
 

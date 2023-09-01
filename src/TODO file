@@ -1,5 +1,10 @@
------------------------------------------------------ADMIN-----------------------------------------------------
 
+//TODO all'accesso non si può lasciare i campi CF e password vuoti
+//TODO QUALIFICA VOLONTARIO TRA AUTISTA-SOCCORITORE-TIROCINANTE-CENTRALINISTA
+//TODO dopo registrazione rimanda a menu principale
+//TODO problema quando si vuole eliminare un volontario che ha notifiche, con il voglontario devono andare via anche le notifiche
+
+-----------------------------------------------------ADMIN-----------------------------------------------------
 MEZZI
 Aggiunta mezzo
 // Non può esser lasciato vuoto alcun campo nell'aggiunta del mezzo nuovo
@@ -16,14 +21,14 @@ Eliminazione mezzo
 
 VOLONTARI
 Modifica anagrafe volontari
-//TODO inserire la formattazione Codice fiscale: | Nome: | Cognome: etc etc
-//TODO chiedere "Inserisci il codice fiscale del volontario da modificare (oppure lascia vuoto per tornare al menu precedente:"
-//TODO togliere spazi tra richieste modifica nome-cognome-etc-etc
-//TODO Dopo aver modificato il volontario rimandare al menu volontari
+// inserire la formattazione Codice fiscale: | Nome: | Cognome: etc etc
+// chiedere "Inserisci il codice fiscale del volontario da modificare (oppure premi q per tornare al menu precedente):"
+// togliere spazi tra richieste modifica nome-cognome-etc-etc
+// Dopo aver modificato il volontario rimandare al menu volontari
 Elimina volontari
-//TODO inserire la formattazione Codice fiscale: | Nome: | Cognome: etc etc
-//TODO chiedere "Inserisci il codice fiscale del volontario da modificare (oppure lascia vuoto per tornare al menu precedente:"
-//TODO Dopo aver eliminato il volontario rimandare al menu volontari
+// inserire la formattazione Codice fiscale: | Nome: | Cognome: etc etc
+// chiedere "Inserisci il codice fiscale del volontario da modificare (oppure premi q per tornare al menu precedente):"
+// Dopo aver eliminato il volontario rimandare al menu volontari
 
 
 SERVIZI
