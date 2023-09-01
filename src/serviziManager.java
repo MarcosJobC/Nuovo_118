@@ -22,11 +22,10 @@ public class serviziManager {
 
         LocalDate dataOggi = LocalDate.now();
         LocalTime orarioOggi = LocalTime.now();
-
-        System.out.println("Inserisci la data del servizio (dd-mm-yyyy):");
-        String dataServizio = scanner.nextLine();
-
         LocalTime orarioServizio = null;
+
+        System.out.print("Inserisci la data del servizio (dd-mm-yyyy): ");
+        String dataServizio = scanner.nextLine();
 
         try {
             // Converti la data del servizio in un oggetto LocalDate
