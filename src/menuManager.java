@@ -209,8 +209,8 @@ public class menuManager {
     public static void mostraMenuServizi(Scanner scanner) {
         System.out.println("Menu Gestione Servizi:");
         System.out.println("1. Aggiungi servizio");
-        System.out.println("2. Elimina servizio");
-        System.out.println("3. Modifica dati servizio");
+        System.out.println("2. Modifica servizio");
+        System.out.println("3. Elimina dati servizio");
         System.out.println("4. Assegna automaticamente i volontari");
         System.out.println("5. Torna al menu amministratore");
         System.out.println("Seleziona un'opzione:");
@@ -224,10 +224,10 @@ public class menuManager {
                 break;
             case 2:
                 // Esegui l'azione per eliminare un servizio
-                serviziManager.eliminaServizio(scanner);
+                serviziManager.modificaServizio(scanner);
                 break;
             case 3:
-                serviziManager.modificaServizio(scanner);
+                serviziManager.eliminaServizio(scanner);
                 break;
             case 4:
                 // Torna al menu amministratore

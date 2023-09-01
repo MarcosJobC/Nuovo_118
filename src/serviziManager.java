@@ -139,7 +139,16 @@ public class serviziManager {
     }
     public static void modificaServizio(Scanner scanner) {
         scanner.nextLine();
-        LocalTime localTime = LocalTime.now();
+
+        String dataServizio = "";
+        Time orarioServizio = null;
+        String orarioServizioString = "";
+        String pazienteServizio = "";
+        String siglaMezzo="";
+        int Autista = 0;
+        int Soccorritore = 0;
+
+
 
         try {
             // Ottieni una lista di tutti i servizi
@@ -151,142 +160,177 @@ public class serviziManager {
             System.out.println("Lista dei servizi:");
             while (serviziResultSet.next()) {
                 int idServizio = serviziResultSet.getInt("ID");
-                String dataServizio = serviziResultSet.getString("Data");
-                Time orarioServizio = serviziResultSet.getTime("Orario");
-                String orarioServizioString = orarioServizio.toLocalTime().toString();
-                String pazienteServizio = serviziResultSet.getString("Paziente");
+                dataServizio = serviziResultSet.getString("Data");
+                orarioServizio = serviziResultSet.getTime("Orario");
+                orarioServizioString = orarioServizio.toLocalTime().toString();
+                pazienteServizio = serviziResultSet.getString("Paziente");
+                siglaMezzo = serviziResultSet.getString("sigla_mezzo");
+                Autista = serviziResultSet.getInt("Autista");
+                Soccorritore = serviziResultSet.getInt("Soccorritore");
 
                 System.out.println("ID: " + idServizio + " | Data: " + dataServizio + " | Orario: " + orarioServizio + " | Paziente: " + pazienteServizio);
             }
             System.out.println(" ");
 
             // Chiedi all'utente di inserire l'ID del servizio da modificare
-            System.out.print("Inserisci l'ID del servizio da modificare: ");
-            int idServizioDaModificare = scanner.nextInt();
-            scanner.nextLine(); // Consuma la newline rimanente
+            int idServizioDaModificare = 0;
+            boolean idValido = false;
 
-            String verificaQuery = "SELECT * FROM Servizi WHERE ID = ?";
-            PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
-            verificaStatement.setInt(1, idServizioDaModificare);
-            ResultSet resultSet = verificaStatement.executeQuery();
+            while (!idValido) {
+                System.out.print("Inserisci l'ID del servizio da modificare o premi 'q' per tornare indietro: ");
+                String input = scanner.nextLine();
 
-
-            if (resultSet.next()) {
-                // Il servizio esiste, procedi con la modifica
-
-                String dataServizio = resultSet.getString("Data");
-                String orarioServizio = resultSet.getString("Orario"); // Utilizza la colonna "Orario" dal result set
-                String pazienteServizio = resultSet.getString("Paziente");
-                String siglaMezzo = resultSet.getString("Sigla_Mezzo");
-                int Autista = resultSet.getInt("Autista");
-                int Soccorritore = resultSet.getInt("Soccorritore");
-
-                System.out.println("Il seguente servizio è stato trovato:");
-                System.out.println("  Data: " + dataServizio + " | Orario: " + orarioServizio + " | Paziente: " + pazienteServizio + " | Sigla Mezzo: " + siglaMezzo + " | Autista: " + Autista + " | Soccorritore: " + Soccorritore);
-                System.out.println(" ");
-
-                // Richiedi i nuovi valori o lascia vuoto per non modificare
-                System.out.print("Inserisci la nuova data (oppure lascia vuoto): ");
-                String nuovaData = scanner.nextLine();
-
-                if (nuovaData.isEmpty()) {
-                    nuovaData = dataServizio;
-                }
-
-                System.out.print("Inserisci il nuovo orario (oppure lascia vuoto): ");
-                String nuovoOrarioString = scanner.nextLine();
-                LocalTime nuovoLocalTime = nuovoOrarioString.isEmpty() ? localTime : LocalTime.parse(nuovoOrarioString);
-                Time nuovoOrarioTime = Time.valueOf(nuovoLocalTime);
-
-                System.out.print("Inserisci il nuovo nome del paziente (oppure lascia vuoto): ");
-                String nuovoPaziente = scanner.nextLine();
-                System.out.print("Inserisci il nuovo mezzo (oppure lascia vuoto): ");
-                String nuovoMezzo = scanner.nextLine();
-                // Verifica se il mezzo esiste nella tabella Mezzi
-                while (!nuovoMezzo.isEmpty()) {
-                    try {
-                        String verificaMezzoQuery = "SELECT * FROM Mezzi WHERE Sigla_mezzo = ?";
-                        PreparedStatement verificaMezzoStatement = connection.prepareStatement(verificaMezzoQuery);
-                        verificaMezzoStatement.setString(1, nuovoMezzo);
-                        ResultSet mezzoResultSet = verificaMezzoStatement.executeQuery();
-
-                        if (mezzoResultSet.next()) {
-                            // La sigla del mezzo esiste, interrompi il ciclo
-                            break;
-                        } else {
-                            System.out.println("La sigla del mezzo non esiste. Reinserisci la sigla corretta o lascia vuoto per non modificare.");
-                            nuovoMezzo = scanner.nextLine();
-                        }
-
-                        verificaMezzoStatement.close();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                int nuovoAutista = Autista; // Inizializza con il valore attuale
-                System.out.print("Inserisci la matricola dell'autista (oppure lascia vuoto per non modificare): ");
-                String inputAutista = scanner.nextLine();
-                if (!inputAutista.isEmpty()) {
-                    int idAutista = Integer.parseInt(inputAutista);
-                    if (verificaEsistenzaVolontario(idAutista)) {
-                        nuovoAutista = idAutista;
-                        //Invio notifica
-                        notificheManager.inviaNotificaVolontario(nuovoAutista, nuovaData);
-                    } else {
-                        System.out.println("L'ID dell'autista inserito non esiste.");
-                        modificaServizio(scanner);
-                        return; // Interrompi il metodo senza eseguire l'aggiornamento
-                    }
-                }
-
-                int nuovoSoccorritore = Soccorritore; // Inizializza con il valore attuale
-                System.out.print("Inserisci la matricola del soccorritore (oppure lascia vuoto per non modificare): ");
-                String inputSoccorritore = scanner.nextLine();
-                if (!inputSoccorritore.isEmpty()) {
-                    int idSoccorritore = Integer.parseInt(inputSoccorritore);
-                    if (verificaEsistenzaVolontario(idSoccorritore)) {
-                        nuovoSoccorritore = idSoccorritore;
-                        //Invio notifica
-                        notificheManager.inviaNotificaVolontario(nuovoSoccorritore, nuovaData);
-                    } else {
-                        System.out.println("L'ID del soccorritore inserito non esiste.");
-                        modificaServizio(scanner);
-                        return; // Interrompi il metodo senza eseguire l'aggiornamento
-                    }
-                }
-
-
-                if (!nuovaData.isEmpty() || !nuovoOrarioString.isEmpty() || !nuovoPaziente.isEmpty() ||
-                        !nuovoMezzo.isEmpty() || !inputAutista.isEmpty() && Integer.parseInt(inputAutista) != 0 || !inputSoccorritore.isEmpty() && Integer.parseInt(inputSoccorritore) != 0) {
-                    String updateQuery = "UPDATE Servizi SET Data = ?, Orario = ?, Paziente = ?, Sigla_Mezzo = ?, Autista = ?, Soccorritore = ? WHERE ID = ?";
-                    PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
-
-                    updateStatement.setString(1, nuovaData.isEmpty() ? dataServizio : nuovaData);
-                    updateStatement.setTime(2, nuovoOrarioString.isEmpty() ? Time.valueOf(orarioServizio) : nuovoOrarioTime);
-                    updateStatement.setString(3, nuovoPaziente.isEmpty() ? pazienteServizio : nuovoPaziente);
-                    updateStatement.setString(4, nuovoMezzo.isEmpty() ? siglaMezzo : nuovoMezzo);
-                    updateStatement.setInt(5, nuovoAutista);
-                    updateStatement.setInt(6, nuovoSoccorritore);
-                    updateStatement.setInt(7, idServizioDaModificare); // Imposta l'ID del servizio da modificare
-
-                    // Esegui l'aggiornamento
-                    updateStatement.executeUpdate();
-                    System.out.println("Servizio modificato con successo!");
-                    updateStatement.close();
+                if (input.equalsIgnoreCase("q")) {
+                    System.out.println("Annullamento dell'operazione.");
+                    menuManager.mostraMenuServizi(scanner);
+                    return; // Termina il metodo
                 } else {
-                    System.out.println("Nessuna modifica effettuata.");
-                }
+                    try {
+                        idServizioDaModificare = Integer.parseInt(input);
 
-            } else {
-                System.out.println("Nessun servizio trovato con l'ID fornito.");
+                        String verificaQuery = "SELECT * FROM Servizi WHERE ID = ?";
+                        PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
+                        verificaStatement.setInt(1, idServizioDaModificare);
+                        ResultSet resultSet = verificaStatement.executeQuery();
+
+                        if (resultSet.next()) {
+                            idValido = true; // L'ID è valido, esci dal ciclo
+                        } else {
+                            System.out.println("Nessun servizio trovato con l'ID specificato. Riprova.");
+                        }
+                        resultSet.close();
+                        verificaStatement.close();
+                    } catch (NumberFormatException e) {
+                        System.out.println("Input non valido. Inserisci un numero di ID valido o 'q' per annullare.");
+                    }
+                }
             }
-            resultSet.close();
-            verificaStatement.close();
+
+            System.out.print("Inserisci la nuova data (lascia vuoto per non modificare): ");
+            String nuovaData = scanner.nextLine();
+
+            if (nuovaData.isEmpty()) {
+                nuovaData = dataServizio;
+            }
+
+            System.out.print("Inserisci il nuovo orario in hh:mm (lascia vuoto per non modificare): ");
+            String nuovoOrarioString = scanner.nextLine();
+            Time nuovoOrarioTime = null;
+
+            if (!nuovoOrarioString.isEmpty()) {
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+                    LocalTime localTime = LocalTime.parse(nuovoOrarioString, formatter);
+                    nuovoOrarioTime = Time.valueOf(localTime);
+
+                    // Copia il valore del nuovoOrarioTime all'oggetto esistente
+                    orarioServizio.setTime(nuovoOrarioTime.getTime());
+                } catch (DateTimeParseException e) {
+                    System.out.println("Formato orario non valido. Utilizzare il formato HH:mm");
+                    // Gestire l'eccezione o uscire dal metodo, a seconda delle tue esigenze
+                    return;
+                }
+            } else {
+                nuovoOrarioTime = orarioServizio; // Usa il valore attuale se la stringa è vuota
+            }
+
+            System.out.print("Inserisci il nuovo nome del paziente (lascia vuoto per non modificare): ");
+            String nuovoPaziente = scanner.nextLine();
+            System.out.print("Inserisci il nuovo mezzo (oppure lascia vuoto): ");
+            String nuovoMezzo = scanner.nextLine();
+            // Verifica se il mezzo esiste nella tabella Mezzi
+            while (!nuovoMezzo.isEmpty()) {
+                try {
+                    String verificaMezzoQuery = "SELECT * FROM Mezzi WHERE Sigla_mezzo = ?";
+                    PreparedStatement verificaMezzoStatement = connection.prepareStatement(verificaMezzoQuery);
+                    verificaMezzoStatement.setString(1, nuovoMezzo);
+                    ResultSet mezzoResultSet = verificaMezzoStatement.executeQuery();
+
+                    if (mezzoResultSet.next()) {
+                        // La sigla del mezzo esiste, interrompi il ciclo
+                        break;
+                    } else {
+                        System.out.println("La sigla del mezzo non esiste. Reinserisci la sigla corretta o lascia vuoto per non modificare.");
+                        nuovoMezzo = scanner.nextLine();
+                    }
+
+                    verificaMezzoStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            int nuovoAutista = Autista; // Inizializza con il valore attuale
+            System.out.print("Inserisci la matricola dell'autista (lascia vuoto per non modificare): ");
+            String inputAutista = scanner.nextLine();
+            if (!inputAutista.isEmpty()) {
+                int idAutista = Integer.parseInt(inputAutista);
+                if (verificaEsistenzaVolontario(idAutista)) {
+                    nuovoAutista = idAutista;
+                    // Invio notifica
+                    notificheManager.inviaNotificaVolontario(nuovoAutista, nuovaData);
+                } else {
+                    System.out.println("L'ID dell'autista inserito non esiste.");
+                    modificaServizio(scanner);
+                    return; // Interrompi il metodo senza eseguire l'aggiornamento
+                }
+            }
+
+            int nuovoSoccorritore = Soccorritore; // Inizializza con il valore attuale
+            System.out.print("Inserisci la matricola del soccorritore (lascia vuoto per non modificare): ");
+            String inputSoccorritore = scanner.nextLine();
+            if (!inputSoccorritore.isEmpty()) {
+                int idSoccorritore = Integer.parseInt(inputSoccorritore);
+                if (verificaEsistenzaVolontario(idSoccorritore)) {
+                    nuovoSoccorritore = idSoccorritore;
+                    // Invio notifica
+                    notificheManager.inviaNotificaVolontario(nuovoSoccorritore, nuovaData);
+                } else {
+                    System.out.println("L'ID del soccorritore inserito non esiste.");
+                    modificaServizio(scanner);
+                    return; // Interrompi il metodo senza eseguire l'aggiornamento
+                }
+            }
+
+            if (!nuovaData.isEmpty() || !nuovoOrarioString.isEmpty() || !nuovoPaziente.isEmpty() ||
+                    !nuovoMezzo.isEmpty() || !inputAutista.isEmpty() && Integer.parseInt(inputAutista) != 0 || !inputSoccorritore.isEmpty() && Integer.parseInt(inputSoccorritore) != 0) {
+                String updateQuery = "UPDATE Servizi SET Data = ?, Orario = ?, Paziente = ?, Sigla_Mezzo = ?, Autista = ?, Soccorritore = ? WHERE ID = ?";
+                PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
+
+                updateStatement.setString(1, nuovaData.isEmpty() ? dataServizio : nuovaData);
+                updateStatement.setTime(2, nuovoOrarioString.isEmpty() ? Time.valueOf(orarioServizio.toLocalTime()) : nuovoOrarioTime);
+                updateStatement.setString(3, nuovoPaziente.isEmpty() ? pazienteServizio : nuovoPaziente);
+                updateStatement.setString(4, nuovoMezzo.isEmpty() ? siglaMezzo : nuovoMezzo);
+                updateStatement.setInt(5, nuovoAutista);
+                updateStatement.setInt(6, nuovoSoccorritore);
+                updateStatement.setInt(7, idServizioDaModificare); // Imposta l'ID del servizio da modificare
+
+                // Esegui l'aggiornamento
+                updateStatement.executeUpdate();
+                System.out.println("Servizio modificato con successo!");
+                updateStatement.close();
+            } else {
+                System.out.println("Nessuna modifica effettuata.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static void eliminaServizio(Scanner scanner) {
         scanner.nextLine();
         boolean operazioneAnnullata = false;
