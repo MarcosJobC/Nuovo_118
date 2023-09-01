@@ -161,5 +161,70 @@ public class pazientiManager {
     }
 
 
+    public static void eliminaPaziente(Scanner scanner) {
+        scanner.nextLine();
+
+        try {
+            // Visualizza la lista dei pazienti
+            String listaPazientiQuery = "SELECT * FROM Pazienti";
+            PreparedStatement listaPazientiStatement = connection.prepareStatement(listaPazientiQuery);
+            ResultSet pazientiResultSet = listaPazientiStatement.executeQuery();
+
+            System.out.println("Lista dei pazienti:");
+            while (pazientiResultSet.next()) {
+                int idPaziente = pazientiResultSet.getInt("ID");
+                String nomePaziente = pazientiResultSet.getString("Nome");
+                String cognomePaziente = pazientiResultSet.getString("Cognome");
+                System.out.println("ID: " + idPaziente + " | Nome: " + nomePaziente + " | Cognome: " + cognomePaziente);
+            }
+            System.out.println(" ");
+
+            // Chiedi all'utente di inserire l'ID del paziente da eliminare
+            System.out.print("Inserisci l'ID del paziente da eliminare: ");
+            int idPazienteDaEliminare = scanner.nextInt();
+            scanner.nextLine(); // Consuma la newline rimanente
+
+            String verificaQuery = "SELECT * FROM Pazienti WHERE ID = ?";
+            PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
+            verificaStatement.setInt(1, idPazienteDaEliminare);
+            ResultSet resultSet = verificaStatement.executeQuery();
+
+            if (resultSet.next()) {
+                // Il paziente esiste, procedi con l'eliminazione
+
+                String nomePaziente = resultSet.getString("Nome");
+                String cognomePaziente = resultSet.getString("Cognome");
+
+                System.out.println("Il seguente paziente sarà eliminato:");
+                System.out.println("Nome: " + nomePaziente + " | Cognome: " + cognomePaziente);
+                System.out.println(" ");
+
+                // Conferma l'eliminazione
+                System.out.print("Confermi l'eliminazione di questo paziente? (s/n): ");
+                String conferma = scanner.nextLine();
+
+                if (conferma.equalsIgnoreCase("s")) {
+                    String deleteQuery = "DELETE FROM Pazienti WHERE ID = ?";
+                    PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
+                    deleteStatement.setInt(1, idPazienteDaEliminare);
+
+                    // Esegui l'eliminazione
+                    deleteStatement.executeUpdate();
+                    System.out.println("Paziente eliminato con successo!");
+                    deleteStatement.close();
+                } else {
+                    System.out.println("Eliminazione annullata.");
+                }
+            } else {
+                System.out.println("Nessun paziente trovato con l'ID fornito.");
+            }
+            resultSet.close();
+            verificaStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }

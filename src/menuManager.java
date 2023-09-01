@@ -268,7 +268,7 @@ public class menuManager {
                 break;
             case 3:
                 // Esegui l'azione per eliminare un paziente
-                //TODO pazientiManager.eliminaPaziente(scanner);
+                pazientiManager.eliminaPaziente(scanner);
                 break;
             case 4:
                 // Torna al menu amministratore
