@@ -431,7 +431,7 @@ public class volontariManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("Premi un tasto qualsiasi per tornare al menu pazienti.");
+        System.out.println("Premi un tasto qualsiasi per tornare al menu precedente.");
         scanner.nextLine();
         menuManager.mostraMenuAdmin(scanner);
     }
