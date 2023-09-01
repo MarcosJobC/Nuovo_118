@@ -288,58 +288,93 @@ public class serviziManager {
         }
     }
     public static void eliminaServizio(Scanner scanner) {
-        System.out.println("Inserisci la data del servizio da eliminare (dd-mm-yyyy):");
-        String dataServizio = scanner.nextLine();
-
-        System.out.println("Inserisci l'orario del servizio da eliminare (HH:MM):");
-        String orarioString = scanner.nextLine();
-        LocalTime localTime = LocalTime.parse(orarioString);
-        Time orarioTime = Time.valueOf(localTime);
-
-        System.out.print("Inserisci il nome del paziente del servizio da eliminare: ");
-        String paziente = scanner.nextLine();
+        scanner.nextLine();
+        boolean operazioneAnnullata = false;
 
         try {
-            String verificaQuery = "SELECT * FROM Servizi WHERE Data = ? AND Orario = ? AND Paziente = ?";
-            PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
-            verificaStatement.setString(1, dataServizio);
-            verificaStatement.setTime(2, orarioTime);
-            verificaStatement.setString(3, paziente);
-            ResultSet resultSet = verificaStatement.executeQuery();
+            String query = "SELECT * FROM Servizi";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
-                // Il servizio esiste, chiedi conferma di eliminazione
-                System.out.print("Il seguente servizio è stato trovato:");
-                System.out.print("  Data: " + dataServizio);
-                System.out.print("  Orario: " + orarioString);
-                System.out.println("  Paziente: " + paziente);
-                System.out.println(" ");
+            System.out.println("Lista dei servizi:");
+            while (resultSet.next()) {
+                int idServizio = resultSet.getInt("Id");
+                String dataServizio = resultSet.getString("Data");
+                String pazienteServizio = resultSet.getString("Paziente");
+                String mezzoServizio = resultSet.getString("Sigla_mezzo");
 
-                System.out.print("Vuoi davvero eliminare questo servizio? (sì/no): ");
-                String conferma = scanner.nextLine();
-
-                if (conferma.equalsIgnoreCase("si") || conferma.equalsIgnoreCase("sì")) {
-                    String deleteQuery = "DELETE FROM Servizi WHERE Data = ? AND Orario = ? AND Paziente = ?";
-                    PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
-                    deleteStatement.setString(1, dataServizio);
-                    deleteStatement.setTime(2, orarioTime);
-                    deleteStatement.setString(3, paziente);
-                    deleteStatement.executeUpdate();
-                    System.out.println("Servizio eliminato con successo!");
-                    deleteStatement.close();
-                } else {
-                    System.out.println("Eliminazione annullata.");
-                }
-            } else {
-                System.out.println("Nessun servizio trovato con i dati forniti.");
-                eliminaServizio(scanner);
+                System.out.println("ID: " + idServizio + " | Data: " + dataServizio + " | Paziente: " + pazienteServizio + " | Mezzo: " + mezzoServizio);
             }
 
-            verificaStatement.close();
+            System.out.println(" ");
+            System.out.print("Inserisci l'ID del servizio da eliminare o premi 'q' per tornare indietro: ");
+            while (true) {
+                String input = scanner.nextLine();
+
+                if (input.equalsIgnoreCase("q")) {
+                    System.out.println("Annullamento dell'operazione.");
+                    operazioneAnnullata = true;
+                    break;
+                } else {
+                    try {
+                        int idServizioDaEliminare = Integer.parseInt(input);
+
+                        String verificaQuery = "SELECT Id FROM Servizi WHERE Id = ?";
+                        PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
+                        verificaStatement.setInt(1, idServizioDaEliminare);
+                        ResultSet verificaResultSet = verificaStatement.executeQuery();
+
+                        if (verificaResultSet.next()) {
+                            System.out.print("Sei sicuro di voler eliminare il servizio? (s/n): ");
+                            String conferma = scanner.nextLine().trim();
+
+                            if (conferma.equalsIgnoreCase("s")) {
+                                String deleteQuery = "DELETE FROM Servizi WHERE Id = ?";
+                                PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
+                                deleteStatement.setInt(1, idServizioDaEliminare);
+                                int rowsAffected = deleteStatement.executeUpdate();
+
+                                if (rowsAffected > 0) {
+                                    System.out.println("Servizio con ID " + idServizioDaEliminare + " eliminato con successo!");
+                                    System.out.println(" ");
+                                    System.out.println(" ");
+                                    menuManager.mostraMenuServizi(scanner);
+                                } else {
+                                    System.out.println("Input non valido.");
+                                    System.out.print("Inserisci l'ID del servizio da eliminare o premi 'q' per tornare indietro: ");
+                                }
+                            } else {
+                                System.out.println("Eliminazione annullata.");
+                                System.out.print("Inserisci l'ID del servizio da eliminare o premi 'q' per tornare indietro: ");
+                            }
+                        } else {
+                            System.out.println("Nessun servizio trovato con l'ID specificato.");
+                            System.out.print("Inserisci l'ID del servizio da eliminare o premi 'q' per tornare indietro: ");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Input non valido.");
+                        System.out.print("Inserisci l'ID del servizio da eliminare o premi 'q' per tornare indietro: ");
+                    }
+                }
+            }
+
+            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        if (!operazioneAnnullata) {
+            System.out.println(" ");
+            System.out.println(" ");
+            menuManager.mostraMenuServizi(scanner);
+        }
+
     }
+
+
+
+
+
 
 
 

@@ -34,12 +34,12 @@ Elimina volontari
 
 SERVIZI
 Aggiunta servizio
-//non permettere venga inserita data precedente ad oggi o data vuota
-//TODO non permettere venga inserita ora precedente  ad ora se inserisco un servizio per il giorno odierno o ora vuota
-//TODO Dopo aver aggiunto il servizio rimandare al menu mezzi
+// non permettere venga inserita data precedente ad oggi o data vuota
+// non permettere venga inserita ora precedente  ad ora se inserisco un servizio per il giorno odierno o ora vuota
+// Dopo aver aggiunto il servizio rimandare al menu mezzi
 Elimina servizio
-//TODO metti che admin vede lista servizi e sceglie il servizio da eliminare in base al suo ID
-//TODO Dopo aver eliminato il servizio rimandare al menu servizi
+// metti che admin vede lista servizi e sceglie il servizio da eliminare in base al suo ID
+// Dopo aver eliminato il servizio rimandare al menu servizi
 Modifica servizio
 //TODO metti che admin vede lista servizi e sceglie il servizio da modificare in base al suo ID
 //TODO Dopo aver modificato il servizio rimandare al menu servizi
