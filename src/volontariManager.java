@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class volontariManager {
 
     private static Connection connection;
+
     public volontariManager(Connection connection) {
         this.connection = connection;
     }
@@ -136,7 +137,7 @@ public class volontariManager {
     }
 
 
-    public static void accesso(Scanner scanner,boolean sceltaValida) {
+    public static void accesso(Scanner scanner, boolean sceltaValida) {
         sceltaValida = true;
         System.out.print("Inserisci il codice fiscale: ");
         String codicefiscale = scanner.nextLine();
@@ -182,7 +183,7 @@ public class volontariManager {
                     menuManager.mostraMenuAdmin(scanner);
                 } else {
                     // Mostra il menu per gli utenti non amministratori
-                    menuManager.mostraMenuUtenteNormale(scanner,matricolaVolontario);
+                    menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
                 }
             } else {
                 System.out.println("Accesso negato. Codice fiscale o password errati.");
@@ -196,6 +197,7 @@ public class volontariManager {
             e.printStackTrace();
         }
     }
+
     public static void modificaAnagrafeVolontari(Scanner scanner) {
         scanner.nextLine();
         try {
@@ -208,7 +210,7 @@ public class volontariManager {
                 String nome = resultSet.getString("Nome");
                 String cognome = resultSet.getString("Cognome");
                 String codiceFiscale = resultSet.getString("codice_fiscale");
-                System.out.println("Nome: "+nome + " | Cognome: " + cognome + " | CF: (" + codiceFiscale + ")");
+                System.out.println("Nome: " + nome + " | Cognome: " + cognome + " | CF: (" + codiceFiscale + ")");
             }
 
             boolean volontarioTrovato = false;
@@ -282,6 +284,7 @@ public class volontariManager {
         }
         menuManager.mostraMenuVolontari(scanner);
     }
+
     public static void eliminaVolontario(Scanner scanner) {
         scanner.nextLine();
         try {
@@ -385,9 +388,6 @@ public class volontariManager {
     }
 
 
-
-
-
     public static void inserisciDisponibilita(Scanner scanner, int matricolaVolontario) {
         String dataDisponibilita = "";
 
@@ -453,6 +453,7 @@ public class volontariManager {
             e.printStackTrace();
         }
     }
+
     public static void rimuoviDisponibilita(Scanner scanner, int matricolaVolontario) {
         scanner.nextLine();
 
@@ -531,6 +532,7 @@ public class volontariManager {
             e.printStackTrace();
         }
     }
+
     public static void visualizzaServiziAssegnati(Scanner scanner, int matricolaVolontario) {
         try {
             String query = "SELECT * FROM Servizi WHERE Autista = ? OR Soccorritore = ?";
@@ -561,7 +563,6 @@ public class volontariManager {
     }
 
 
-
     public static void visualizzaDisponibilitaENotificheNonLette(Scanner scanner) {
         try {
             // Recupera le disponibilità non confermate
@@ -574,7 +575,7 @@ public class volontariManager {
                 int matricolaVolontario = disponibilitaResultSet.getInt("matricola_volontario");
                 String dataDisponibilita = disponibilitaResultSet.getString("data_disponibilita");
                 String tipologia = disponibilitaResultSet.getString("tipologia");
-                System.out.println("Matricola: " + matricolaVolontario + " - Data Disponibilità: " + dataDisponibilita+ " - Tipologia: " + tipologia);
+                System.out.println("Matricola: " + matricolaVolontario + " - Data Disponibilità: " + dataDisponibilita + " - Tipologia: " + tipologia);
 
             }
             System.out.println(" ");
@@ -600,6 +601,7 @@ public class volontariManager {
         scanner.nextLine();
         menuManager.mostraMenuAdmin(scanner);
     }
+
     public static boolean ciSonoDisponibilitaENotificheNonLette() {
         try {
             // Verifica se ci sono disponibilità non confermate
@@ -626,8 +628,6 @@ public class volontariManager {
     }
 
 
-
-
     public static boolean haDisponibilita(int matricolaVolontario) {
         try {
             String query = "SELECT COUNT(*) FROM Disponibilita WHERE matricola_volontario = ?";
@@ -644,6 +644,7 @@ public class volontariManager {
         }
         return false; // In caso di errore o nessuna disponibilità
     }
+
     public static boolean haServiziAssegnati(int matricolaVolontario) {
         try {
             String query = "SELECT * FROM Servizi WHERE Autista = ? OR Soccorritore = ?";
@@ -661,7 +662,37 @@ public class volontariManager {
     }
 
 
+    public static void mostraListaVolontari(Scanner scanner) {
+        try {
+            // Prepara la query per ottenere la lista di tutti i volontari
+            String query = "SELECT * FROM Volontari WHERE id <> 0";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
 
+            // Esegui la query
+            ResultSet resultSet = preparedStatement.executeQuery();
 
+            // Mostra i volontari nella lista
+            System.out.println("Lista dei volontari:");
+            while (resultSet.next()) {
+                int matricola = resultSet.getInt("id");
+                String nome = resultSet.getString("Nome");
+                String cognome = resultSet.getString("Cognome");
+                String codiceFiscale = resultSet.getString("codice_fiscale");
+                String qualifica = resultSet.getString("Qualifica");
 
+                System.out.println("Matricola: " + matricola + " | Nome: " + nome + " | Cognome: " + cognome + " | Codice Fiscale: " + codiceFiscale + " | Qualifica: " + qualifica);
+            }
+
+            // Chiudi le risorse
+            preparedStatement.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Premi un tasto qualsiasi per tornare al menu precedente...");
+        scanner.nextLine();
+        scanner.nextLine();
+        System.out.println(" ");
+        menuManager.mostraMenuVolontari(scanner);
+    }
 }

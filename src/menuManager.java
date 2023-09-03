@@ -177,7 +177,8 @@ public class menuManager {
         System.out.println("Menu Gestione Volontari:");
         System.out.println("1. Modifica anagrafe volontari");
         System.out.println("2. Elimina volontari");
-        System.out.println("3. Torna al menu amministratore");
+        System.out.println("3. Mostra tutti i volontari");
+        System.out.println("4. Torna al menu amministratore");
         System.out.println("Seleziona un'opzione:");
 
         int choice = scanner.nextInt();
@@ -190,6 +191,9 @@ public class menuManager {
                 volontariManager.eliminaVolontario(scanner);
                 break;
             case 3:
+                volontariManager.mostraListaVolontari(scanner);
+                break;
+            case 4:
                 mostraMenuAdmin(scanner);
                 break;
             default:
