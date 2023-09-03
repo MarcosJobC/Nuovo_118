@@ -219,7 +219,7 @@ public class menuManager {
                 serviziManager.eliminaServizio(scanner);
                 break;
             case 4:
-                assegnazioneAutomatica.assegnaAutomaticamente();
+                assegnazioneAutomatica.assegnaAutomaticamente(scanner);
                 break;
             case 5:
                 mostraMenuAdmin(scanner);

@@ -475,7 +475,7 @@ public class serviziManager {
 
             if (!input.isEmpty()) {
                 int idRichiestaDaAccettare = Integer.parseInt(input);
-                accettaRichiestaRimozione(idRichiestaDaAccettare);
+                accettaRichiestaRimozione(idRichiestaDaAccettare, scanner);
             } else {
                 // L'utente ha lasciato vuoto, torna indietro
                 menuManager.mostraMenuAdmin(scanner);
@@ -486,7 +486,7 @@ public class serviziManager {
             e.printStackTrace();
         }
     }
-    public static void accettaRichiestaRimozione(int idRichiesta) {
+    public static void accettaRichiestaRimozione(int idRichiesta, Scanner scanner) {
         try {
             String query = "SELECT * FROM Disponibilita WHERE ID_disponibilita = ? AND Richiesta_Rimozione = true";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -504,9 +504,13 @@ public class serviziManager {
                 cancellaRichiestaRimozione(idRichiesta);
 
                 System.out.println("Richiesta di rimozione accettata. L'assegnazione del volontario al servizio è stata rimossa e la richiesta è stata cancellata.");
+                System.out.println(" ");
+                System.out.println(" ");
+                menuManager.mostraMenuAdmin(scanner);
             } else {
-                System.out.println("Richiesta di rimozione non valida.");
-                //TODO rimanda la lista delle richieste di rimozione - visualizzaRichiesteRimozione();
+                System.out.println("ID non valido - Inserisci l'ID corretto.");
+                //TODO rimanda la lista delle richieste di rimozione [FATTO SOTTO MA NON MI CONVINCE - VORREI MI RICHIEDESSE SOLO L'ID SENZA MOSTRARE DI NUOVO LA LISTA]
+                visualizzaRichiesteRimozione(scanner);
             }
 
             preparedStatement.close();

@@ -18,10 +18,13 @@ public class assegnazioneAutomatica {
 
 
     //ASSEGNAZIONE AUTOMATICA VOLONTARI A SERVIZI
-    public static void assegnaAutomaticamente() {
+    public static void assegnaAutomaticamente(Scanner scanner) {
         //Vengono assegnati prima tutti gli autisti e successivamente tutti i soccoritori
         assegnaAutistiAutomaticamente();
         assegnaSoccorritoriAutomaticamente();
+        System.out.println(" ");
+        System.out.println(" ");
+        menuManager.mostraMenuServizi(scanner);
     }
     public static void assegnaAutistiAutomaticamente() {
         try {

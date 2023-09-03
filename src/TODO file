@@ -51,15 +51,15 @@ Assegazione automatica servizi-volontari
 //TODO [NON PENSO SIA NECESSARIO] cambia formato data da String a Date in tabella e adegua il codice
 
 Visualizza disponibilità e notifiche non lette
-//TODO non far visualizzare la voce se non ce ne sono
+// non far visualizzare la voce se non ce ne sono
 
 
 
 Assegnazione automatica
-//TODO torna al menu servizi dopo aver assegnato automaticamente
+// torna al menu servizi dopo aver assegnato automaticamente
 
 //Accettazione rimozione disponibilità
-//TODO dopo aver accettato richiesta rimozione disponibilità torna al menu amministratore
+// dopo aver accettato richiesta rimozione disponibilità torna al menu amministratore
 
 
 

@@ -308,17 +308,6 @@ public class volontariManager {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
     public static void rimuoviDisponibilita(Scanner scanner, int matricolaVolontario) {
         scanner.nextLine();
 
@@ -397,8 +386,6 @@ public class volontariManager {
             e.printStackTrace();
         }
     }
-
-
     public static void visualizzaServiziAssegnati(Scanner scanner, int matricolaVolontario) {
         try {
             String query = "SELECT * FROM Servizi WHERE Autista = ? OR Soccorritore = ?";

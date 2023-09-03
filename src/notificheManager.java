@@ -47,7 +47,7 @@ public class notificheManager {
             notificheStatement.setInt(1, matricolaVolontario);
             ResultSet notificheResultSet = notificheStatement.executeQuery();
 
-            System.out.println("Notifiche:");
+            System.out.println("NOTIFICHE ASSEGNAZIONE SERVIZI:");
             while (notificheResultSet.next()) {
                 int idNotifica = notificheResultSet.getInt("Id");
                 String giornoAssegnato = notificheResultSet.getString("Giorno");
