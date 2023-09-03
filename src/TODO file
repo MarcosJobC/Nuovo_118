@@ -1,3 +1,7 @@
+//TODO Aggiungi sezione PAZIENTI
+//TODO Aggiungi-Modifica-Elimina Paziente
+//TODO Al posto PAZIENRE nel servizio ci dev'essere l'ID del paziente
+
 
 // all'accesso non si può lasciare i campi CF e password vuoti
 // Rimanda al menu iniziale dopo registrazione
