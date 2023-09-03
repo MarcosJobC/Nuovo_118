@@ -66,6 +66,5 @@ Assegnazione automatica
 
 -----------------------------------------------------UTENTI-----------------------------------------------------
 // Togli rimozione disponibiltà se non c'è alcuna disponibiltà data
-//TODO non è possibile inserire la disponibilità se la data inserita è antecedente ad oggi
-//TODO non è possibile inserire la disponibilità se la data inserita è oggi e l'orario è antecedente ad ora
+// non è possibile inserire la disponibilità se la data inserita è antecedente ad oggi
 // Togli visualizzazione servizi assegnati se non c'è alcun servizio asseganto

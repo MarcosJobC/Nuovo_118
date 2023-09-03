@@ -1,4 +1,7 @@
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class volontariManager {
@@ -240,20 +243,33 @@ public class volontariManager {
         menuManager.mostraMenuVolontari(scanner);
     }
 
-
-
     public static void inserisciDisponibilita(Scanner scanner, int matricolaVolontario) {
-
         String dataDisponibilita = "";
+
+        LocalDate dataOggi = LocalDate.now();
+
         while (dataDisponibilita.isEmpty()) {
-            System.out.print("Inserisci la data della disponibilità (dd-mm-yyyy): ");
+            System.out.print("Inserisci la data della disponibilità (dd-MM-yyyy): ");
             dataDisponibilita = scanner.nextLine();
 
             if (dataDisponibilita.isEmpty()) {
                 System.out.println("La data non può essere vuota. Riprova.");
+            } else {
+                try {
+                    // Converti la data della disponibilità in un oggetto LocalDate
+                    LocalDate dataInserita = LocalDate.parse(dataDisponibilita, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+                    // Verifica se la data inserita è antecedente a oggi
+                    if (dataInserita.isBefore(dataOggi)) {
+                        System.out.println("La data della disponibilità non può essere antecedente a oggi.");
+                        dataDisponibilita = ""; // Azzera la data per chiedere di nuovo
+                    }
+                } catch (DateTimeParseException e) {
+                    System.out.println("Formato data non valido. Utilizza il formato dd-MM-yyyy.");
+                    dataDisponibilita = ""; // Azzera la data per chiedere di nuovo
+                }
             }
         }
-
         System.out.print("Seleziona la tipologia del servizio: Emergenza(E) | Servizi sociali (S) | Centralino(C) | lascia vuoto per qualsiasi ruolo: ");
         String sceltaTipologia = scanner.nextLine().toUpperCase();
 
@@ -292,6 +308,17 @@ public class volontariManager {
             e.printStackTrace();
         }
     }
+
+
+
+
+
+
+
+
+
+
+
     public static void rimuoviDisponibilita(Scanner scanner, int matricolaVolontario) {
         scanner.nextLine();
 
