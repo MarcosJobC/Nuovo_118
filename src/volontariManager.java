@@ -1,7 +1,9 @@
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class volontariManager {
@@ -13,25 +15,102 @@ public class volontariManager {
 
 
     //GESTIONE VOLONTARI
-    public static void registrazione(Scanner scanner,boolean sceltaValida) {
+    public static void registrazione(Scanner scanner, boolean sceltaValida) {
         sceltaValida = true;
-        System.out.println("Inserisci il nome:");
+        System.out.print("Inserisci il nome: ");
         String nome = scanner.nextLine();
 
-        System.out.println("Inserisci il cognome:");
+        while (nome.isEmpty()) {
+            System.out.print("Il nome non può essere vuoto. Inserisci il nome: ");
+            nome = scanner.nextLine();
+        }
+
+        System.out.print("Inserisci il cognome: ");
         String cognome = scanner.nextLine();
 
-        System.out.println("Inserisci la data di nascita (dd-mm-yyyy):");
-        String dataDiNascita = scanner.nextLine();
+        while (cognome.isEmpty()) {
+            System.out.print("Il cognome non può essere vuoto. Inserisci il cognome: ");
+            cognome = scanner.nextLine();
+        }
 
-        System.out.println("Inserisci la qualifica:");
-        String qualifica = scanner.nextLine();
+        String dataDiNascita;
+        LocalDate dataNascita = null;
 
-        System.out.println("Inserisci il codice fiscale:");
+        while (true) {
+            System.out.print("Inserisci la data di nascita (dd-MM-yyyy): ");
+            dataDiNascita = scanner.nextLine();
+
+            if (dataDiNascita.isEmpty()) {
+                System.out.println("La data di nascita non può essere vuota. Riprova.");
+                continue;
+            }
+
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                dataNascita = LocalDate.parse(dataDiNascita, formatter);
+
+                // Calcola la differenza in anni tra la data di nascita e la data attuale
+                int anniDifferenza = Period.between(dataNascita, LocalDate.now()).getYears();
+
+                if (anniDifferenza < 16) {
+                    System.out.println("Devi avere almeno 16 anni per registrarti.");
+                    continue;
+                }
+
+                break;  // Esci dal ciclo se la data di nascita è valida
+
+            } catch (DateTimeParseException e) {
+                System.out.println("Formato data non valido. Utilizza il formato dd-MM-yyyy.");
+            }
+        }
+
+        int sceltaQualifica = 0;
+
+        while (sceltaQualifica < 1 || sceltaQualifica > 3) {
+            System.out.print("Scegli la qualifica tra: 1 AUTISTA | 2 SOCCORITORE | 3 CENTRALINISTA: ");
+
+            try {
+                sceltaQualifica = scanner.nextInt();
+                scanner.nextLine();  // Consuma il newline
+
+                if (sceltaQualifica < 1 || sceltaQualifica > 3) {
+                    System.out.println("Scelta non valida. Inserisci un numero tra 1|2|3.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Inserisci un numero valido.");
+                scanner.nextLine();  // Consuma l'input non valido
+            }
+        }
+
+        String qualifica = "";
+
+        switch (sceltaQualifica) {
+            case 1:
+                qualifica = "Autista";
+                break;
+            case 2:
+                qualifica = "Soccorritore";
+                break;
+            case 3:
+                qualifica = "Centralinista";
+                break;
+        }
+
+        System.out.print("Inserisci il codice fiscale: ");
         String codicefiscale = scanner.nextLine();
 
-        System.out.println("Inserisci la password:");
+        while (codicefiscale.isEmpty()) {
+            System.out.print("Il codice fiscale non può essere vuoto. Inserisci il codice fiscale: ");
+            codicefiscale = scanner.nextLine();
+        }
+
+        System.out.print("Inserisci la password: ");
         String password = scanner.nextLine();
+
+        while (password.isEmpty()) {
+            System.out.print("La password non può essere vuota. Inserisci la password: ");
+            password = scanner.nextLine();
+        }
 
         try {
             String query = "INSERT INTO Volontari (Nome, Cognome, data_di_nascita, Qualifica, codice_fiscale, Password, IsAdmin) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -51,7 +130,11 @@ public class volontariManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(" ");
+        System.out.println(" ");
+        menuManager.menuIniziale(scanner);
     }
+
 
     public static void accesso(Scanner scanner,boolean sceltaValida) {
         sceltaValida = true;
@@ -202,7 +285,7 @@ public class volontariManager {
     public static void eliminaVolontario(Scanner scanner) {
         scanner.nextLine();
         try {
-            String query = "SELECT * FROM Volontari";
+            String query = "SELECT * FROM Volontari WHERE id <> 0";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -211,13 +294,13 @@ public class volontariManager {
                 String nome = resultSet.getString("Nome");
                 String cognome = resultSet.getString("Cognome");
                 String codiceFiscale = resultSet.getString("codice_fiscale");
-                System.out.println("Nome: "+nome + " | Cognome: " + cognome + " | CF: (" + codiceFiscale + ")");
+                System.out.println("Nome: " + nome + " | Cognome: " + cognome + " | CF: (" + codiceFiscale + ")");
             }
 
             boolean volontarioTrovato = false;
 
             while (!volontarioTrovato) {
-                System.out.print("Inserisci il codice fiscale del volontario da modificare o premi 'q' per tornare al menu precedente: ");
+                System.out.print("Inserisci il codice fiscale del volontario da eliminare o premi 'q' per tornare al menu precedente: ");
                 String codiceFiscaleVolontario = scanner.nextLine();
 
                 if (codiceFiscaleVolontario.equalsIgnoreCase("q")) {
@@ -227,7 +310,7 @@ public class volontariManager {
                     menuManager.mostraMenuVolontari(scanner);
                 }
 
-                String verificaQuery = "SELECT * FROM Volontari WHERE Codice_fiscale = ?";
+                String verificaQuery = "SELECT * FROM Volontari WHERE codice_fiscale = ?";
                 PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
                 verificaStatement.setString(1, codiceFiscaleVolontario);
                 ResultSet risultatoVerifica = verificaStatement.executeQuery();
@@ -237,10 +320,50 @@ public class volontariManager {
                     String conferma = scanner.nextLine();
 
                     if (conferma.equalsIgnoreCase("s")) {
-                        String deleteQuery = "DELETE FROM Volontari WHERE Codice_fiscale = ?";
-                        PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
-                        deleteStatement.setString(1, codiceFiscaleVolontario);
-                        deleteStatement.executeUpdate();
+                        // Esegui il passaggio 1: Ottieni le notifiche associate al volontario
+                        int idVolontario = risultatoVerifica.getInt("id");
+
+                        String queryNotifiche = "SELECT * FROM Notifiche WHERE Matricola_Volontario = ?";
+                        PreparedStatement statementNotifiche = connection.prepareStatement(queryNotifiche);
+                        statementNotifiche.setInt(1, idVolontario);
+                        ResultSet risultatoNotifiche = statementNotifiche.executeQuery();
+
+                        // Esegui il passaggio 2: Elimina le notifiche associate al volontario
+                        while (risultatoNotifiche.next()) {
+                            int idNotifica = risultatoNotifiche.getInt("id");
+                            String deleteQueryNotifiche = "DELETE FROM Notifiche WHERE id = ?";
+                            PreparedStatement deleteStatementNotifiche = connection.prepareStatement(deleteQueryNotifiche);
+                            deleteStatementNotifiche.setInt(1, idNotifica);
+                            deleteStatementNotifiche.executeUpdate();
+                        }
+
+                        // Esegui il passaggio 3: Ottieni le disponibilità associate al volontario
+                        String queryDisponibilita = "SELECT * FROM Disponibilita WHERE Matricola_volontario = ?";
+                        PreparedStatement statementDisponibilita = connection.prepareStatement(queryDisponibilita);
+                        statementDisponibilita.setInt(1, idVolontario);
+                        ResultSet risultatoDisponibilita = statementDisponibilita.executeQuery();
+
+                        // Esegui il passaggio 4: Elimina le disponibilità associate al volontario
+                        while (risultatoDisponibilita.next()) {
+                            int idDisponibilita = risultatoDisponibilita.getInt("id_disponibilita");
+                            String deleteQueryDisponibilita = "DELETE FROM Disponibilita WHERE id_disponibilita = ?";
+                            PreparedStatement deleteStatementDisponibilita = connection.prepareStatement(deleteQueryDisponibilita);
+                            deleteStatementDisponibilita.setInt(1, idDisponibilita);
+                            deleteStatementDisponibilita.executeUpdate();
+                        }
+
+                        // Esegui il passaggio 5: Elimina il volontario
+                        String deleteQueryVolontario = "DELETE FROM Volontari WHERE codice_fiscale = ?";
+                        PreparedStatement deleteStatementVolontario = connection.prepareStatement(deleteQueryVolontario);
+                        deleteStatementVolontario.setString(1, codiceFiscaleVolontario);
+                        deleteStatementVolontario.executeUpdate();
+
+                        // Passaggio aggiuntivo: Imposta a 0 i campi Autista e Soccorritore nella tabella Servizi
+                        String updateQueryServizi = "UPDATE Servizi SET Autista = 0, Soccorritore = 0 WHERE Autista = ? OR Soccorritore = ?";
+                        PreparedStatement updateStatementServizi = connection.prepareStatement(updateQueryServizi);
+                        updateStatementServizi.setInt(1, idVolontario);
+                        updateStatementServizi.setInt(2, idVolontario);
+                        updateStatementServizi.executeUpdate();
 
                         System.out.println("Volontario eliminato con successo!");
                         System.out.println("  ");
@@ -260,6 +383,10 @@ public class volontariManager {
         }
         menuManager.mostraMenuVolontari(scanner);
     }
+
+
+
+
 
     public static void inserisciDisponibilita(Scanner scanner, int matricolaVolontario) {
         String dataDisponibilita = "";

@@ -1,9 +1,11 @@
 
 // all'accesso non si può lasciare i campi CF e password vuoti
-//TODO QUALIFICA VOLONTARIO TRA AUTISTA-SOCCORITORE-TIROCINANTE-CENTRALINISTA
-//TODO dopo registrazione rimanda a menu principale
-//TODO problema quando si vuole eliminare un volontario che ha notifiche, con il voglontario devono andare via anche le notifiche
-//TODO non permettere venga inserita data di nascita volontari successiva ad oggi o data vuota durante registrazione
+// Rimanda al menu iniziale dopo registrazione
+// QUALIFICA VOLONTARIO TRA AUTISTA-SOCCORITORE-TIROCINANTE-CENTRALINISTA
+// si può registrare solo chi ha almeno 16 anni e data non deve esser vuota
+// dopo registrazione rimanda a menu principale
+// problema quando si vuole eliminare un volontario che ha notifiche, con il volontario devono andare via anche le notifiche e le disponibilità e i servizi assegnati
+// lista volontari da eliminare fa si che non si veda il volontario null (metti not null in query)
 
 -----------------------------------------------------ADMIN-----------------------------------------------------
 
