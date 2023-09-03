@@ -20,7 +20,7 @@ Sono state implementate azioni come aggiunta-modifica-rimozione volontari per am
 • Monitoraggio dell'Attività: Gli amministratori e i volontari possono monitorare l'attività giornaliera e settimanale con un alto livello di dettaglio, visualizzando tutti i servizi da evadere, i turni da coprire con mezzi e personale a seguito.
 
 
-------------------------Modifiche effettuate nel corso del tempo------------------------------
+------------------------------------------------Modifiche effettuate nel corso del tempo--------------------------------------
 Certamente, ecco un riassunto delle modifiche e dei miglioramenti proposti per il sistema, sia dal punto di vista dell'amministratore che degli utenti:
 
 Per gli Amministratori:
