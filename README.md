@@ -1,10 +1,13 @@
+# Gestionale 118
+
 L'obiettivo primario del programma è fornire una piattaforma avanzata e intuitiva che metta a disposizione degli operatori gli strumenti essenziali per una gestione efficiente e accurata delle risorse all'interno di un'organizzazione di soccorso.
 
-Funzionamento: Ho implementato il programma utilizzando il linguaggio di programmazione Java, affiancato da un database relazionale PostgreSQL dedicato alla gestione e memorizzazione delle informazioni. Attraverso questo sistema, gli operatori possono accedere utilizzando credenziali personali, ciascuno con un accesso differenziato in base al proprio ruolo (amministratore o volontario).
+### Funzionamento
+Ho implementato il programma utilizzando il linguaggio di programmazione Java, affiancato da un database relazionale PostgreSQL dedicato alla gestione e memorizzazione delle informazioni. Attraverso questo sistema, gli operatori possono accedere utilizzando credenziali personali, ciascuno con un accesso differenziato in base al proprio ruolo (amministratore o volontario).
 
 
 
-Principali Caratteristiche del Programma:
+### Principali Caratteristiche del Programma:
 
 • Accesso Differenziato: Il sistema consente l'accesso attraverso ruoli distinti (amministratore o volontario -riconosciuto automaticamente durante il login-), ciascuno con autorizzazioni ed azioni specifiche.
 
@@ -20,59 +23,63 @@ Sono state implementate azioni come aggiunta-modifica-rimozione volontari per am
 • Monitoraggio dell'Attività: Gli amministratori e i volontari possono monitorare l'attività giornaliera e settimanale con un alto livello di dettaglio, visualizzando tutti i servizi da evadere, i turni da coprire con mezzi e personale a seguito.
 
 
-## Modifiche effettuate nel corso del tempo...
+## Miglioramenti effettuate nel corso del tempo...
 
-Certamente, ecco un riassunto delle modifiche e dei miglioramenti proposti per il sistema, sia dal punto di vista dell'amministratore che degli utenti:
-
-Per gli Amministratori:
-
-Gestione Pazienti:
-
+### Per gli Amministratori:
+#### Gestione Pazienti:
 Aggiunta una sezione per gestire i pazienti.
 Possibilità di aggiungere, modificare ed eliminare pazienti.
-Modifica del servizio per includere l'ID del paziente al posto del nome.
-Accesso:
+Modifica del servizio per includere l'ID del paziente al posto del nome paziente (privacy).
 
+
+#### Menu iniziale
 Non consentire l'accesso se i campi CF (Codice Fiscale) e password sono vuoti.
 Reindirizzamento al menu iniziale dopo la registrazione.
 Qualifica Volontario:
 
-I volontari possono essere registrati solo se hanno almeno 16 anni e una data di nascita valida.
-Reindirizzamento al menu principale dopo la registrazione.
-Eliminazione Volontari:
-
+#### Eliminazione Volontari:
 Risolvere il problema delle notifiche, disponibilità e servizi associati quando si elimina un volontario.
 Modifica Mezzi:
 
 Migliorare la formattazione dei dati dei mezzi (Sigla mezzo, Targa, Tipologia).
 Assicurarsi che venga selezionata solo la tipologia corretta (1, 2 o 3).
 Reindirizzamento al menu mezzi dopo la modifica.
-Eliminazione Mezzi:
 
+#### Eliminazione Mezzi:
 Gestire la situazione in cui viene inserita una sigla mezzo errata.
 Reindirizzamento al menu mezzi dopo l'eliminazione.
-Modifica Anagrafe Volontari:
 
+#### Modifica Anagrafe Volontari:
 Migliorare la formattazione dei dati dei volontari (Codice fiscale, Nome, Cognome, ecc.).
 Semplificare le richieste di modifica.
 Reindirizzamento al menu volontari dopo la modifica.
-Eliminazione Volontari:
 
+#### Eliminazione Volontari:
 Migliorare la formattazione dei dati dei volontari (Codice fiscale, Nome, Cognome, ecc.).
 Reindirizzamento al menu volontari dopo l'eliminazione.
-Gestione Servizi:
 
+#### Gestione Servizi:
 Non permettere di inserire date o orari precedenti o vuoti.
 Reindirizzamento al menu servizi dopo l'aggiunta o la modifica dei servizi.
-Visualizzazione Disponibilità e Notifiche:
 
+#### Visualizzazione Disponibilità e Notifiche:
 Nascondere la voce se non ci sono disponibilità o notifiche non lette.
-Assegnazione Automatica:
 
+#### Assegnazione Automatica:
 Tornare al menu servizi dopo aver assegnato automaticamente i servizi.
-Per gli Utenti:
 
-Rimozione Disponibilità: Rimuovere l'opzione di rimozione se non ci sono disponibilità date.
-Inserimento Disponibilità: Impedire l'inserimento di date precedenti a oggi.
-Visualizzazione Servizi Assegnati: Nascondere la voce se non ci sono servizi assegnati.
-Questi miglioramenti mirano a rendere il sistema più user-friendly, a gestire in modo più accurato i dati e a risolvere eventuali problemi di flusso di lavoro. Spero che questo riassunto ti aiuti a tenere traccia delle modifiche necessarie per il tuo sistema.
+
+
+### Per gli Utenti:
+#### Generali
+I volontari possono essere registrati solo se hanno almeno 16 anni e una data di nascita valida.
+Reindirizzamento al menu principale dopo la registrazione.
+#### Rimozione Disponibilità:
+Rimuovere l'opzione di rimozione se non ci sono disponibilità date.
+
+#### Inserimento Disponibilità:
+Impedire l'inserimento di date precedenti a oggi.
+
+#### Visualizzazione Servizi Assegnati:
+Nascondere la voce se non ci sono servizi assegnati.
+
