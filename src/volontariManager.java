@@ -70,6 +70,8 @@ public class volontariManager {
                 boolean isAdmin = resultSet.getString("isadmin").equalsIgnoreCase("True");
 
                 System.out.println("Accesso consentito!");
+                System.out.println(" ");
+                System.out.println(" ");
 
                 if (isAdmin) {
                     // Mostra il menu per gli utenti amministratori
@@ -244,7 +246,7 @@ public class volontariManager {
 
         String dataDisponibilita = "";
         while (dataDisponibilita.isEmpty()) {
-            System.out.print("Inserisci la data della disponibilità (dd/mm/yyyy): ");
+            System.out.print("Inserisci la data della disponibilità (dd-mm-yyyy): ");
             dataDisponibilita = scanner.nextLine();
 
             if (dataDisponibilita.isEmpty()) {
@@ -399,6 +401,8 @@ public class volontariManager {
         }
     }
 
+
+
     public static void visualizzaDisponibilitaENotificheNonLette(Scanner scanner) {
         try {
             // Recupera le disponibilità non confermate
@@ -437,23 +441,66 @@ public class volontariManager {
         scanner.nextLine();
         menuManager.mostraMenuAdmin(scanner);
     }
-
-
-
-    public static boolean haDisponibilita(int matricolaVolontario) {
+    public static boolean ciSonoDisponibilitaENotificheNonLette() {
         try {
-            String query = "SELECT * FROM Disponibilita WHERE Matricola_volontario = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, matricolaVolontario);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            // Verifica se ci sono disponibilità non confermate
+            String disponibilitaQuery = "SELECT COUNT(*) FROM Disponibilita WHERE confermata = 'Non confermata'";
+            PreparedStatement disponibilitaStatement = connection.prepareStatement(disponibilitaQuery);
+            ResultSet disponibilitaResultSet = disponibilitaStatement.executeQuery();
+            disponibilitaResultSet.next();
+            int conteggioDisponibilitaNonConfermate = disponibilitaResultSet.getInt(1);
 
-            return resultSet.next(); // Restituisci true se ci sono disponibilità, altrimenti false
+            // Verifica se ci sono notifiche non lette
+            String notificheQuery = "SELECT COUNT(*) FROM Notifiche WHERE Letta = false";
+            PreparedStatement notificheStatement = connection.prepareStatement(notificheQuery);
+            ResultSet notificheResultSet = notificheStatement.executeQuery();
+            notificheResultSet.next();
+            int conteggioNotificheNonLette = notificheResultSet.getInt(1);
+
+            // Restituisci true se ci sono disponibilità non confermate o notifiche non lette, altrimenti false
+            return conteggioDisponibilitaNonConfermate > 0 || conteggioNotificheNonLette > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
             return false; // Gestione delle eccezioni: se si verifica un errore, restituisci false di default
         }
     }
+
+
+
+
+    public static boolean haDisponibilita(int matricolaVolontario) {
+        try {
+            String query = "SELECT COUNT(*) FROM Disponibilita WHERE matricola_volontario = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, matricolaVolontario);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int numeroDisponibilita = resultSet.getInt(1);
+                return numeroDisponibilita > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // In caso di errore o nessuna disponibilità
+    }
+    public static boolean haServiziAssegnati(int matricolaVolontario) {
+        try {
+            String query = "SELECT * FROM Servizi WHERE Autista = ? OR Soccorritore = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, matricolaVolontario);
+            preparedStatement.setInt(2, matricolaVolontario);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            return resultSet.next(); // Restituisci true se ci sono servizi assegnati, altrimenti false
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Gestione delle eccezioni: se si verifica un errore, restituisci false di default
+        }
+    }
+
 
 
 

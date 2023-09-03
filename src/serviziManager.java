@@ -24,7 +24,7 @@ public class serviziManager {
         LocalTime orarioOggi = LocalTime.now();
         LocalTime orarioServizio = null;
 
-        System.out.print("Inserisci la data del servizio (dd-mm-yyyy): ");
+        System.out.print("Inserisci la data del servizio (dd-MM-yyyy): ");
         String dataServizio = scanner.nextLine();
 
         try {
@@ -35,26 +35,25 @@ public class serviziManager {
             if (dataInserita.isBefore(dataOggi)) {
                 System.out.println("La data del servizio non può essere antecedente a oggi.");
                 aggiungiServizio(scanner);
+                return; // Termina il metodo in modo da evitare richieste aggiuntive
             }
 
-            // Se la data è oggi, verifica anche l'orario
-            if (dataInserita.isEqual(dataOggi)) {
-                boolean orarioValido = false;
+            boolean orarioValido = false;
 
-                do {
-                    System.out.println("Inserisci l'orario del servizio (HH:MM):");
-                    String orarioString = scanner.nextLine();
+            do {
+                System.out.print("Inserisci l'orario del servizio (HH:mm): ");
+                String orarioString = scanner.nextLine();
 
-                    LocalTime localTime = LocalTime.parse(orarioString, DateTimeFormatter.ofPattern("HH:mm"));
+                LocalTime localTime = LocalTime.parse(orarioString, DateTimeFormatter.ofPattern("HH:mm"));
 
-                    if (localTime.isBefore(orarioOggi)) {
-                        System.out.println("L'orario del servizio non può essere antecedente all'orario attuale.");
-                    } else {
-                        orarioServizio = localTime;
-                        orarioValido = true;
-                    }
-                } while (!orarioValido);
-            }
+                if (dataInserita.isEqual(dataOggi) && localTime.isBefore(orarioOggi)) {
+                    System.out.println("L'orario del servizio non può essere antecedente all'orario attuale.");
+                } else {
+                    orarioServizio = localTime;
+                    orarioValido = true;
+                }
+            } while (!orarioValido);
+
 
             String paziente = "";
             while (paziente.isEmpty()) {
