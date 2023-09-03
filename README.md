@@ -18,3 +18,60 @@ Sono state implementate azioni come aggiunta-modifica-rimozione volontari per am
 • Gestione dei Mezzi: Il sistema consente una gestione precisa e dettagliata dell'inventario dei mezzi a disposizione. Sono state implementate azioni come aggiunta-modifica-rimozione mezzi per amministratori.
 
 • Monitoraggio dell'Attività: Gli amministratori e i volontari possono monitorare l'attività giornaliera e settimanale con un alto livello di dettaglio, visualizzando tutti i servizi da evadere, i turni da coprire con mezzi e personale a seguito.
+
+
+------------------------Modifiche effettuate nel corso del tempo------------------------------
+Certamente, ecco un riassunto delle modifiche e dei miglioramenti proposti per il sistema, sia dal punto di vista dell'amministratore che degli utenti:
+
+Per gli Amministratori:
+
+Gestione Pazienti:
+
+Aggiunta una sezione per gestire i pazienti.
+Possibilità di aggiungere, modificare ed eliminare pazienti.
+Modifica del servizio per includere l'ID del paziente al posto del nome.
+Accesso:
+
+Non consentire l'accesso se i campi CF (Codice Fiscale) e password sono vuoti.
+Reindirizzamento al menu iniziale dopo la registrazione.
+Qualifica Volontario:
+
+I volontari possono essere registrati solo se hanno almeno 16 anni e una data di nascita valida.
+Reindirizzamento al menu principale dopo la registrazione.
+Eliminazione Volontari:
+
+Risolvere il problema delle notifiche, disponibilità e servizi associati quando si elimina un volontario.
+Modifica Mezzi:
+
+Migliorare la formattazione dei dati dei mezzi (Sigla mezzo, Targa, Tipologia).
+Assicurarsi che venga selezionata solo la tipologia corretta (1, 2 o 3).
+Reindirizzamento al menu mezzi dopo la modifica.
+Eliminazione Mezzi:
+
+Gestire la situazione in cui viene inserita una sigla mezzo errata.
+Reindirizzamento al menu mezzi dopo l'eliminazione.
+Modifica Anagrafe Volontari:
+
+Migliorare la formattazione dei dati dei volontari (Codice fiscale, Nome, Cognome, ecc.).
+Semplificare le richieste di modifica.
+Reindirizzamento al menu volontari dopo la modifica.
+Eliminazione Volontari:
+
+Migliorare la formattazione dei dati dei volontari (Codice fiscale, Nome, Cognome, ecc.).
+Reindirizzamento al menu volontari dopo l'eliminazione.
+Gestione Servizi:
+
+Non permettere di inserire date o orari precedenti o vuoti.
+Reindirizzamento al menu servizi dopo l'aggiunta o la modifica dei servizi.
+Visualizzazione Disponibilità e Notifiche:
+
+Nascondere la voce se non ci sono disponibilità o notifiche non lette.
+Assegnazione Automatica:
+
+Tornare al menu servizi dopo aver assegnato automaticamente i servizi.
+Per gli Utenti:
+
+Rimozione Disponibilità: Rimuovere l'opzione di rimozione se non ci sono disponibilità date.
+Inserimento Disponibilità: Impedire l'inserimento di date precedenti a oggi.
+Visualizzazione Servizi Assegnati: Nascondere la voce se non ci sono servizi assegnati.
+Questi miglioramenti mirano a rendere il sistema più user-friendly, a gestire in modo più accurato i dati e a risolvere eventuali problemi di flusso di lavoro. Spero che questo riassunto ti aiuti a tenere traccia delle modifiche necessarie per il tuo sistema.
