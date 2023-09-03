@@ -52,13 +52,31 @@ public class volontariManager {
             e.printStackTrace();
         }
     }
+
     public static void accesso(Scanner scanner,boolean sceltaValida) {
         sceltaValida = true;
-        System.out.println("Inserisci il codice fiscale:");
+        System.out.print("Inserisci il codice fiscale: ");
         String codicefiscale = scanner.nextLine();
 
-        System.out.println("Inserisci la password:");
+        while (codicefiscale.isEmpty()) {
+            System.out.print("Il codice fiscale non può essere vuoto. Inserisci il codice fiscale o scrivi exit per uscire: ");
+            codicefiscale = scanner.nextLine();
+            if (codicefiscale.equalsIgnoreCase("exit")) {
+                sceltaValida = false;
+                System.out.println(" ");
+                System.out.println(" ");
+                menuManager.menuIniziale(scanner);
+                return; // Esci dal metodo per evitare ulteriori operazioni
+            }
+        }
+
+        System.out.print("Inserisci la password: ");
         String password = scanner.nextLine();
+
+        while (password.isEmpty()) {
+            System.out.print("La password non può essere vuota. Inserisci la password: ");
+            password = scanner.nextLine();
+        }
 
         try {
             String query = "SELECT * FROM Volontari WHERE Codice_fiscale = ? AND Password = ?";

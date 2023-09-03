@@ -1,42 +1,44 @@
 
-//TODO all'accesso non si può lasciare i campi CF e password vuoti
+// all'accesso non si può lasciare i campi CF e password vuoti
 //TODO QUALIFICA VOLONTARIO TRA AUTISTA-SOCCORITORE-TIROCINANTE-CENTRALINISTA
 //TODO dopo registrazione rimanda a menu principale
 //TODO problema quando si vuole eliminare un volontario che ha notifiche, con il voglontario devono andare via anche le notifiche
 //TODO non permettere venga inserita data di nascita volontari successiva ad oggi o data vuota durante registrazione
 
 -----------------------------------------------------ADMIN-----------------------------------------------------
-MEZZI
+
 Aggiunta mezzo
 // Non può esser lasciato vuoto alcun campo nell'aggiunta del mezzo nuovo
 // Metti che dev'esser selezionato solo 1|2|3 per la scelta della tipologia mezzo, sennò viene richiesto di inserire ancora fino al numero giusto
 // Dopo aver aggiunto il mezzo rimandare al menu mezzi
+
 Modifica mezzo
 // inserire la formattazione Sigla mezzo: | Targa: | Tipologia: etc etc
 // Metti che dev'esser selezionato solo 1|2|3 per la scelta della tipologia mezzo, sennò viene richiesto di inserire ancora fino al numero giusto
 // Dopo aver modificato il mezzo rimandare al menu mezzi
+
 Eliminazione mezzo
 // Se viene inserita la sigla mezzo errata continua a chiederla oppure chiede di annullare l'eliminazione
 // Dopo aver eliminato il mezzo rimandare al menu mezzi
 
 
-VOLONTARI
 Modifica anagrafe volontari
 // inserire la formattazione Codice fiscale: | Nome: | Cognome: etc etc
 // chiedere "Inserisci il codice fiscale del volontario da modificare (oppure premi q per tornare al menu precedente):"
 // togliere spazi tra richieste modifica nome-cognome-etc-etc
 // Dopo aver modificato il volontario rimandare al menu volontari
+
 Elimina volontari
 // inserire la formattazione Codice fiscale: | Nome: | Cognome: etc etc
 // chiedere "Inserisci il codice fiscale del volontario da modificare (oppure premi q per tornare al menu precedente):"
 // Dopo aver eliminato il volontario rimandare al menu volontari
 
 
-SERVIZI
 Aggiunta servizio
 // non permettere venga inserita data precedente ad oggi o data vuota
 // non permettere venga inserita ora precedente  ad ora se inserisco un servizio per il giorno odierno o ora vuota
 // Dopo aver aggiunto il servizio rimandare al menu mezzi
+
 Modifica servizio
 // metti che admin vede lista servizi e sceglie il servizio da modificare in base al suo ID
 // Dopo aver modificato il servizio rimandare al menu servizi
@@ -47,13 +49,8 @@ Elimina servizio
 // metti che admin vede lista servizi e sceglie il servizio da eliminare in base al suo ID
 // Dopo aver eliminato il servizio rimandare al menu servizi
 
-Assegazione automatica servizi-volontari
-//TODO [NON PENSO SIA NECESSARIO] cambia formato data da String a Date in tabella e adegua il codice
-
 Visualizza disponibilità e notifiche non lette
 // non far visualizzare la voce se non ce ne sono
-
-
 
 Assegnazione automatica
 // torna al menu servizi dopo aver assegnato automaticamente
