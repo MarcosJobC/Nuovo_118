@@ -244,7 +244,7 @@ public class volontariManager {
 
         String dataDisponibilita = "";
         while (dataDisponibilita.isEmpty()) {
-            System.out.println("Inserisci la data della disponibilità (dd/mm/yyyy):");
+            System.out.print("Inserisci la data della disponibilità (dd/mm/yyyy): ");
             dataDisponibilita = scanner.nextLine();
 
             if (dataDisponibilita.isEmpty()) {
@@ -252,7 +252,7 @@ public class volontariManager {
             }
         }
 
-        System.out.println("Seleziona la tipologia del servizio: Emergenza(E) | Servizi sociali (S) | Centralino(C) | lascia vuoto per qualsiasi ruolo");
+        System.out.print("Seleziona la tipologia del servizio: Emergenza(E) | Servizi sociali (S) | Centralino(C) | lascia vuoto per qualsiasi ruolo: ");
         String sceltaTipologia = scanner.nextLine().toUpperCase();
 
         String tipologia;
@@ -291,6 +291,8 @@ public class volontariManager {
         }
     }
     public static void rimuoviDisponibilita(Scanner scanner, int matricolaVolontario) {
+        scanner.nextLine();
+
         try {
             String query = "SELECT * FROM Disponibilita WHERE Matricola_volontario = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -437,6 +439,21 @@ public class volontariManager {
     }
 
 
+
+    public static boolean haDisponibilita(int matricolaVolontario) {
+        try {
+            String query = "SELECT * FROM Disponibilita WHERE Matricola_volontario = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, matricolaVolontario);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            return resultSet.next(); // Restituisci true se ci sono disponibilità, altrimenti false
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Gestione delle eccezioni: se si verifica un errore, restituisci false di default
+        }
+    }
 
 
 

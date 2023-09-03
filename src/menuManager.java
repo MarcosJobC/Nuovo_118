@@ -40,7 +40,12 @@ public class menuManager {
     public static void mostraMenuUtenteNormale(Scanner scanner, int matricolaVolontario) {
         System.out.println("Menu:");
         System.out.println("1. Dai disponibilità");
-        System.out.println("2. Rimuovi disponibilità");
+
+        // Verifica se l'utente ha disponibilità prima di mostrare l'opzione "Rimuovi disponibilità"
+        if (volontariManager.haDisponibilita(matricolaVolontario)) {
+            System.out.println("2. Rimuovi disponibilità");
+        }
+
         System.out.println("3. Visualizza servizi assegnati");
 
         // Controlla se ci sono notifiche non lette e mostra il punto 4 solo se necessario
@@ -60,7 +65,11 @@ public class menuManager {
                 volontariManager.inserisciDisponibilita(scanner, matricolaVolontario);
                 break;
             case 2:
-                volontariManager.rimuoviDisponibilita(scanner, matricolaVolontario);
+                if (volontariManager.haDisponibilita(matricolaVolontario)) {
+                    volontariManager.rimuoviDisponibilita(scanner, matricolaVolontario);
+                } else {
+                    System.out.println("Nessuna disponibilità da rimuovere.");
+                }
                 break;
             case 3:
                 volontariManager.visualizzaServiziAssegnati(scanner, matricolaVolontario);
@@ -77,6 +86,7 @@ public class menuManager {
                 mostraMenuUtenteNormale(scanner, matricolaVolontario);
         }
     }
+
     //MENU ADMIN
     public static void mostraMenuAdmin(Scanner scanner) {
         System.out.println("Menu Amministratore:");
