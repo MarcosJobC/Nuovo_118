@@ -68,8 +68,10 @@ Assegnazione automatica
 //Metodo di aggiunta paziente i campi non devono esser lasciati vuoti e la data di nascita non dev'esser successiva ad oggi
 
 // Aggiunta servizi modifica che ora paziente è un ID e non una stringa nome e cognome
-//TODO [IMPORTANTE] imposta variabile booleana che in aggiungi servizio se non viene trovato il paziente e va aggiunto diventa TRUE così da aggiungi paziente ritorna in automatica ad aggiungi servizio
+// Possibile aggiungere paziente durante creazione servizio
 // no case sensitive in ricera paziente aggiungi servizio
+//TODO quando voglio eliminare paziente non me lo fa eliminare se ci sono servizi a lui collegati fare avviso e rimozione servizio
+//TODO fare che il sistema una volta avviato rimuove tutti i servizi-disponibilità con data antecedente ad oggi
 
 
 

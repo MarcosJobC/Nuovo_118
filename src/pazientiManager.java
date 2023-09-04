@@ -173,13 +173,14 @@ public class pazientiManager {
 
             insertStatement.executeUpdate();
 
+            System.out.println(" ");
+            System.out.println(" ");
             System.out.println("Paziente aggiunto con successo, sei tornato in aggiungi servizio, ricerca il paziente!");
 
             insertStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(" ");
         System.out.println(" ");
         serviziManager.aggiungiServizioInterno(scanner, newfromservizio, dataServizio, orarioServizio);
     }
