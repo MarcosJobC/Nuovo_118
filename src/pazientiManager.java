@@ -1,7 +1,11 @@
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 
 public class pazientiManager {
@@ -15,25 +19,66 @@ public class pazientiManager {
 
     //METODI PAZIENTI
     public static void aggiungiPaziente(Scanner scanner) {
+        System.out.println(" ");
         System.out.println("INSERIMENTO NUOVO PAZIENTE:");
         try {
-            System.out.print("Inserisci il nome del paziente: ");
-            String nomePaziente = scanner.nextLine();
+            String nomePaziente, cognomePaziente, dataNascitaString, luogoNascita, indirizzoResidenza;
+            LocalDate dataNascita = null;
 
-            System.out.print("Inserisci il cognome del paziente: ");
-            String cognomePaziente = scanner.nextLine();
+            // Richiedi e valida il nome del paziente
+            do {
+                System.out.print("Inserisci il nome del paziente: ");
+                nomePaziente = scanner.nextLine();
+                if (nomePaziente.isEmpty()) {
+                    System.out.println("Il campo nome non può essere lasciato vuoto.");
+                }
+            } while (nomePaziente.isEmpty());
 
-            System.out.print("Inserisci la data di nascita del paziente (formato dd-mm-yyyy): ");
-            String dataNascitaString = scanner.nextLine();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            LocalDate dataNascita = LocalDate.parse(dataNascitaString, formatter);
+            // Richiedi e valida il cognome del paziente
+            do {
+                System.out.print("Inserisci il cognome del paziente: ");
+                cognomePaziente = scanner.nextLine();
+                if (cognomePaziente.isEmpty()) {
+                    System.out.println("Il campo cognome non può essere lasciato vuoto.");
+                }
+            } while (cognomePaziente.isEmpty());
 
+            // Richiedi e valida la data di nascita del paziente
+            do {
+                System.out.print("Inserisci la data di nascita del paziente (formato dd-MM-yyyy): ");
+                dataNascitaString = scanner.nextLine();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                try {
+                    dataNascita = LocalDate.parse(dataNascitaString, formatter);
+                    if (dataNascita.isAfter(LocalDate.now())) {
+                        System.out.println("La data di nascita non può essere successiva a oggi.");
+                        dataNascita = null;
+                    }
+                } catch (DateTimeParseException e) {
+                    dataNascita = null;
+                }
+                if (dataNascita == null) {
+                    System.out.println("Inserisci una data di nascita valida.");
+                }
+            } while (dataNascita == null);
 
-            System.out.print("Inserisci il luogo di nascita del paziente: ");
-            String luogoNascita = scanner.nextLine();
+            // Richiedi e valida il luogo di nascita del paziente
+            do {
+                System.out.print("Inserisci il luogo di nascita del paziente: ");
+                luogoNascita = scanner.nextLine();
+                if (luogoNascita.isEmpty()) {
+                    System.out.println("Il campo luogo di nascita non può essere lasciato vuoto.");
+                }
+            } while (luogoNascita.isEmpty());
 
-            System.out.print("Inserisci l'indirizzo di residenza del paziente: ");
-            String indirizzoResidenza = scanner.nextLine();
+            // Richiedi e valida l'indirizzo di residenza del paziente
+            do {
+                System.out.print("Inserisci l'indirizzo di residenza del paziente: ");
+                indirizzoResidenza = scanner.nextLine();
+                if (indirizzoResidenza.isEmpty()) {
+                    System.out.println("Il campo indirizzo di residenza non può essere lasciato vuoto.");
+                }
+            } while (indirizzoResidenza.isEmpty());
 
             String insertQuery = "INSERT INTO Pazienti (Nome, Cognome, DataNascita, LuogoNascita, IndirizzoResidenza) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
@@ -51,6 +96,8 @@ public class pazientiManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(" ");
+        System.out.println(" ");
         menuManager.mostraMenuPazienti(scanner);
     }
     public static void modificaPaziente(Scanner scanner) {
@@ -163,7 +210,6 @@ public class pazientiManager {
         menuManager.mostraMenuPazienti(scanner);
     }
     public static void eliminaPaziente(Scanner scanner) {
-        scanner.nextLine();
 
         try {
             // Visualizza la lista dei pazienti
@@ -218,12 +264,15 @@ public class pazientiManager {
                 }
             } else {
                 System.out.println("Nessun paziente trovato con l'ID fornito.");
+                eliminaPaziente(scanner);
             }
             resultSet.close();
             verificaStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(" ");
+        System.out.println(" ");
         menuManager.mostraMenuPazienti(scanner);
     }
     public static void visualizzaPazienti(Scanner scanner) {

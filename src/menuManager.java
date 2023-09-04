@@ -18,7 +18,7 @@ public class menuManager {
 
         System.out.println("Benvenuto al Gestionale Turni!");
         while (!sceltaValida) {
-            System.out.println("Vuoi fare l'accesso o registrarti o uscire? (A/R/U)");
+            System.out.print("Vuoi fare l'accesso o registrarti o uscire? (A/R/U): ");
             String choice = scanner.nextLine();
 
             if (choice.equalsIgnoreCase("R")) {
@@ -105,7 +105,7 @@ public class menuManager {
 
         System.out.println("7. Esci");
         System.out.println(" ");
-        System.out.println("Seleziona un'opzione:");
+        System.out.print("Seleziona un'opzione: ");
 
         int choice = scanner.nextInt();
         scanner.nextLine();
@@ -149,7 +149,7 @@ public class menuManager {
         System.out.println("2. Modifica mezzo");
         System.out.println("3. Elimina mezzo");
         System.out.println("4. Torna al menu amministratore");
-        System.out.println("Seleziona un'opzione:");
+        System.out.print("Seleziona un'opzione: ");
 
         int choice = scanner.nextInt();
         scanner.nextLine();
@@ -173,13 +173,12 @@ public class menuManager {
     }
     //MENU VOLONTARI
     public static void mostraMenuVolontari(Scanner scanner){
-        //TODO AGGIUNGI METODO PER MOSTRARE TUTTI I VOLONTARI
         System.out.println("Menu Gestione Volontari:");
         System.out.println("1. Modifica anagrafe volontari");
         System.out.println("2. Elimina volontari");
         System.out.println("3. Mostra tutti i volontari");
         System.out.println("4. Torna al menu amministratore");
-        System.out.println("Seleziona un'opzione:");
+        System.out.print("Seleziona un'opzione: ");
 
         int choice = scanner.nextInt();
 
@@ -208,7 +207,7 @@ public class menuManager {
         System.out.println("3. Elimina dati servizio");
         System.out.println("4. Assegna automaticamente i volontari");
         System.out.println("5. Torna al menu amministratore");
-        System.out.println("Seleziona un'opzione:");
+        System.out.print("Seleziona un'opzione: ");
 
         int choice = scanner.nextInt();
 
@@ -240,7 +239,7 @@ public class menuManager {
         System.out.println("3. Modifica paziente");
         System.out.println("4. Elimina paziente");
         System.out.println("5. Torna al menu amministratore");
-        System.out.println("Seleziona un'opzione:");
+        System.out.print("Seleziona un'opzione: ");
 
         int choice = scanner.nextInt();
         scanner.nextLine();

@@ -65,6 +65,13 @@ Assegnazione automatica
 // dopo aver accettato richiesta rimozione disponibilità torna al menu amministratore
 
 
+//TODO NUOVI [fatti]
+//Metodo di aggiunta paziente i campi non devono esser lasciati vuoti e la data di nascita non dev'esser successiva ad oggi
+
+//TODO Aggiunta servizi modifica che ora paziente è un ID e non una stringa nome e cognome
+//TODO Modifica servizi modifica che ora paziente è un ID e non una stringa nome e cognome
+//TODO Elimina servizi modifica che ora paziente è un ID e non una stringa nome e cognome
+
 
 
 -----------------------------------------------------UTENTI-----------------------------------------------------
