@@ -294,7 +294,6 @@ public class pazientiManager {
         menuManager.mostraMenuPazienti(scanner);
     }
     public static void eliminaPaziente(Scanner scanner) {
-
         try {
             // Visualizza la lista dei pazienti
             String listaPazientiQuery = "SELECT * FROM Pazienti";
@@ -308,57 +307,81 @@ public class pazientiManager {
                 String cognomePaziente = pazientiResultSet.getString("Cognome");
                 System.out.println("ID: " + idPaziente + " | Nome: " + nomePaziente + " | Cognome: " + cognomePaziente);
             }
+
             System.out.println(" ");
+            System.out.print("Inserisci l'ID del paziente da eliminare (o premi 'q' per annullare): ");
+            String input = scanner.nextLine().trim();
 
-            // Chiedi all'utente di inserire l'ID del paziente da eliminare
-            System.out.print("Inserisci l'ID del paziente da eliminare: ");
-            int idPazienteDaEliminare = scanner.nextInt();
-            scanner.nextLine(); // Consuma la newline rimanente
-
-            String verificaQuery = "SELECT * FROM Pazienti WHERE ID = ?";
-            PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
-            verificaStatement.setInt(1, idPazienteDaEliminare);
-            ResultSet resultSet = verificaStatement.executeQuery();
-
-            if (resultSet.next()) {
-                // Il paziente esiste, procedi con l'eliminazione
-
-                String nomePaziente = resultSet.getString("Nome");
-                String cognomePaziente = resultSet.getString("Cognome");
-
-                System.out.println("Il seguente paziente sarà eliminato:");
-                System.out.println("Nome: " + nomePaziente + " | Cognome: " + cognomePaziente);
-                System.out.println(" ");
-
-                // Conferma l'eliminazione
-                System.out.print("Confermi l'eliminazione di questo paziente? (s/n): ");
-                String conferma = scanner.nextLine();
-
-                if (conferma.equalsIgnoreCase("s")) {
-                    String deleteQuery = "DELETE FROM Pazienti WHERE ID = ?";
-                    PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
-                    deleteStatement.setInt(1, idPazienteDaEliminare);
-
-                    // Esegui l'eliminazione
-                    deleteStatement.executeUpdate();
-                    System.out.println("Paziente eliminato con successo!");
-                    deleteStatement.close();
-                } else {
-                    System.out.println("Eliminazione annullata.");
-                }
-            } else {
-                System.out.println("Nessun paziente trovato con l'ID fornito.");
-                eliminaPaziente(scanner);
+            if (input.equalsIgnoreCase("q")) {
+                System.out.println("Operazione annullata.");
+                menuManager.mostraMenuPazienti(scanner);
+                return; // Termina il metodo
             }
-            resultSet.close();
-            verificaStatement.close();
+
+            try {
+                int idPazienteDaEliminare = Integer.parseInt(input);
+
+                String verificaQuery = "SELECT * FROM Pazienti WHERE ID = ?";
+                PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
+                verificaStatement.setInt(1, idPazienteDaEliminare);
+                ResultSet resultSet = verificaStatement.executeQuery();
+
+                if (resultSet.next()) {
+                    // Il paziente esiste, procedi con l'eliminazione
+
+                    String nomePaziente = resultSet.getString("Nome");
+                    String cognomePaziente = resultSet.getString("Cognome");
+
+                    System.out.println("Il seguente paziente sarà eliminato:");
+                    System.out.println("Nome: " + nomePaziente + " | Cognome: " + cognomePaziente);
+                    System.out.println(" ");
+
+                    // Conferma l'eliminazione
+                    System.out.print("Confermi l'eliminazione di questo paziente? (s/n): ");
+                    String conferma = scanner.nextLine();
+
+                    if (conferma.equalsIgnoreCase("s")) {
+                        // Esegui l'eliminazione
+                        String deleteQuery = "DELETE FROM Pazienti WHERE ID = ?";
+                        PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
+                        deleteStatement.setInt(1, idPazienteDaEliminare);
+
+                        // Esegui l'eliminazione
+                        int rowCount = deleteStatement.executeUpdate();
+                        deleteStatement.close();
+
+                        if (rowCount > 0) {
+                            System.out.println("Il paziente è stato eliminato con successo.");
+                        } else {
+                            System.out.println("Errore nell'eliminazione del paziente.");
+                        }
+                    } else {
+                        System.out.println("Eliminazione annullata.");
+                    }
+                } else {
+                    System.out.println("Nessun paziente trovato con l'ID fornito.");
+
+                    // Chiedi nuovamente l'ID del paziente
+                    eliminaPaziente(scanner);
+                }
+
+                resultSet.close();
+                verificaStatement.close();
+            } catch (NumberFormatException e) {
+                System.out.println("Input non valido. Inserisci un ID numerico valido o premi 'q' per annullare.");
+                eliminaPaziente(scanner);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         System.out.println(" ");
         System.out.println(" ");
         menuManager.mostraMenuPazienti(scanner);
     }
+
     public static void visualizzaPazienti(Scanner scanner) {
         try {
             // Ottieni una lista di tutti i pazienti
