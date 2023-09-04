@@ -337,7 +337,7 @@ public class pazientiManager {
                     System.out.println(" ");
 
                     // Conferma l'eliminazione
-                    System.out.print("Confermi l'eliminazione di questo paziente? (s/n): ");
+                    System.out.print("Confermi l'eliminazione di questo paziente? [Verranno eliminati anche i servizi a lui connessi] (s/n): ");
                     String conferma = scanner.nextLine();
 
                     if (conferma.equalsIgnoreCase("s")) {
