@@ -70,7 +70,7 @@ Assegnazione automatica
 // Aggiunta servizi modifica che ora paziente è un ID e non una stringa nome e cognome
 // Possibile aggiungere paziente durante creazione servizio
 // no case sensitive in ricera paziente aggiungi servizio
-//TODO quando voglio eliminare paziente non me lo fa eliminare se ci sono servizi a lui collegati fare avviso e rimozione servizio
+// quando voglio eliminare paziente non me lo fa eliminare se ci sono servizi a lui collegati fare avviso e rimozione servizio
 //TODO fare che il sistema una volta avviato rimuove tutti i servizi-disponibilità con data antecedente ad oggi
 
 
