@@ -341,7 +341,14 @@ public class pazientiManager {
                     String conferma = scanner.nextLine();
 
                     if (conferma.equalsIgnoreCase("s")) {
-                        // Esegui l'eliminazione
+                        // Esegui l'eliminazione del servizio associato, se presente
+                        String deleteServizioQuery = "DELETE FROM Servizi WHERE Paziente = ?";
+                        PreparedStatement deleteServizioStatement = connection.prepareStatement(deleteServizioQuery);
+                        deleteServizioStatement.setInt(1, idPazienteDaEliminare);
+                        deleteServizioStatement.executeUpdate();
+                        deleteServizioStatement.close();
+
+                        // Esegui l'eliminazione del paziente
                         String deleteQuery = "DELETE FROM Pazienti WHERE ID = ?";
                         PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
                         deleteStatement.setInt(1, idPazienteDaEliminare);
@@ -351,7 +358,7 @@ public class pazientiManager {
                         deleteStatement.close();
 
                         if (rowCount > 0) {
-                            System.out.println("Il paziente è stato eliminato con successo.");
+                            System.out.println("Il paziente e il servizio associato sono stati eliminati con successo.");
                         } else {
                             System.out.println("Errore nell'eliminazione del paziente.");
                         }
