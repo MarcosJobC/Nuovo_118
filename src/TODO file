@@ -64,15 +64,17 @@ Assegnazione automatica
 //Accettazione rimozione disponibilità
 // dopo aver accettato richiesta rimozione disponibilità torna al menu amministratore
 
-
-//TODO NUOVI [fatti]
+//NUOVI---------------------------------------------------------------------------------------------------------------------------------------------------------
 //Metodo di aggiunta paziente i campi non devono esser lasciati vuoti e la data di nascita non dev'esser successiva ad oggi
 
-//TODO Aggiunta servizi modifica che ora paziente è un ID e non una stringa nome e cognome
+// Aggiunta servizi modifica che ora paziente è un ID e non una stringa nome e cognome
+//TODO [IMPORTANTE] imposta variabile booleana che in aggiungi servizio se non viene trovato il paziente e va aggiunto diventa TRUE così da aggiungi paziente ritorna in automatica ad aggiungi servizio
+// no case sensitive in ricera paziente aggiungi servizio
+
+
+
 //TODO Modifica servizi modifica che ora paziente è un ID e non una stringa nome e cognome
 //TODO Elimina servizi modifica che ora paziente è un ID e non una stringa nome e cognome
-
-
 
 -----------------------------------------------------UTENTI-----------------------------------------------------
 // Togli rimozione disponibiltà se non c'è alcuna disponibiltà data

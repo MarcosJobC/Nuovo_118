@@ -18,6 +18,7 @@ public class serviziManager {
 
     //GESTIONE SERVIZI
     public static void aggiungiServizio(Scanner scanner) {
+        boolean newfromservizio = false;
         scanner.nextLine();
 
         LocalDate dataOggi = LocalDate.now();
@@ -54,14 +55,80 @@ public class serviziManager {
                 }
             } while (!orarioValido);
 
+            String nomePaziente = "";
+            String cognomePaziente = "";
+            boolean pazienteValido = false;
+            int pazienteId = 0; // Inizializza l'ID del paziente a 0
+            while (!pazienteValido) {
 
-            String paziente = "";
-            while (paziente.isEmpty()) {
                 System.out.print("Inserisci il nome del paziente: ");
-                paziente = scanner.nextLine();
+                nomePaziente = scanner.nextLine();
 
-                if (paziente.isEmpty()) {
-                    System.out.println("Il nome del paziente non può essere lasciato vuoto.");
+                System.out.print("Inserisci il cognome del paziente: ");
+                cognomePaziente = scanner.nextLine();
+
+                try {
+                    // Verifica se esistono pazienti con nomi e cognomi simili (case insensitive)
+                    String verificaQuery = "SELECT * FROM Pazienti WHERE LOWER(Nome) LIKE LOWER(?) AND LOWER(Cognome) LIKE LOWER(?)";
+                    PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
+                    verificaStatement.setString(1, "%" + nomePaziente + "%");
+                    verificaStatement.setString(2, "%" + cognomePaziente + "%");
+                    ResultSet resultSet = verificaStatement.executeQuery();
+
+                    if (!resultSet.isBeforeFirst()) {
+                        System.out.println("Nessun paziente trovato con nomi e cognomi simili.");
+                        System.out.print("Vuoi aggiungere un nuovo paziente? (s/n): ");
+                        String sceltaAggiunta = scanner.nextLine();
+                        if (sceltaAggiunta.equalsIgnoreCase("s")) {
+                            // Inserimento di un nuovo paziente
+                            newfromservizio = true;
+                            pazientiManager.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
+                            return; // Termina il metodo dopo l'inserimento del nuovo paziente
+                        } else {
+                            // L'utente ha scelto di non aggiungere un nuovo paziente, ripeti la richiesta
+                            continue;
+                        }
+                    } else {
+                        System.out.println("Pazienti trovati:");
+                        while (resultSet.next()) {
+                            int id = resultSet.getInt("ID");
+                            String nome = resultSet.getString("Nome");
+                            String cognome = resultSet.getString("Cognome");
+                            Date datanascita = resultSet.getDate("datanascita");
+                            System.out.println("ID: " + id + " | Nome: " + nome + " | Cognome: " + cognome + " | Data di nascita: " + datanascita);
+                        }
+
+                        // Chiedi all'utente di selezionare l'ID del paziente
+                        boolean idValido = false;
+                        while (!idValido) {
+                            System.out.print("Inserisci l'ID del paziente o 'q' per inserire un nuovo paziente: ");
+                            String scelta = scanner.nextLine();
+
+                            if (scelta.equals("q")) {
+                                // Inserimento di un nuovo paziente
+                                pazientiManager.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
+                                return; // Termina il metodo dopo l'inserimento del nuovo paziente
+                            } else {
+                                try {
+                                    pazienteId = Integer.parseInt(scelta);
+
+                                    if (pazienteId > 0) {
+                                        idValido = true;
+                                    } else {
+                                        System.out.println("ID non valido.");
+                                    }
+                                } catch (NumberFormatException e) {
+                                    System.out.println("ID non valido.");
+                                }
+                            }
+                        }
+
+                        pazienteValido = true;
+                    }
+
+                    verificaStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -111,7 +178,7 @@ public class serviziManager {
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, dataServizio);
                 preparedStatement.setTime(2, java.sql.Time.valueOf(orarioServizio));
-                preparedStatement.setString(3, paziente);
+                preparedStatement.setInt(3, pazienteId);
                 preparedStatement.setString(4, siglaMezzo);
                 preparedStatement.setInt(5, Autista);
                 preparedStatement.setInt(6, Soccorritore);
@@ -134,8 +201,172 @@ public class serviziManager {
             System.out.println("Formato data non valido. Utilizza il formato dd-mm-yyyy.");
             aggiungiServizio(scanner);
         }
+        System.out.println(" ");
+        System.out.println(" ");
         menuManager.mostraMenuServizi(scanner);
     }
+    public static void aggiungiServizioInterno(Scanner scanner, boolean newfromservizio,String dataServizio,LocalTime orarioServizio){
+
+        try {
+
+            String nomePaziente = "";
+            String cognomePaziente = "";
+            boolean pazienteValido = false;
+            int pazienteId = 0; // Inizializza l'ID del paziente a 0
+            while (!pazienteValido) {
+
+                System.out.print("Inserisci il nome del paziente: ");
+                nomePaziente = scanner.nextLine();
+
+                System.out.print("Inserisci il cognome del paziente: ");
+                cognomePaziente = scanner.nextLine();
+
+                try {
+                    // Verifica se esistono pazienti con nomi e cognomi simili (case insensitive)
+                    String verificaQuery = "SELECT * FROM Pazienti WHERE LOWER(Nome) LIKE LOWER(?) AND LOWER(Cognome) LIKE LOWER(?)";
+                    PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
+                    verificaStatement.setString(1, "%" + nomePaziente + "%");
+                    verificaStatement.setString(2, "%" + cognomePaziente + "%");
+                    ResultSet resultSet = verificaStatement.executeQuery();
+
+                    if (!resultSet.isBeforeFirst()) {
+                        System.out.println("Nessun paziente trovato con nomi e cognomi simili.");
+                        System.out.print("Vuoi aggiungere un nuovo paziente? (s/n): ");
+                        String sceltaAggiunta = scanner.nextLine();
+                        if (sceltaAggiunta.equalsIgnoreCase("s")) {
+                            // Inserimento di un nuovo paziente
+                            newfromservizio = true;
+                            pazientiManager.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
+                            return; // Termina il metodo dopo l'inserimento del nuovo paziente
+                        } else {
+                            // L'utente ha scelto di non aggiungere un nuovo paziente, ripeti la richiesta
+                            continue;
+                        }
+                    } else {
+                        System.out.println("Pazienti trovati:");
+                        while (resultSet.next()) {
+                            int id = resultSet.getInt("ID");
+                            String nome = resultSet.getString("Nome");
+                            String cognome = resultSet.getString("Cognome");
+                            Date datanascita = resultSet.getDate("datanascita");
+                            System.out.println("ID: " + id + " | Nome: " + nome + " | Cognome: " + cognome + " | Data di nascita: " + datanascita);
+                        }
+
+                        // Chiedi all'utente di selezionare l'ID del paziente
+                        boolean idValido = false;
+                        while (!idValido) {
+                            System.out.print("Inserisci l'ID del paziente o 'q' per inserire un nuovo paziente: ");
+                            String scelta = scanner.nextLine();
+
+                            if (scelta.equals("q")) {
+                                // Inserimento di un nuovo paziente
+                                pazientiManager.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
+                                return; // Termina il metodo dopo l'inserimento del nuovo paziente
+                            } else {
+                                try {
+                                    pazienteId = Integer.parseInt(scelta);
+
+                                    if (pazienteId > 0) {
+                                        idValido = true;
+                                    } else {
+                                        System.out.println("ID non valido.");
+                                    }
+                                } catch (NumberFormatException e) {
+                                    System.out.println("ID non valido.");
+                                }
+                            }
+                        }
+
+                        pazienteValido = true;
+                    }
+
+                    verificaStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            boolean siglaValida = false;
+            String siglaMezzo = "";
+
+            while (!siglaValida) {
+                System.out.print("Inserisci la sigla del mezzo: ");
+                siglaMezzo = scanner.nextLine();
+
+                try {
+                    String verificaQuery = "SELECT * FROM Mezzi WHERE Sigla_mezzo = ?";
+                    PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
+                    verificaStatement.setString(1, siglaMezzo);
+                    ResultSet resultSet = verificaStatement.executeQuery();
+
+                    if (resultSet.next()) {
+                        // La sigla del mezzo esiste, interrompi il ciclo
+                        siglaValida = true;
+                    } else {
+                        System.out.println("Il mezzo non risulta presente in deposito.");
+                    }
+
+                    verificaStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            System.out.print("Inserisci la matricola dell'autista (oppure lascia vuoto per non inserire): ");
+            String inputAutista = scanner.nextLine();
+            int Autista = 0; // Inizializza l'ID dell'autista a 0
+            if (!inputAutista.isEmpty()) {
+                Autista = Integer.parseInt(inputAutista);
+            }
+
+            System.out.print("Inserisci la matricola del soccorritore (oppure lascia vuoto per non inserire): ");
+            String inputSoccorritore = scanner.nextLine();
+            int Soccorritore = 0; // Inizializza l'ID del soccorritore a 0
+            if (!inputSoccorritore.isEmpty()) {
+                Soccorritore = Integer.parseInt(inputSoccorritore);
+            }
+
+            try {
+                String query = "INSERT INTO Servizi (Data, Orario, Paziente, Sigla_Mezzo, Autista, Soccorritore) VALUES (?, ?, ?, ?, ?, ?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, dataServizio);
+                preparedStatement.setTime(2, java.sql.Time.valueOf(orarioServizio));
+                preparedStatement.setInt(3, pazienteId);
+                preparedStatement.setString(4, siglaMezzo);
+                preparedStatement.setInt(5, Autista);
+                preparedStatement.setInt(6, Soccorritore);
+
+                preparedStatement.executeUpdate();
+
+                System.out.println("Servizio aggiunto con successo!");
+
+                preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            if (Autista > 0) {
+                notificheManager.inviaNotificaVolontario(Autista, dataServizio);
+            }
+            if (Soccorritore > 0) {
+                notificheManager.inviaNotificaVolontario(Soccorritore, dataServizio);
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Formato data non valido. Utilizza il formato dd-mm-yyyy.");
+            aggiungiServizio(scanner);
+        }
+        System.out.println(" ");
+        System.out.println(" ");
+        menuManager.mostraMenuServizi(scanner);
+    }
+
+
+
+
+
+
+
+
     public static void modificaServizio(Scanner scanner) {
         scanner.nextLine();
         Time nuovoOrarioTime = null;
@@ -337,7 +568,6 @@ public class serviziManager {
         System.out.println(" ");
         menuManager.mostraMenuServizi(scanner);
     }
-
     public static void eliminaServizio(Scanner scanner) {
         scanner.nextLine();
         boolean operazioneAnnullata = false;
