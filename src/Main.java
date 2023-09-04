@@ -17,7 +17,10 @@ public class Main {
         notificheManager notificheManager = new notificheManager(dbConnection.getConnection());
         pazientiManager pazientiManager = new pazientiManager(dbConnection.getConnection());
 
-
+        // Rimuovi le disponibilità scadute
+        serviziManager.rimuoviDisponibilitaScadute();
+        // Rimuovi i servizi scaduti
+        serviziManager.rimuoviServiziScaduti();
         menuManager.menuIniziale(scanner);
 
         scanner.close();

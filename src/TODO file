@@ -1,6 +1,6 @@
-//TODO Aggiungi sezione PAZIENTI
-//TODO Aggiungi-Modifica-Elimina Paziente
-//TODO Al posto PAZIENRE nel servizio ci dev'essere l'ID del paziente
+// Aggiungi sezione PAZIENTI
+// Aggiungi-Modifica-Elimina Paziente
+// Al posto PAZIENRE nel servizio ci dev'essere l'ID del paziente
 
 
 // all'accesso non si può lasciare i campi CF e password vuoti
@@ -71,12 +71,7 @@ Assegnazione automatica
 // Possibile aggiungere paziente durante creazione servizio
 // no case sensitive in ricera paziente aggiungi servizio
 // quando voglio eliminare paziente non me lo fa eliminare se ci sono servizi a lui collegati fare avviso e rimozione servizio
-//TODO fare che il sistema una volta avviato rimuove tutti i servizi-disponibilità con data antecedente ad oggi
-
-
-
-//TODO Modifica servizi modifica che ora paziente è un ID e non una stringa nome e cognome
-//TODO Elimina servizi modifica che ora paziente è un ID e non una stringa nome e cognome
+// fare che il sistema una volta avviato rimuove tutti i servizi-disponibilità con data antecedente ad oggi
 
 -----------------------------------------------------UTENTI-----------------------------------------------------
 // Togli rimozione disponibiltà se non c'è alcuna disponibiltà data

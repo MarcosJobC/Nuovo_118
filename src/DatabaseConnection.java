@@ -13,7 +13,7 @@ public class DatabaseConnection {
         try {
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(url, username, password);
-            System.out.println("Connessione al database stabilita con successo!");
+            /*System.out.println("Connessione al database stabilita con successo!");*/
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

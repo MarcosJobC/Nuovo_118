@@ -1,10 +1,20 @@
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.sql.ResultSet;
+
+import java.sql.Date;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 public class serviziManager {
@@ -375,12 +385,11 @@ public class serviziManager {
                 String dataServizio = serviziResultSet.getString("Data");
                 Time orarioServizio = serviziResultSet.getTime("Orario");
                 String orarioServizioString = orarioServizio.toLocalTime().toString();
-                String pazienteServizio = serviziResultSet.getString("Paziente");
                 String siglaMezzo = serviziResultSet.getString("sigla_mezzo");
                 int Autista = serviziResultSet.getInt("Autista");
                 int Soccorritore = serviziResultSet.getInt("Soccorritore");
 
-                System.out.println("ID: " + idServizio + " | Data: " + dataServizio + " | Orario: " + orarioServizioString + " | Paziente: " + pazienteServizio);
+                System.out.println("ID: " + idServizio + " | Data: " + dataServizio + " | Orario: " + orarioServizioString + " | Mezzo: " + siglaMezzo +" | Autista: " + Autista + " | Soccorritore: " + Soccorritore  );
             }
             System.out.println(" ");
 
@@ -419,11 +428,12 @@ public class serviziManager {
                 }
             }
 
+
             // Ora che abbiamo l'ID valido, otteniamo i dati del servizio da modificare
             String dataServizio = "";
             Time orarioServizio = null;
             String orarioServizioString = "";
-            String pazienteServizio = "";
+            int pazienteServizio = 0;
             String siglaMezzo = "";
             int Autista = 0;
             int Soccorritore = 0;
@@ -436,11 +446,17 @@ public class serviziManager {
             if (servizioResultSet.next()) {
                 dataServizio = servizioResultSet.getString("Data");
                 orarioServizio = servizioResultSet.getTime("Orario");
+                pazienteServizio = servizioResultSet.getInt("Paziente");
                 orarioServizioString = orarioServizio.toLocalTime().toString();
-                pazienteServizio = servizioResultSet.getString("Paziente");
                 siglaMezzo = servizioResultSet.getString("sigla_mezzo");
                 Autista = servizioResultSet.getInt("Autista");
                 Soccorritore = servizioResultSet.getInt("Soccorritore");
+            } else {
+                System.out.println("Nessun servizio trovato con l'ID specificato.");
+                System.out.println(" ");
+                System.out.println(" ");
+                menuManager.mostraMenuServizi(scanner);
+                return; // Esci dal metodo in caso di ID non valido
             }
             String nuovaData = dataServizio; // Inizializza con la data attuale
             String nuovaOraString = orarioServizioString; // Inizializza con l'orario attuale
@@ -492,14 +508,10 @@ public class serviziManager {
                         System.out.println("Formato ora non valido. Utilizza il formato 'HH:mm'.");
                     }
                 } else {
+                    // L'utente ha lasciato vuoto, quindi mantieni l'orario precedente
+                    nuovoOrarioTime = orarioServizio;
                     break; // Esci dal ciclo se l'ora è vuota
                 }
-            }
-
-            System.out.print("Inserisci il nuovo nome del paziente (lascia vuoto per non modificare): ");
-            String nuovoPaziente = scanner.nextLine();
-            if (nuovoPaziente.isEmpty()) {
-                nuovoPaziente = pazienteServizio;
             }
 
             System.out.print("Inserisci il nuovo mezzo (lascia vuoto per non modificare): ");
@@ -535,7 +547,7 @@ public class serviziManager {
             PreparedStatement updateServizioStatement = connection.prepareStatement(updateServizioQuery);
             updateServizioStatement.setString(1, nuovaData);
             updateServizioStatement.setTime(2, nuovoOrarioTime);
-            updateServizioStatement.setString(3, nuovoPaziente);
+            updateServizioStatement.setInt(3,pazienteServizio);
             updateServizioStatement.setString(4, nuovoMezzo);
             updateServizioStatement.setInt(5, nuovoAutista);
             updateServizioStatement.setInt(6, nuovoSoccorritore);
@@ -560,6 +572,8 @@ public class serviziManager {
         System.out.println(" ");
         menuManager.mostraMenuServizi(scanner);
     }
+
+
     public static void eliminaServizio(Scanner scanner) {
         scanner.nextLine();
         boolean operazioneAnnullata = false;
@@ -644,9 +658,6 @@ public class serviziManager {
         }
 
     }
-
-
-
 
 
 
@@ -778,6 +789,47 @@ public class serviziManager {
         }
     }
 
+
+
+
+
+
+    public static void rimuoviDisponibilitaScadute() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1); // Sottrai un giorno per ottenere la data di ieri
+        String ieri = dateFormat.format(cal.getTime());
+
+        String deleteDisponibilitaQuery = "DELETE FROM Disponibilita WHERE data_disponibilita < ?";
+        try {
+            PreparedStatement deleteDisponibilitaStatement = connection.prepareStatement(deleteDisponibilitaQuery);
+            Date dataIeri = Date.valueOf(ieri); // Converte la stringa in una data SQL
+            deleteDisponibilitaStatement.setDate(1, dataIeri);
+            int rowCount = deleteDisponibilitaStatement.executeUpdate();
+            deleteDisponibilitaStatement.close();
+            /*System.out.println(rowCount + " disponibilità scadute sono state rimosse.");*/
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void rimuoviServiziScaduti() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1); // Sottrai un giorno per ottenere la data di ieri
+        String ieri = dateFormat.format(cal.getTime());
+
+        String deleteServiziQuery = "DELETE FROM Servizi WHERE Data < ?";
+        try {
+            PreparedStatement deleteServiziStatement = connection.prepareStatement(deleteServiziQuery);
+            Date dataIeri = Date.valueOf(ieri); // Converte la stringa in una data SQL
+            deleteServiziStatement.setDate(1, dataIeri);
+            int rowCount = deleteServiziStatement.executeUpdate();
+            deleteServiziStatement.close();
+            /*System.out.println(rowCount + " servizi scaduti sono stati rimosse.");*/
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
