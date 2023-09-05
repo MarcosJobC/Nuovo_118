@@ -16,7 +16,11 @@ public class Main {
         assegnazioneAutomatica assegnazioneAutomatica = new assegnazioneAutomatica(dbConnection.getConnection());
         notificheManager notificheManager = new notificheManager(dbConnection.getConnection());
         pazientiManager pazientiManager = new pazientiManager(dbConnection.getConnection());
+        emegenzeManager emegenzeManager = new emegenzeManager(dbConnection.getConnection());
 
+
+        // Aggiungi l'emergenze mancanti
+        emegenzeManager.aggiungiEmergenzeMancanti();
         // Rimuovi le disponibilità scadute
         serviziManager.rimuoviDisponibilitaScadute();
         // Rimuovi i servizi scaduti
