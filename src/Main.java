@@ -17,15 +17,24 @@ public class Main {
         notificheManager notificheManager = new notificheManager(dbConnection.getConnection());
         pazientiManager pazientiManager = new pazientiManager(dbConnection.getConnection());
         emegenzeManager emegenzeManager = new emegenzeManager(dbConnection.getConnection());
+        TurniCentralinoManager TurniCentralinoManager = new TurniCentralinoManager(dbConnection.getConnection());
 
 
-        // Aggiungi l'emergenze mancanti
+        // Aggiungi e rimuove le emergenze mancanti
         emegenzeManager.rimuoviEmergenzePassate();
         emegenzeManager.aggiungiEmergenzeMancanti();
+
+        // Aggiungi e rimuove le emergenze mancanti
+        TurniCentralinoManager.rimuoviTurniPassati();
+        TurniCentralinoManager.aggiungiTurniMancanti();
+
         // Rimuovi le disponibilità scadute
         serviziManager.rimuoviDisponibilitaScadute();
+
         // Rimuovi i servizi scaduti
         serviziManager.rimuoviServiziScaduti();
+
+        // Avvia gestionale
         menuManager.menuIniziale(scanner);
 
         scanner.close();
