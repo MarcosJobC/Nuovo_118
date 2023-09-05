@@ -1,6 +1,7 @@
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 
@@ -37,9 +38,10 @@ public class assegnazioneAutomatica {
             while (serviziSenzaAutistaResultSet.next()) {
                 int idServizio = serviziSenzaAutistaResultSet.getInt("Id");
                 String dataServizio = serviziSenzaAutistaResultSet.getString("Data");
+                LocalTime orarioServizio = serviziSenzaAutistaResultSet.getTime("orario").toLocalTime();
 
                 // Trova un autista volontario disponibile e non confermato per questa data
-                int autistaDisponibile = trovaVolontarioDisponibileNonConfermatoSOCIALI(dataServizio);
+                int autistaDisponibile = trovaVolontarioDisponibileNonConfermatoSOCIALI(dataServizio, orarioServizio);
 
                 if (autistaDisponibile != 0) {
                     // Cambia lo stato del volontario da "Non confermata" a "Reclutato"
@@ -69,9 +71,10 @@ public class assegnazioneAutomatica {
             while (serviziSenzaSoccorritoreResultSet.next()) {
                 int idServizio = serviziSenzaSoccorritoreResultSet.getInt("Id");
                 String dataServizio = serviziSenzaSoccorritoreResultSet.getString("Data");
+                LocalTime orarioServizio = serviziSenzaSoccorritoreResultSet.getTime("orario").toLocalTime();
 
                 // Trova un soccorritore volontario disponibile e non confermato per questa data
-                int soccorritoreDisponibile = trovaVolontarioDisponibileNonConfermatoSOCIALI(dataServizio);
+                int soccorritoreDisponibile = trovaVolontarioDisponibileNonConfermatoSOCIALI(dataServizio, orarioServizio);
 
                 if (soccorritoreDisponibile != 0) {
                     // Cambia lo stato del volontario da "Non confermata" a "Reclutato"
@@ -92,17 +95,27 @@ public class assegnazioneAutomatica {
             e.printStackTrace();
         }
     }
-    public static int trovaVolontarioDisponibileNonConfermatoSOCIALI(String dataServizio) {
+    public static int trovaVolontarioDisponibileNonConfermatoSOCIALI(String dataServizio, LocalTime orarioServizio) {
         try {
-            String disponibilitaQuery = "SELECT matricola_volontario FROM Disponibilita WHERE data_disponibilita = ? AND confermata = 'Non confermata' AND tipologia = 'Servizi sociali'";
+            String disponibilitaQuery = "SELECT matricola_volontario, ora_inizio, ora_fine " +
+                    "FROM Disponibilita WHERE data_disponibilita = ? " +
+                    "AND confermata = 'Non confermata' " +
+                    "AND tipologia = 'Servizi sociali' " +
+                    "AND ? BETWEEN ora_inizio AND ora_fine"; // Aggiungi il vincolo sull'orario
             PreparedStatement disponibilitaStatement = connection.prepareStatement(disponibilitaQuery);
             disponibilitaStatement.setString(1, dataServizio);
+            disponibilitaStatement.setTime(2, Time.valueOf(orarioServizio)); // Usa Time.valueOf per convertire LocalTime in Time
             ResultSet disponibilitaResultSet = disponibilitaStatement.executeQuery();
 
             while (disponibilitaResultSet.next()) {
+                LocalTime oraInizioDisponibilita = disponibilitaResultSet.getTime("ora_inizio").toLocalTime();
+                LocalTime oraFineDisponibilita = disponibilitaResultSet.getTime("ora_fine").toLocalTime();
+
                 int volontarioDisponibile = disponibilitaResultSet.getInt("matricola_volontario");
-                // Verifica se il volontario è disponibile (non è già assegnato)
-                if (!verificaVolontarioAssegnato(dataServizio, volontarioDisponibile)) {
+                // Verifica se il volontario è disponibile (non è già assegnato) e se l'orario è corretto
+                if (!verificaVolontarioAssegnato(dataServizio, volontarioDisponibile) &&
+                        orarioServizio.isAfter(oraInizioDisponibilita) &&
+                        orarioServizio.isBefore(oraFineDisponibilita)) {
                     return volontarioDisponibile;
                 }
             }
