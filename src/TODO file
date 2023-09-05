@@ -73,6 +73,11 @@ Assegnazione automatica
 // quando voglio eliminare paziente non me lo fa eliminare se ci sono servizi a lui collegati fare avviso e rimozione servizio
 // fare che il sistema una volta avviato rimuove tutti i servizi-disponibilità con data antecedente ad oggi
 
+//TODO tabella emergenza
+//TODo tabella centralini
+
+
+
 -----------------------------------------------------UTENTI-----------------------------------------------------
 // Togli rimozione disponibiltà se non c'è alcuna disponibiltà data
 // non è possibile inserire la disponibilità se la data inserita è antecedente ad oggi

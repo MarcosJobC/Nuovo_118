@@ -742,7 +742,6 @@ public class serviziManager {
                 menuManager.mostraMenuAdmin(scanner);
             } else {
                 System.out.println("ID non valido - Inserisci l'ID corretto.");
-                //TODO rimanda la lista delle richieste di rimozione [FATTO SOTTO MA NON MI CONVINCE - VORREI MI RICHIEDESSE SOLO L'ID SENZA MOSTRARE DI NUOVO LA LISTA]
                 visualizzaRichiesteRimozione(scanner);
             }
 

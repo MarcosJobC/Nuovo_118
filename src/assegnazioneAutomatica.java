@@ -18,15 +18,15 @@ public class assegnazioneAutomatica {
 
 
     //ASSEGNAZIONE AUTOMATICA VOLONTARI A SERVIZI
-    public static void assegnaAutomaticamente(Scanner scanner) {
+    public static void assegnaAutomaticamenteSOCIALI(Scanner scanner) {
         //Vengono assegnati prima tutti gli autisti e successivamente tutti i soccoritori
-        assegnaAutistiAutomaticamente();
-        assegnaSoccorritoriAutomaticamente();
+        assegnaAutistiAutomaticamenteSOCIALI();
+        assegnaSoccorritoriAutomaticamenteSOCIALI();
         System.out.println(" ");
         System.out.println(" ");
         menuManager.mostraMenuServizi(scanner);
     }
-    public static void assegnaAutistiAutomaticamente() {
+    public static void assegnaAutistiAutomaticamenteSOCIALI() {
         try {
 
             String serviziSenzaAutistaQuery = "SELECT * FROM Servizi WHERE Autista = 0";
@@ -39,7 +39,7 @@ public class assegnazioneAutomatica {
                 String dataServizio = serviziSenzaAutistaResultSet.getString("Data");
 
                 // Trova un autista volontario disponibile e non confermato per questa data
-                int autistaDisponibile = trovaVolontarioDisponibileNonConfermato(dataServizio);
+                int autistaDisponibile = trovaVolontarioDisponibileNonConfermatoSOCIALI(dataServizio);
 
                 if (autistaDisponibile != 0) {
                     // Cambia lo stato del volontario da "Non confermata" a "Reclutato"
@@ -60,7 +60,7 @@ public class assegnazioneAutomatica {
             e.printStackTrace();
         }
     }
-    public static void assegnaSoccorritoriAutomaticamente() {
+    public static void assegnaSoccorritoriAutomaticamenteSOCIALI() {
         try {
             String serviziSenzaSoccorritoreQuery = "SELECT * FROM Servizi WHERE Soccorritore = 0";
             PreparedStatement serviziSenzaSoccorritoreStatement = connection.prepareStatement(serviziSenzaSoccorritoreQuery);
@@ -71,7 +71,7 @@ public class assegnazioneAutomatica {
                 String dataServizio = serviziSenzaSoccorritoreResultSet.getString("Data");
 
                 // Trova un soccorritore volontario disponibile e non confermato per questa data
-                int soccorritoreDisponibile = trovaVolontarioDisponibileNonConfermato(dataServizio);
+                int soccorritoreDisponibile = trovaVolontarioDisponibileNonConfermatoSOCIALI(dataServizio);
 
                 if (soccorritoreDisponibile != 0) {
                     // Cambia lo stato del volontario da "Non confermata" a "Reclutato"
@@ -92,9 +92,9 @@ public class assegnazioneAutomatica {
             e.printStackTrace();
         }
     }
-    public static int trovaVolontarioDisponibileNonConfermato(String dataServizio) {
+    public static int trovaVolontarioDisponibileNonConfermatoSOCIALI(String dataServizio) {
         try {
-            String disponibilitaQuery = "SELECT matricola_volontario FROM Disponibilita WHERE data_disponibilita = ? AND confermata = 'Non confermata'";
+            String disponibilitaQuery = "SELECT matricola_volontario FROM Disponibilita WHERE data_disponibilita = ? AND confermata = 'Non confermata' AND tipologia = 'Servizi sociali'";
             PreparedStatement disponibilitaStatement = connection.prepareStatement(disponibilitaQuery);
             disponibilitaStatement.setString(1, dataServizio);
             ResultSet disponibilitaResultSet = disponibilitaStatement.executeQuery();
@@ -112,8 +112,12 @@ public class assegnazioneAutomatica {
             e.printStackTrace();
         }
 
-        return 0; // Nessun volontario disponibile trovato
+        return 0; // Nessun volontario disponibile con tipologia "Servizi sociali" trovato
     }
+
+
+
+
     public static void cambiaStatoVolontario(int matricolaVolontario, String dataServizio) {
         try {
             String updateStatoQuery = "UPDATE Disponibilita SET confermata = 'Reclutato' WHERE matricola_volontario = ? AND data_disponibilita = ? AND confermata = 'Non confermata'";

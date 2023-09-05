@@ -222,7 +222,7 @@ public class menuManager {
                 serviziManager.eliminaServizio(scanner);
                 break;
             case 4:
-                assegnazioneAutomatica.assegnaAutomaticamente(scanner);
+                assegnazioneAutomatica.assegnaAutomaticamenteSOCIALI(scanner);
                 break;
             case 5:
                 mostraMenuAdmin(scanner);
