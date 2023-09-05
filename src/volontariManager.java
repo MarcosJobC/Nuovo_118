@@ -1,5 +1,7 @@
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -388,7 +390,7 @@ public class volontariManager {
     }
 
 
-    public static void inserisciDisponibilita(Scanner scanner, int matricolaVolontario) {
+    public static void inserisciDisponibilita1(Scanner scanner, int matricolaVolontario) {
         String dataDisponibilita = "";
 
         LocalDate dataOggi = LocalDate.now();
@@ -453,6 +455,152 @@ public class volontariManager {
             e.printStackTrace();
         }
     }
+
+
+    public static void inserisciDisponibilita(Scanner scanner, int matricolaVolontario) {
+        String dataDisponibilita = "";
+        LocalTime oraInizio = null;
+        LocalTime oraFine = null;
+
+        LocalDateTime dataOdierna = LocalDateTime.now();
+
+        while (dataDisponibilita.isEmpty()) {
+            System.out.print("Inserisci la data della disponibilità (dd-MM-yyyy): ");
+            dataDisponibilita = scanner.nextLine();
+
+            if (dataDisponibilita.isEmpty()) {
+                System.out.println("La data non può essere vuota. Riprova.");
+            } else {
+                try {
+                    // Converti la data della disponibilità in un oggetto LocalDateTime
+                    LocalDateTime dataInserita = LocalDateTime.of(LocalDate.parse(dataDisponibilita, DateTimeFormatter.ofPattern("dd-MM-yyyy")), LocalTime.MIDNIGHT);
+
+                    // Verifica se la data inserita è antecedente a oggi
+                    if (dataInserita.isBefore(dataOdierna.minusDays(1))) {
+                        System.out.println("La data della disponibilità non può essere antecedente a oggi.");
+                        dataDisponibilita = ""; // Azzera la data per chiedere di nuovo
+                    }
+                } catch (DateTimeParseException e) {
+                    System.out.println("Formato data non valido. Utilizza il formato dd-MM-yyyy.");
+                    dataDisponibilita = ""; // Azzera la data per chiedere di nuovo
+                }
+            }
+        }
+
+        if (dataDisponibilita.equals(dataOdierna.toLocalDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")))) {
+            while (oraInizio == null || (oraInizio.isBefore(LocalTime.now()) || oraInizio.equals(LocalTime.now())) || oraFine == null || oraFine.isBefore(oraInizio)) {
+                try {
+                    System.out.print("Inserisci l'orario di inizio (HH:mm): ");
+                    String inputOraInizio = scanner.nextLine();
+                    oraInizio = LocalTime.parse(inputOraInizio, DateTimeFormatter.ofPattern("HH:mm"));
+
+                    if (oraInizio.isBefore(LocalTime.now()) || oraInizio.equals(LocalTime.now())) {
+                        System.out.println("L'orario di inizio deve essere successivo all'ora attuale.");
+                        oraInizio = null; // Azzera l'orario di inizio per chiedere di nuovo
+                    }
+
+                    if (oraInizio != null && (oraFine == null || oraFine.isBefore(oraInizio))) {
+                        System.out.print("Inserisci l'orario di fine (HH:mm): ");
+                        String inputOraFine = scanner.nextLine();
+                        oraFine = LocalTime.parse(inputOraFine, DateTimeFormatter.ofPattern("HH:mm"));
+
+                        if (oraFine.isBefore(oraInizio)) {
+                            System.out.println("L'orario di fine deve essere successivo all'orario di inizio.");
+                            oraFine = null; // Azzera l'orario di fine per chiedere di nuovo
+                        }
+                    }
+                } catch (DateTimeParseException e) {
+                    System.out.println("Formato orario non valido. Utilizza il formato HH:mm.");
+                }
+            }
+        } else {
+            // La data della disponibilità non è oggi, quindi richiedi sia l'orario di inizio che l'orario di fine
+            while (oraInizio == null) {
+                try {
+                    System.out.print("Inserisci l'orario di inizio (HH:mm): ");
+                    String inputOraInizio = scanner.nextLine();
+                    oraInizio = LocalTime.parse(inputOraInizio, DateTimeFormatter.ofPattern("HH:mm"));
+                } catch (DateTimeParseException e) {
+                    System.out.println("Formato orario non valido. Utilizza il formato HH:mm.");
+                }
+            }
+
+            while (oraFine == null || oraFine.isBefore(oraInizio)) {
+                try {
+                    System.out.print("Inserisci l'orario di fine (HH:mm): ");
+                    String inputOraFine = scanner.nextLine();
+                    oraFine = LocalTime.parse(inputOraFine, DateTimeFormatter.ofPattern("HH:mm"));
+
+                    if (oraFine.isBefore(oraInizio)) {
+                        System.out.println("L'orario di fine deve essere successivo all'orario di inizio.");
+                        oraFine = null; // Azzera l'orario di fine per chiedere di nuovo
+                    }
+                } catch (DateTimeParseException e) {
+                    System.out.println("Formato orario non valido. Utilizza il formato HH:mm.");
+                }
+            }
+        }
+
+        System.out.print("Seleziona la tipologia del servizio: Emergenza(E) | Servizi sociali (S) | Centralino(C) | lascia vuoto per qualsiasi ruolo: ");
+        String sceltaTipologia = scanner.nextLine().toUpperCase();
+
+        String tipologia;
+        switch (sceltaTipologia) {
+            case "E":
+                tipologia = "Emergenza";
+                break;
+            case "S":
+                tipologia = "Servizi sociali";
+                break;
+            case "C":
+                tipologia = "Centralino";
+                break;
+            default:
+                System.out.println("Tipologia impostata a: qualsiasi ruolo.");
+                tipologia = "Qualsiasi";
+        }
+
+        try {
+            String insertQuery = "INSERT INTO Disponibilita (Matricola_volontario, Data_disponibilita, Tipologia, Confermata, Ora_inizio, Ora_fine) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
+            insertStatement.setInt(1, matricolaVolontario);
+            insertStatement.setString(2, dataDisponibilita);
+            insertStatement.setString(3, tipologia);
+            insertStatement.setString(4, "Non confermata");
+            insertStatement.setTime(5, Time.valueOf(oraInizio));
+            insertStatement.setTime(6, Time.valueOf(oraFine));
+
+            insertStatement.executeUpdate();
+
+            System.out.println(" ");
+            System.out.println("Disponibilità inserita con successo! Grazie mille!");
+            insertStatement.close();
+            System.out.println(" ");
+            menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public static void rimuoviDisponibilita(Scanner scanner, int matricolaVolontario) {
         scanner.nextLine();

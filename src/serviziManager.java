@@ -572,8 +572,6 @@ public class serviziManager {
         System.out.println(" ");
         menuManager.mostraMenuServizi(scanner);
     }
-
-
     public static void eliminaServizio(Scanner scanner) {
         scanner.nextLine();
         boolean operazioneAnnullata = false;
