@@ -1,13 +1,17 @@
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-
+import java.util.Calendar;
 
 public class emegenzeManager {
+
     private static Connection connection;
     public emegenzeManager(Connection connection) {
         this.connection = connection;
     }
-
 
     public static void aggiungiEmergenzeMancanti() {
         try {
@@ -52,8 +56,23 @@ public class emegenzeManager {
         statement.close();
         //System.out.println("Nuova emergenza aggiunta: Data=" + data + ", Turno=" + turno);
     }
+    public static void rimuoviEmergenzePassate() {
+        try {
+            // Ottieni la data attuale
+            LocalDate dataAttuale = LocalDate.now();
 
+            // Esegui la query per rimuovere le emergenze con data antecedente all'odierna
+            String query = "DELETE FROM Emergenze WHERE Data < ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setDate(1, java.sql.Date.valueOf(dataAttuale));
+            statement.executeUpdate();
+            statement.close();
 
+            //System.out.println("Emergenze passate rimosse con successo.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

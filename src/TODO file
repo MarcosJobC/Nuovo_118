@@ -77,7 +77,7 @@ Assegnazione automatica
 //TODO crea tabella centralini
 // La tabella delle emergenza viene aggiornata automaticamente ogni giorno aggiungendo i giorni mancanti (14giorni successivi ad oggi)
 // Il metodo di dare disponibilità adesso chiede anche ora inizio e fine disponibilità
-//TODO Aggiorna metodo assegnazione automatica in base non solo a giorno ma anche ad orario
+// Aggiorna metodo assegnazione automatica in base non solo a giorno ma anche ad orario
 //TODO Non si può mettere piu di una disponibilità al giorno
 
 

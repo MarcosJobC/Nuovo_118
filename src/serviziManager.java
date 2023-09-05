@@ -792,16 +792,14 @@ public class serviziManager {
 
 
     public static void rimuoviDisponibilitaScadute() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -1); // Sottrai un giorno per ottenere la data di ieri
-        String ieri = dateFormat.format(cal.getTime());
+        String oggi = dateFormat.format(cal.getTime()); // Ottieni la data odierna nel formato dd-MM-yyyy
 
-        String deleteDisponibilitaQuery = "DELETE FROM Disponibilita WHERE data_disponibilita < ?";
+        String deleteDisponibilitaQuery = "DELETE FROM Disponibilita WHERE TO_DATE(data_disponibilita, 'dd-MM-yyyy') < TO_DATE(?, 'dd-MM-yyyy')";
         try {
             PreparedStatement deleteDisponibilitaStatement = connection.prepareStatement(deleteDisponibilitaQuery);
-            Date dataIeri = Date.valueOf(ieri); // Converte la stringa in una data SQL
-            deleteDisponibilitaStatement.setDate(1, dataIeri);
+            deleteDisponibilitaStatement.setString(1, oggi); // Passa la data odierna come stringa nel formato dd-MM-yyyy
             int rowCount = deleteDisponibilitaStatement.executeUpdate();
             deleteDisponibilitaStatement.close();
             /*System.out.println(rowCount + " disponibilità scadute sono state rimosse.");*/
@@ -809,17 +807,16 @@ public class serviziManager {
             e.printStackTrace();
         }
     }
-    public static void rimuoviServiziScaduti() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -1); // Sottrai un giorno per ottenere la data di ieri
-        String ieri = dateFormat.format(cal.getTime());
 
-        String deleteServiziQuery = "DELETE FROM Servizi WHERE Data < ?";
+    public static void rimuoviServiziScaduti() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Calendar cal = Calendar.getInstance();
+        String oggi = dateFormat.format(cal.getTime()); // Ottieni la data odierna nel formato dd-MM-yyyy
+
+        String deleteServiziQuery = "DELETE FROM Servizi WHERE TO_DATE(Data, 'dd-MM-yyyy') < TO_DATE(?, 'dd-MM-yyyy')";
         try {
             PreparedStatement deleteServiziStatement = connection.prepareStatement(deleteServiziQuery);
-            Date dataIeri = Date.valueOf(ieri); // Converte la stringa in una data SQL
-            deleteServiziStatement.setDate(1, dataIeri);
+            deleteServiziStatement.setString(1, oggi); // Passa la data odierna come stringa nel formato dd-MM-yyyy
             int rowCount = deleteServiziStatement.executeUpdate();
             deleteServiziStatement.close();
             /*System.out.println(rowCount + " servizi scaduti sono stati rimosse.");*/
@@ -827,8 +824,6 @@ public class serviziManager {
             e.printStackTrace();
         }
     }
-
-
 
 
 

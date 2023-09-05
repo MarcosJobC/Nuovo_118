@@ -20,6 +20,7 @@ public class Main {
 
 
         // Aggiungi l'emergenze mancanti
+        emegenzeManager.rimuoviEmergenzePassate();
         emegenzeManager.aggiungiEmergenzeMancanti();
         // Rimuovi le disponibilità scadute
         serviziManager.rimuoviDisponibilitaScadute();
