@@ -67,7 +67,7 @@ Inserimento disponibilità
 // Togli rimozione disponibiltà se non c'è alcuna disponibiltà data
 // non è possibile inserire la disponibilità se la data inserita è antecedente ad oggi
 // Togli visualizzazione servizi assegnati se non c'è alcun servizio asseganto
-
+// Ora chiede orario inizio-fine per servizi sociali e turno mattina-pomeriggio-notte per emergenza
 
 Gestionale
 // fare che il sistema una volta avviato rimuove tutti i servizi con data antecedente ad oggi
