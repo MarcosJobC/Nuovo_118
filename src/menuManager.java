@@ -52,7 +52,6 @@ public class menuManager {
 
         if (volontariManager.haServiziOEmergenzeAssegnate(matricolaVolontario)) {
             System.out.println("4. Visualizza servizi assegnati");
-            //TODO assegnaAutomaticamenteEMERGENZA deve comparire qui
         }
 
         System.out.println("5. Esci");

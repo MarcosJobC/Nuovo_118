@@ -83,9 +83,21 @@ Gestionale
 // dopo registrazione rimanda a menu principale
 // problema quando si vuole eliminare un volontario che ha notifiche, con il volontario devono andare via anche le notifiche e le disponibilità e i servizi assegnati
 // lista volontari da eliminare fa si che non si veda il volontario null (metti not null in query)
-//implementata visualizzazione non solo servizi ma anche emergenze assegnate
-//notifiche lette vengono cancellate dal database
+// implementata visualizzazione non solo servizi ma anche emergenze assegnate
+// notifiche lette vengono cancellate dal database
 
 IN ATTESA
 //TODO [IMPLEMENTA IN ASSEGNAZIONE AUTOMATICA] QUALIFICA VOLONTARIO TRA AUTISTA-SOCCORITORE-CENTRALINISTA
 //TODO il ragazzo che ha meno di 18 anni non può selezionarsi autista
+//TODO calcolo codice fiscale automatico
+-------------------------------------------------------------URGENTI-------------------------------------------------------------
+//TODO far si che quando il volontario chiede rimozione disponibilità funzioni anche per emergenza e non solo per sociali
+//TODO fare che un admin può inserire le persone in turni di emergenza come fa per i servizi
+//TODO non due mezzi con stessa sigla
+//TODO non due mezzi con stessa targa
+//TODO quando elimino volontari vengono cancellati sia da servizi sociali che da turni emergenza
+//TODO aggiungi che admin vede anche data di nascita nella lista volontari
+//TODO admin può aggiungere e modificare i turni di emergenza
+//TODO metti a posto visualizzazione pazienti
+//TODO eliminazione paziente elimina anche servizio associato a lui
+

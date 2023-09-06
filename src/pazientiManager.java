@@ -10,13 +10,10 @@ import java.sql.SQLException;
 
 
 public class pazientiManager {
-
     private static Connection connection;
     public pazientiManager(Connection connection) {
         this.connection = connection;
     }
-
-
 
     //METODI PAZIENTI
     public static void aggiungiPaziente(Scanner scanner){
@@ -388,7 +385,6 @@ public class pazientiManager {
         System.out.println(" ");
         menuManager.mostraMenuPazienti(scanner);
     }
-
     public static void visualizzaPazienti(Scanner scanner) {
         try {
             // Ottieni una lista di tutti i pazienti
@@ -421,7 +417,5 @@ public class pazientiManager {
             e.printStackTrace();
         }
     }
-
-
 
 }

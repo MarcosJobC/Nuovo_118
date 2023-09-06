@@ -534,26 +534,6 @@ public class volontariManager {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public static void rimuoviDisponibilita(Scanner scanner, int matricolaVolontario) {
         scanner.nextLine();
 
@@ -632,7 +612,6 @@ public class volontariManager {
             e.printStackTrace();
         }
     }
-
     public static void visualizzaServiziAssegnati1(Scanner scanner, int matricolaVolontario) {
         try {
             String query = "SELECT * FROM Servizi WHERE Autista = ? OR Soccorritore = ?";
@@ -660,8 +639,7 @@ public class volontariManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }//TODO
-
+    }
     public static void visualizzaServiziEEmergenzeAssegnate(Scanner scanner, int matricolaVolontario) {
         try {
             // Query per i servizi assegnati
@@ -733,10 +711,6 @@ public class volontariManager {
             e.printStackTrace();
         }
     }
-
-
-
-
     public static void visualizzaDisponibilitaENotificheNonLette(Scanner scanner) {
         try {
             // Recupera le disponibilità non confermate
@@ -775,7 +749,6 @@ public class volontariManager {
         scanner.nextLine();
         menuManager.mostraMenuAdmin(scanner);
     }
-
     public static boolean ciSonoDisponibilitaENotificheNonLette() {
         try {
             // Verifica se ci sono disponibilità non confermate
@@ -800,8 +773,6 @@ public class volontariManager {
             return false; // Gestione delle eccezioni: se si verifica un errore, restituisci false di default
         }
     }
-
-
     public static boolean haDisponibilita(int matricolaVolontario) {
         try {
             String query = "SELECT COUNT(*) FROM Disponibilita WHERE matricola_volontario = ?";
@@ -818,7 +789,6 @@ public class volontariManager {
         }
         return false; // In caso di errore o nessuna disponibilità
     }
-
     public static boolean haServiziOEmergenzeAssegnate(int matricolaVolontario) {
         try {
             // Query per verificare se il volontario ha servizi assegnati
@@ -848,8 +818,6 @@ public class volontariManager {
             return false; // Gestione delle eccezioni: se si verifica un errore, restituisci false di default
         }
     }
-
-
     public static void mostraListaVolontari(Scanner scanner) {
         try {
             // Prepara la query per ottenere la lista di tutti i volontari

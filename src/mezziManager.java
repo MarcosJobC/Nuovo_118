@@ -223,10 +223,4 @@ public class mezziManager {
         menuManager.mostraMenuMezzi(scanner);
     }
 
-
-
-
-
-
-
 }

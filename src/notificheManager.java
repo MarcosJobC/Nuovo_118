@@ -8,8 +8,6 @@ public class notificheManager {
     public notificheManager(Connection connection) {
         this.connection = connection;
     }
-
-
     public static boolean ciSonoNotificheNonLette(int matricolaVolontario) {
         try {
             String notificheQuery = "SELECT Id FROM Notifiche WHERE Matricola_Volontario = ? AND Letta = false";
@@ -26,8 +24,6 @@ public class notificheManager {
             return false;
         }
     }
-
-
     public static void segnaNotificheComeLette(int matricolaVolontario) {
         try {
             String segnaLetteQuery = "UPDATE Notifiche SET Letta = true WHERE Matricola_Volontario = ?";
@@ -39,7 +35,6 @@ public class notificheManager {
             e.printStackTrace();
         }
     }
-
     public static void visualizzaNotifiche(Scanner scanner, int matricolaVolontario) {
         try {
             String notificheQuery = "SELECT * FROM Notifiche WHERE Matricola_Volontario = ? ORDER BY Data_Invio DESC";
@@ -69,8 +64,6 @@ public class notificheManager {
         }
 
     }
-
-
     public static void inviaNotificaVolontario(int matricolaVolontario, String giorno) {
         try {
             String inserisciNotificaQuery = "INSERT INTO Notifiche (Matricola_Volontario, Giorno, Data_Invio, Letta) VALUES (?, ?, ?, ?)";
@@ -85,9 +78,6 @@ public class notificheManager {
             e.printStackTrace();
         }
     }
-
-
-
     public void eliminaNotificheLette() {
         try {
             String query = "DELETE FROM Notifiche WHERE letta = 'true'";

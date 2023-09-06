@@ -18,13 +18,10 @@ import java.util.Calendar;
 
 
 public class serviziManager {
-
     private static Connection connection;
     public serviziManager(Connection connection) {
         this.connection = connection;
     }
-
-
 
     //GESTIONE SERVIZI
     public static void aggiungiServizio(Scanner scanner) {
@@ -656,12 +653,6 @@ public class serviziManager {
         }
 
     }
-
-
-
-
-
-
     private static boolean verificaEsistenzaVolontario(int idSoccorritore) {
         try {
             String verificaQuery = "SELECT id FROM Volontari WHERE id = ?";
@@ -785,12 +776,6 @@ public class serviziManager {
             return false;
         }
     }
-
-
-
-
-
-
     public static void rimuoviDisponibilitaScadute() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Calendar cal = Calendar.getInstance();
@@ -807,7 +792,6 @@ public class serviziManager {
             e.printStackTrace();
         }
     }
-
     public static void rimuoviServiziScaduti() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Calendar cal = Calendar.getInstance();
@@ -824,11 +808,6 @@ public class serviziManager {
             e.printStackTrace();
         }
     }
-
-
-
-
-
 
 }
 
