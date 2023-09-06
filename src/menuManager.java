@@ -52,6 +52,7 @@ public class menuManager {
 
         if (volontariManager.haServiziAssegnati(matricolaVolontario)) {
             System.out.println("4. Visualizza servizi assegnati");
+            //TODO assegnaAutomaticamenteEMERGENZA
         }
 
         System.out.println("5. Esci");
@@ -92,18 +93,20 @@ public class menuManager {
         System.out.println("2. Gestisci volontari");
         System.out.println("3. Gestisci servizi");
         System.out.println("4. Gestisci pazienti");
+        System.out.println("5. Assegna emergenze automaticamente"); //TODO assegnaAutomaticamenteEMERGENZA
+
 
         // Verifica se ci sono richieste di rimozione
         if (serviziManager.ciSonoRichiesteRimozione()) {
-            System.out.println("5. Visualizza RICHIESTE URGENTI rimozione disponibilità");
+            System.out.println("6. Visualizza RICHIESTE URGENTI rimozione disponibilità");
         }
 
         // Verifica se ci sono disponibilità non confermate o notifiche non lette
         if (volontariManager.ciSonoDisponibilitaENotificheNonLette()) {
-            System.out.println("6. Visualizza disponibilità e notifiche non lette");
+            System.out.println("7. Visualizza disponibilità e notifiche non lette");
         }
 
-        System.out.println("7. Esci");
+        System.out.println("8. Esci");
         System.out.println(" ");
         System.out.print("Seleziona un'opzione: ");
 
@@ -124,17 +127,20 @@ public class menuManager {
                 mostraMenuPazienti(scanner);
                 break;
             case 5:
+                assegnazioneAutomatica.assegnaAutomaticamenteEMERGENZA();//TODO assegnaAutomaticamenteEMERGENZA
+                break;
+            case 6:
                 if (serviziManager.ciSonoRichiesteRimozione()) {
                     serviziManager.visualizzaRichiesteRimozione(scanner);
                 } else {
                     System.out.print(" ");
                 }
                 break;
-            case 6:
+            case 7:
                 // Visualizza disponibilità e notifiche non lette
                 volontariManager.visualizzaDisponibilitaENotificheNonLette(scanner);
                 break;
-            case 7:
+            case 8:
                 // Uscire dal menu
                 menuIniziale(scanner);
                 break;

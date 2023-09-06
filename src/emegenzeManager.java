@@ -22,7 +22,7 @@ public class emegenzeManager {
                 LocalDate dataEmergenza = dataAttuale.plusDays(i);
 
                 // Per ciascun turno (mattina, pomeriggio, notte)
-                String[] turni = { "mattina", "pomeriggio", "notte" };
+                String[] turni = { "Mattina", "Pomeriggio", "Notte" };
                 for (String turno : turni) {
                     // Verifica se esiste già una riga per questa data e questo turno
                     if (!esisteEmergenza(dataEmergenza, turno)) {
@@ -39,7 +39,9 @@ public class emegenzeManager {
     private static boolean esisteEmergenza(LocalDate data, String turno) throws SQLException {
         String query = "SELECT COUNT(*) FROM Emergenze WHERE Data = ? AND Turno = ?";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, data.toString()); // Converte la data in una stringa
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String dataString = dateFormat.format(java.sql.Date.valueOf(data));
+        statement.setString(1, dataString);
         statement.setString(2, turno);
         ResultSet resultSet = statement.executeQuery();
         resultSet.next();
@@ -51,11 +53,8 @@ public class emegenzeManager {
     private static void inserisciEmergenza(LocalDate data, String turno) throws SQLException {
         String query = "INSERT INTO Emergenze (Data, Turno) VALUES (?, ?)";
         PreparedStatement statement = connection.prepareStatement(query);
-
-        // Converti la data in una stringa nel formato desiderato (ad esempio, "dd-MM-yyyy")
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String dataString = dateFormat.format(java.sql.Date.valueOf(data));
-
         statement.setString(1, dataString);
         statement.setString(2, turno);
         statement.executeUpdate();
@@ -70,11 +69,8 @@ public class emegenzeManager {
             // Esegui la query per rimuovere le emergenze con data antecedente all'odierna
             String query = "DELETE FROM Emergenze WHERE Data < ?";
             PreparedStatement statement = connection.prepareStatement(query);
-
-            // Converti la data attuale in una stringa nel formato desiderato (ad esempio, "dd-MM-yyyy")
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             String dataString = dateFormat.format(java.sql.Date.valueOf(dataAttuale));
-
             statement.setString(1, dataString);
             statement.executeUpdate();
             statement.close();
