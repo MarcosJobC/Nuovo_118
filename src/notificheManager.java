@@ -87,4 +87,18 @@ public class notificheManager {
     }
 
 
+
+    public void eliminaNotificheLette() {
+        try {
+            String query = "DELETE FROM Notifiche WHERE letta = 'true'";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }

@@ -5,7 +5,9 @@ import java.time.LocalTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class volontariManager {
@@ -631,7 +633,7 @@ public class volontariManager {
         }
     }
 
-    public static void visualizzaServiziAssegnati(Scanner scanner, int matricolaVolontario) {
+    public static void visualizzaServiziAssegnati1(Scanner scanner, int matricolaVolontario) {
         try {
             String query = "SELECT * FROM Servizi WHERE Autista = ? OR Soccorritore = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -658,7 +660,81 @@ public class volontariManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }//TODO
+
+    public static void visualizzaServiziEEmergenzeAssegnate(Scanner scanner, int matricolaVolontario) {
+        try {
+            // Query per i servizi assegnati
+            String serviziQuery = "SELECT 'Servizio' AS Tipo, Data, Orario, Sigla_Mezzo FROM Servizi WHERE Autista = ? OR Soccorritore = ?";
+            PreparedStatement serviziStatement = connection.prepareStatement(serviziQuery);
+            serviziStatement.setInt(1, matricolaVolontario);
+            serviziStatement.setInt(2, matricolaVolontario);
+
+            // Query per le emergenze assegnate
+            String emergenzeQuery = "SELECT 'Emergenza' AS Tipo, Data, Turno FROM Emergenze " +
+                    "WHERE ID IN (SELECT EmergenzaID FROM SoccorritoriEmergenza WHERE SoccorritoreID = ?)";
+            PreparedStatement emergenzeStatement = connection.prepareStatement(emergenzeQuery);
+            emergenzeStatement.setInt(1, matricolaVolontario);
+
+            // Esecuzione delle query e combinazione dei risultati
+            ResultSet serviziResultSet = serviziStatement.executeQuery();
+            ResultSet emergenzeResultSet = emergenzeStatement.executeQuery();
+
+            List<String> serviziEdEmergenze = new ArrayList<>();
+
+            while (serviziResultSet.next()) {
+                String tipo = serviziResultSet.getString("Tipo");
+                String data = serviziResultSet.getString("Data");
+                Time orario = serviziResultSet.getTime("Orario");
+                String siglaMezzo = serviziResultSet.getString("Sigla_Mezzo");
+
+                StringBuilder risultato = new StringBuilder();
+                risultato.append("Tipo: ").append(tipo).append(" - Data: ").append(data);
+
+                if (tipo.equals("Servizio")) {
+                    risultato.append(" - Orario: ").append(orario).append(" - Mezzo: ").append(siglaMezzo);
+                } else if (tipo.equals("Emergenza")) {
+                    String turno = serviziResultSet.getString("Turno");
+                    risultato.append(" - Turno: ").append(turno);
+                }
+
+                serviziEdEmergenze.add(risultato.toString());
+            }
+
+            while (emergenzeResultSet.next()) {
+                String tipo = emergenzeResultSet.getString("Tipo");
+                String data = emergenzeResultSet.getString("Data");
+                String turno = emergenzeResultSet.getString("Turno");
+
+                StringBuilder risultato = new StringBuilder();
+                risultato.append("Tipo: ").append(tipo).append(" - Data: ").append(data).append(" - Turno: ").append(turno);
+
+                serviziEdEmergenze.add(risultato.toString());
+            }
+
+            serviziStatement.close();
+            emergenzeStatement.close();
+
+            System.out.println("Servizi ed Emergenze assegnati:");
+
+            for (String risultato : serviziEdEmergenze) {
+                System.out.println(risultato);
+            }
+
+            System.out.println(" ");
+            System.out.println("Premi un qualsiasi tasto per tornare indietro...");
+
+            // Attendiamo che l'utente prema un tasto
+            scanner.nextLine();
+
+            menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
+
 
 
     public static void visualizzaDisponibilitaENotificheNonLette(Scanner scanner) {
@@ -743,15 +819,29 @@ public class volontariManager {
         return false; // In caso di errore o nessuna disponibilità
     }
 
-    public static boolean haServiziAssegnati(int matricolaVolontario) {
+    public static boolean haServiziOEmergenzeAssegnate(int matricolaVolontario) {
         try {
-            String query = "SELECT * FROM Servizi WHERE Autista = ? OR Soccorritore = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, matricolaVolontario);
-            preparedStatement.setInt(2, matricolaVolontario);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            // Query per verificare se il volontario ha servizi assegnati
+            String serviziQuery = "SELECT * FROM Servizi WHERE Autista = ? OR Soccorritore = ?";
+            PreparedStatement serviziStatement = connection.prepareStatement(serviziQuery);
+            serviziStatement.setInt(1, matricolaVolontario);
+            serviziStatement.setInt(2, matricolaVolontario);
+            ResultSet serviziResultSet = serviziStatement.executeQuery();
 
-            return resultSet.next(); // Restituisci true se ci sono servizi assegnati, altrimenti false
+            // Query per verificare se il volontario ha emergenze assegnate
+            String emergenzeQuery = "SELECT * FROM SoccorritoriEmergenza WHERE SoccorritoreID = ?";
+            PreparedStatement emergenzeStatement = connection.prepareStatement(emergenzeQuery);
+            emergenzeStatement.setInt(1, matricolaVolontario);
+            ResultSet emergenzeResultSet = emergenzeStatement.executeQuery();
+
+            // Verifica se ci sono servizi assegnati o emergenze assegnate
+            boolean haServiziAssegnati = serviziResultSet.next();
+            boolean haEmergenzeAssegnate = emergenzeResultSet.next();
+
+            serviziStatement.close();
+            emergenzeStatement.close();
+
+            return haServiziAssegnati || haEmergenzeAssegnate; // Restituisci true se ci sono servizi o emergenze assegnate, altrimenti false
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -50,9 +50,9 @@ public class menuManager {
             System.out.println("3. Visualizza notifiche");
         }
 
-        if (volontariManager.haServiziAssegnati(matricolaVolontario)) {
+        if (volontariManager.haServiziOEmergenzeAssegnate(matricolaVolontario)) {
             System.out.println("4. Visualizza servizi assegnati");
-            //TODO assegnaAutomaticamenteEMERGENZA
+            //TODO assegnaAutomaticamenteEMERGENZA deve comparire qui
         }
 
         System.out.println("5. Esci");
@@ -74,7 +74,7 @@ public class menuManager {
                 notificheManager.visualizzaNotifiche(scanner, matricolaVolontario);
                 break;
             case 4:
-                volontariManager.visualizzaServiziAssegnati(scanner, matricolaVolontario);
+                volontariManager.visualizzaServiziEEmergenzeAssegnate(scanner, matricolaVolontario);
                 break;
             case 5:
                 menuIniziale(scanner);
@@ -93,7 +93,7 @@ public class menuManager {
         System.out.println("2. Gestisci volontari");
         System.out.println("3. Gestisci servizi");
         System.out.println("4. Gestisci pazienti");
-        System.out.println("5. Assegna emergenze automaticamente"); //TODO assegnaAutomaticamenteEMERGENZA
+        System.out.println("5. Assegna emergenze automaticamente");
 
 
         // Verifica se ci sono richieste di rimozione
@@ -127,7 +127,7 @@ public class menuManager {
                 mostraMenuPazienti(scanner);
                 break;
             case 5:
-                assegnazioneAutomatica.assegnaAutomaticamenteEMERGENZA();//TODO assegnaAutomaticamenteEMERGENZA
+                assegnazioneAutomatica.assegnaAutomaticamenteEMERGENZA(scanner);
                 break;
             case 6:
                 if (serviziManager.ciSonoRichiesteRimozione()) {

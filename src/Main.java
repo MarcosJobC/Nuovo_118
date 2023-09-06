@@ -20,6 +20,8 @@ public class Main {
         TurniCentralinoManager TurniCentralinoManager = new TurniCentralinoManager(dbConnection.getConnection());
 
 
+
+
         // Aggiungi e rimuove le emergenze mancanti
         emegenzeManager.rimuoviEmergenzePassate();
         emegenzeManager.aggiungiEmergenzeMancanti();
@@ -28,8 +30,9 @@ public class Main {
         TurniCentralinoManager.rimuoviTurniPassati();
         TurniCentralinoManager.aggiungiTurniMancanti();
 
-        // Rimuovi le disponibilità scadute
+        // Rimuovi le disponibilità scadute e le notifiche lette
         serviziManager.rimuoviDisponibilitaScadute();
+        notificheManager.eliminaNotificheLette();
 
         // Rimuovi i servizi scaduti
         serviziManager.rimuoviServiziScaduti();

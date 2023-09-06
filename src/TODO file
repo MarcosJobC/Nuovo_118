@@ -63,7 +63,7 @@ Pazienti
 
 Inserimento disponibilità
 // Il metodo di dare disponibilità adesso chiede anche ora inizio e fine disponibilità
-//TODO Non si può mettere piu di una disponibilità al giorno
+// Non si può mettere piu di una disponibilità al giorno
 // Togli rimozione disponibiltà se non c'è alcuna disponibiltà data
 // non è possibile inserire la disponibilità se la data inserita è antecedente ad oggi
 // Togli visualizzazione servizi assegnati se non c'è alcun servizio asseganto
@@ -83,6 +83,8 @@ Gestionale
 // dopo registrazione rimanda a menu principale
 // problema quando si vuole eliminare un volontario che ha notifiche, con il volontario devono andare via anche le notifiche e le disponibilità e i servizi assegnati
 // lista volontari da eliminare fa si che non si veda il volontario null (metti not null in query)
+//implementata visualizzazione non solo servizi ma anche emergenze assegnate
+//notifiche lette vengono cancellate dal database
 
 IN ATTESA
 //TODO [IMPLEMENTA IN ASSEGNAZIONE AUTOMATICA] QUALIFICA VOLONTARIO TRA AUTISTA-SOCCORITORE-CENTRALINISTA

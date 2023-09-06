@@ -133,7 +133,7 @@ public class assegnazioneAutomatica {
 
 
     //ASSEGNAZIONE AUTOMATICA VOLONTARI A EMERGENZA
-    public static void assegnaAutomaticamenteEMERGENZA() {
+    public static void assegnaAutomaticamenteEMERGENZA(Scanner scanner) {
         try {
             String emergenzeSenzaSoccorritoreQuery = "SELECT * FROM Emergenze WHERE ID NOT IN (SELECT EmergenzaID FROM SoccorritoriEmergenza)";
             PreparedStatement emergenzeSenzaSoccorritoreStatement = connection.prepareStatement(emergenzeSenzaSoccorritoreQuery);
@@ -166,6 +166,9 @@ public class assegnazioneAutomatica {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(" ");
+        System.out.println(" ");
+        menuManager.mostraMenuAdmin(scanner);
     }
     public static int trovaVolontarioDisponibileNonConfermatoEMERGENZA(String dataEmergenza, String turnoEmergenza) {
         try {
