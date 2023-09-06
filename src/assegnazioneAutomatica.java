@@ -131,6 +131,19 @@ public class assegnazioneAutomatica {
 
 
 
+
+    //ASSEGNAZIONE AUTOMATICA VOLONTARI A EMERGENZA
+
+
+
+
+
+
+
+
+
+
+
     public static void cambiaStatoVolontario(int matricolaVolontario, String dataServizio) {
         try {
             String updateStatoQuery = "UPDATE Disponibilita SET confermata = 'Reclutato' WHERE matricola_volontario = ? AND data_disponibilita = ? AND confermata = 'Non confermata'";

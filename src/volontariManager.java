@@ -137,8 +137,6 @@ public class volontariManager {
         System.out.println(" ");
         menuManager.menuIniziale(scanner);
     }
-
-
     public static void accesso(Scanner scanner, boolean sceltaValida) {
         sceltaValida = true;
         System.out.print("Inserisci il codice fiscale: ");
@@ -199,7 +197,6 @@ public class volontariManager {
             e.printStackTrace();
         }
     }
-
     public static void modificaAnagrafeVolontari(Scanner scanner) {
         scanner.nextLine();
         try {
@@ -286,7 +283,6 @@ public class volontariManager {
         }
         menuManager.mostraMenuVolontari(scanner);
     }
-
     public static void eliminaVolontario(Scanner scanner) {
         scanner.nextLine();
         try {
@@ -389,80 +385,12 @@ public class volontariManager {
         menuManager.mostraMenuVolontari(scanner);
     }
 
-
-    public static void inserisciDisponibilita1(Scanner scanner, int matricolaVolontario) {
-        String dataDisponibilita = "";
-
-        LocalDate dataOggi = LocalDate.now();
-
-        while (dataDisponibilita.isEmpty()) {
-            System.out.print("Inserisci la data della disponibilità (dd-MM-yyyy): ");
-            dataDisponibilita = scanner.nextLine();
-
-            if (dataDisponibilita.isEmpty()) {
-                System.out.println("La data non può essere vuota. Riprova.");
-            } else {
-                try {
-                    // Converti la data della disponibilità in un oggetto LocalDate
-                    LocalDate dataInserita = LocalDate.parse(dataDisponibilita, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-
-                    // Verifica se la data inserita è antecedente a oggi
-                    if (dataInserita.isBefore(dataOggi)) {
-                        System.out.println("La data della disponibilità non può essere antecedente a oggi.");
-                        dataDisponibilita = ""; // Azzera la data per chiedere di nuovo
-                    }
-                } catch (DateTimeParseException e) {
-                    System.out.println("Formato data non valido. Utilizza il formato dd-MM-yyyy.");
-                    dataDisponibilita = ""; // Azzera la data per chiedere di nuovo
-                }
-            }
-        }
-        System.out.print("Seleziona la tipologia del servizio: Emergenza(E) | Servizi sociali (S) | Centralino(C) | lascia vuoto per qualsiasi ruolo: ");
-        String sceltaTipologia = scanner.nextLine().toUpperCase();
-
-        String tipologia;
-        switch (sceltaTipologia) {
-            case "E":
-                tipologia = "Emergenza";
-                break;
-            case "S":
-                tipologia = "Servizi sociali";
-                break;
-            case "C":
-                tipologia = "Centralino";
-                break;
-            default:
-                System.out.println("Tipologia impostata a: qualsiasi ruolo.");
-                tipologia = "Qualsiasi";
-        }
-
-        try {
-            String insertQuery = "INSERT INTO Disponibilita (Matricola_volontario, Data_disponibilita, Tipologia, Confermata) VALUES (?, ?, ?, ?)";
-            PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
-            insertStatement.setInt(1, matricolaVolontario);
-            insertStatement.setString(2, dataDisponibilita);
-            insertStatement.setString(3, tipologia);
-            insertStatement.setString(4, "Non confermata");
-
-            insertStatement.executeUpdate();
-
-            System.out.println(" ");
-            System.out.println("Disponibilità inserita con successo! Grazie mille!");
-            insertStatement.close();
-            System.out.println(" ");
-            menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public static void inserisciDisponibilita(Scanner scanner, int matricolaVolontario) {
         String dataDisponibilita = "";
-        LocalTime oraInizio = null;
-        LocalTime oraFine = null;
 
         LocalDateTime dataOdierna = LocalDateTime.now();
+        LocalTime oraInizio = null;
+        LocalTime oraFine = null;
 
         while (dataDisponibilita.isEmpty()) {
             System.out.print("Inserisci la data della disponibilità (dd-MM-yyyy): ");
@@ -487,34 +415,50 @@ public class volontariManager {
             }
         }
 
-        if (dataDisponibilita.equals(dataOdierna.toLocalDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")))) {
-            while (oraInizio == null || (oraInizio.isBefore(LocalTime.now()) || oraInizio.equals(LocalTime.now())) || oraFine == null || oraFine.isBefore(oraInizio)) {
-                try {
-                    System.out.print("Inserisci l'orario di inizio (HH:mm): ");
-                    String inputOraInizio = scanner.nextLine();
-                    oraInizio = LocalTime.parse(inputOraInizio, DateTimeFormatter.ofPattern("HH:mm"));
+        // Aggiunta della scelta della tipologia
+        System.out.print("Seleziona la tipologia del servizio: Emergenza(E) | Servizi sociali (S) | Centralino(C) | lascia vuoto per qualsiasi ruolo: ");
+        String sceltaTipologia = scanner.nextLine().toUpperCase();
 
-                    if (oraInizio.isBefore(LocalTime.now()) || oraInizio.equals(LocalTime.now())) {
-                        System.out.println("L'orario di inizio deve essere successivo all'ora attuale.");
-                        oraInizio = null; // Azzera l'orario di inizio per chiedere di nuovo
-                    }
+        String tipologia;
+        switch (sceltaTipologia) {
+            case "E":
+                tipologia = "Emergenza";
+                break;
+            case "S":
+                tipologia = "Servizi sociali";
+                break;
+            case "C":
+                tipologia = "Centralino";
+                break;
+            default:
+                System.out.println("Tipologia impostata a: qualsiasi ruolo.");
+                tipologia = "Qualsiasi";
+        }
 
-                    if (oraInizio != null && (oraFine == null || oraFine.isBefore(oraInizio))) {
-                        System.out.print("Inserisci l'orario di fine (HH:mm): ");
-                        String inputOraFine = scanner.nextLine();
-                        oraFine = LocalTime.parse(inputOraFine, DateTimeFormatter.ofPattern("HH:mm"));
-
-                        if (oraFine.isBefore(oraInizio)) {
-                            System.out.println("L'orario di fine deve essere successivo all'orario di inizio.");
-                            oraFine = null; // Azzera l'orario di fine per chiedere di nuovo
-                        }
-                    }
-                } catch (DateTimeParseException e) {
-                    System.out.println("Formato orario non valido. Utilizza il formato HH:mm.");
+        // Condizione per richiedere il turno solo per "Emergenza"
+        String turnoEmergenza = null;
+        if ("Emergenza".equals(tipologia)) {
+            while (turnoEmergenza == null) {
+                System.out.print("Seleziona il turno: 1) Mattina | 2) Pomeriggio | 3) Notte: ");
+                String sceltaTurno = scanner.nextLine();
+                switch (sceltaTurno) {
+                    case "1":
+                        turnoEmergenza = "Mattina";
+                        break;
+                    case "2":
+                        turnoEmergenza = "Pomeriggio";
+                        break;
+                    case "3":
+                        turnoEmergenza = "Notte";
+                        break;
+                    default:
+                        System.out.println("Scelta non valida. Riprova.");
                 }
             }
-        } else {
-            // La data della disponibilità non è oggi, quindi richiedi sia l'orario di inizio che l'orario di fine
+        }
+
+        // Condizione per richiedere l'orario di inizio e fine solo per "Servizi sociali"
+        if ("Servizi sociali".equals(tipologia)) {
             while (oraInizio == null) {
                 try {
                     System.out.print("Inserisci l'orario di inizio (HH:mm): ");
@@ -541,34 +485,29 @@ public class volontariManager {
             }
         }
 
-        System.out.print("Seleziona la tipologia del servizio: Emergenza(E) | Servizi sociali (S) | Centralino(C) | lascia vuoto per qualsiasi ruolo: ");
-        String sceltaTipologia = scanner.nextLine().toUpperCase();
-
-        String tipologia;
-        switch (sceltaTipologia) {
-            case "E":
-                tipologia = "Emergenza";
-                break;
-            case "S":
-                tipologia = "Servizi sociali";
-                break;
-            case "C":
-                tipologia = "Centralino";
-                break;
-            default:
-                System.out.println("Tipologia impostata a: qualsiasi ruolo.");
-                tipologia = "Qualsiasi";
-        }
-
         try {
-            String insertQuery = "INSERT INTO Disponibilita (Matricola_volontario, Data_disponibilita, Tipologia, Confermata, Ora_inizio, Ora_fine) VALUES (?, ?, ?, ?, ?, ?)";
+            String insertQuery = "INSERT INTO Disponibilita (Matricola_volontario, Data_disponibilita, Tipologia, Confermata, Ora_inizio, Ora_fine, Turno_emergenza) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
             insertStatement.setInt(1, matricolaVolontario);
             insertStatement.setString(2, dataDisponibilita);
             insertStatement.setString(3, tipologia);
             insertStatement.setString(4, "Non confermata");
-            insertStatement.setTime(5, Time.valueOf(oraInizio));
-            insertStatement.setTime(6, Time.valueOf(oraFine));
+
+            // Imposta l'orario di inizio e fine solo per "Servizi sociali"
+            if ("Servizi sociali".equals(tipologia)) {
+                insertStatement.setTime(5, Time.valueOf(oraInizio));
+                insertStatement.setTime(6, Time.valueOf(oraFine));
+            } else {
+                insertStatement.setNull(5, Types.TIME);
+                insertStatement.setNull(6, Types.TIME);
+            }
+
+            // Imposta il turno di emergenza solo per "Emergenza"
+            if ("Emergenza".equals(tipologia)) {
+                insertStatement.setString(7, turnoEmergenza);
+            } else {
+                insertStatement.setNull(7, Types.VARCHAR);
+            }
 
             insertStatement.executeUpdate();
 
