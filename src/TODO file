@@ -1,17 +1,4 @@
-// Aggiungi sezione PAZIENTI
-// Aggiungi-Modifica-Elimina Paziente
-// Al posto PAZIENRE nel servizio ci dev'essere l'ID del paziente
-
-
-// all'accesso non si può lasciare i campi CF e password vuoti
-// Rimanda al menu iniziale dopo registrazione
-// QUALIFICA VOLONTARIO TRA AUTISTA-SOCCORITORE-TIROCINANTE-CENTRALINISTA
-// si può registrare solo chi ha almeno 16 anni e data non deve esser vuota
-// dopo registrazione rimanda a menu principale
-// problema quando si vuole eliminare un volontario che ha notifiche, con il volontario devono andare via anche le notifiche e le disponibilità e i servizi assegnati
-// lista volontari da eliminare fa si che non si veda il volontario null (metti not null in query)
-
------------------------------------------------------ADMIN-----------------------------------------------------
+IMPLEMENTAZIONI
 
 Aggiunta mezzo
 // Non può esser lasciato vuoto alcun campo nell'aggiunta del mezzo nuovo
@@ -44,6 +31,9 @@ Aggiunta servizio
 // non permettere venga inserita data precedente ad oggi o data vuota
 // non permettere venga inserita ora precedente  ad ora se inserisco un servizio per il giorno odierno o ora vuota
 // Dopo aver aggiunto il servizio rimandare al menu mezzi
+// Modifica che ora paziente è un ID e non una stringa nome e cognome
+// Possibile aggiungere paziente durante creazione servizio
+// no case sensitive in ricera paziente aggiungi servizio
 
 Modifica servizio
 // metti che admin vede lista servizi e sceglie il servizio da modificare in base al suo ID
@@ -59,30 +49,38 @@ Visualizza disponibilità e notifiche non lette
 // non far visualizzare la voce se non ce ne sono
 
 Assegnazione automatica
-// torna al menu servizi dopo aver assegnato automaticamente
+// Torna al menu servizi dopo aver assegnato automaticamente
+// Adesso assegna in base non solo a giorno ma anche ad orario
 
 //Accettazione rimozione disponibilità
 // dopo aver accettato richiesta rimozione disponibilità torna al menu amministratore
 
 //NUOVI---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Pazienti
 //Metodo di aggiunta paziente i campi non devono esser lasciati vuoti e la data di nascita non dev'esser successiva ad oggi
+// quando voglio eliminare paziente non me lo fa eliminare se ci sono servizi a lui collegati fare avviso e rimozione servizi connessi e pazienti
 
-// Aggiunta servizi modifica che ora paziente è un ID e non una stringa nome e cognome
-// Possibile aggiungere paziente durante creazione servizio
-// no case sensitive in ricera paziente aggiungi servizio
-// quando voglio eliminare paziente non me lo fa eliminare se ci sono servizi a lui collegati fare avviso e rimozione servizio
-// fare che il sistema una volta avviato rimuove tutti i servizi-disponibilità con data antecedente ad oggi
-
-// tabella emergenza creata
-// crea tabella centralini
-// La tabella delle emergenza viene aggiornata automaticamente ogni giorno aggiungendo i giorni mancanti (14giorni successivi ad oggi)
+Inserimento disponibilità
 // Il metodo di dare disponibilità adesso chiede anche ora inizio e fine disponibilità
-// Aggiorna metodo assegnazione automatica in base non solo a giorno ma anche ad orario
 //TODO Non si può mettere piu di una disponibilità al giorno
-
-
-
------------------------------------------------------UTENTI-----------------------------------------------------
 // Togli rimozione disponibiltà se non c'è alcuna disponibiltà data
 // non è possibile inserire la disponibilità se la data inserita è antecedente ad oggi
 // Togli visualizzazione servizi assegnati se non c'è alcun servizio asseganto
+
+
+Gestionale
+// fare che il sistema una volta avviato rimuove tutti i servizi con data antecedente ad oggi
+// fare che il sistema una volta avviato rimuove tutti le disponibilità con data antecedente ad oggi
+// fare che il sistema una volta avviato rimuove tutti le emergenze con data antecedente ad oggi
+// fare che il sistema una volta avviato rimuove tutti i turni al centralino con data antecedente ad oggi
+// La tabella delle emergenza viene aggiornata automaticamente ogni giorno aggiungendo i giorni mancanti (14giorni successivi ad oggi)
+// La tabella dei turni al centralino viene aggiornata automaticamente ogni giorno aggiungendo i giorni mancanti (14giorni successivi ad oggi)
+// all'accesso non si può lasciare i campi CF e password vuoti
+// Rimanda al menu iniziale dopo registrazione
+// TODO [IMPLEMENTA IN ASSEGNAZIONE AUTOMATICA] QUALIFICA VOLONTARIO TRA AUTISTA-SOCCORITORE-TIROCINANTE-CENTRALINISTA
+// si può registrare solo chi ha almeno 16 anni e data non deve esser vuota
+// dopo registrazione rimanda a menu principale
+// problema quando si vuole eliminare un volontario che ha notifiche, con il volontario devono andare via anche le notifiche e le disponibilità e i servizi assegnati
+// lista volontari da eliminare fa si che non si veda il volontario null (metti not null in query)
+
