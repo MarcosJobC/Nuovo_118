@@ -12,12 +12,6 @@ public class assegnazioneAutomatica {
         this.connection = connection;
     }
 
-
-
-
-
-
-
     //ASSEGNAZIONE AUTOMATICA VOLONTARI A SERVIZI
     public static void assegnaAutomaticamenteSOCIALI(Scanner scanner) {
         //Vengono assegnati prima tutti gli autisti e successivamente tutti i soccoritori
@@ -128,10 +122,6 @@ public class assegnazioneAutomatica {
         return 0; // Nessun volontario disponibile con tipologia "Servizi sociali" trovato
     }
 
-
-
-
-
     //ASSEGNAZIONE AUTOMATICA VOLONTARI A EMERGENZA
     public static void assegnaAutomaticamenteEMERGENZA(Scanner scanner) {
         try {
@@ -200,13 +190,6 @@ public class assegnazioneAutomatica {
 
         return 0; // Nessun volontario disponibile con tipologia "Emergenza" e turno corretto trovato per l'emergenza specifica
     }
-
-
-
-
-
-
-
 
 
     public static void cambiaStatoVolontario(int matricolaVolontario, String dataServizio) {

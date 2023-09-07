@@ -612,34 +612,6 @@ public class volontariManager {
             e.printStackTrace();
         }
     }
-    public static void visualizzaServiziAssegnati1(Scanner scanner, int matricolaVolontario) {
-        try {
-            String query = "SELECT * FROM Servizi WHERE Autista = ? OR Soccorritore = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, matricolaVolontario);
-            preparedStatement.setInt(2, matricolaVolontario);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            System.out.println("Servizi assegnati:");
-
-            while (resultSet.next()) {
-                String giorno = resultSet.getString("Data");
-                Time orario = resultSet.getTime("Orario");
-                String siglaMezzo = resultSet.getString("Sigla_Mezzo");
-
-                System.out.println("Data: " + giorno + " - Orario: " + orario + " - Mezzo: " + siglaMezzo);
-            }
-
-            preparedStatement.close();
-
-
-            System.out.println(" ");
-            menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
     public static void visualizzaServiziEEmergenzeAssegnate(Scanner scanner, int matricolaVolontario) {
         try {
             // Query per i servizi assegnati
