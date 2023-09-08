@@ -233,7 +233,7 @@ public class volontariManager {
                 ResultSet volontarioResultSet = verificaStatement.executeQuery();
 
                 if (volontarioResultSet.next()) {
-                    System.out.print("Volontario trovato. Inserisci i nuovi dati: ");
+                    System.out.println("Volontario trovato. Inserisci i nuovi dati: ");
 
                     System.out.print("Nuovo nome (lascia vuoto per mantenere invariato): ");
                     String nuovoNome = scanner.nextLine();
