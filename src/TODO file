@@ -107,4 +107,5 @@ IN ATTESA
 //TODO [NO] inserire metodo per modificare password dimenticata
 //TODO mettere che se si lascia vuoto il campo tipologia durante l'inserimento della disponibilità viene messo centralinista
 //TODO obbligatorio inserire turno mattina-pomeriggio-notte emergenza
-
+//TODO aggiornare metodo [haServiziOEmergenzeAssegnate] in modo che controlli anche i servizi al centralino
+//TODO non possibile assegnare ad emergenze gente che è centralinista
