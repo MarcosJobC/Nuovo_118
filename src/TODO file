@@ -109,3 +109,5 @@ IN ATTESA
 //TODO obbligatorio inserire turno mattina-pomeriggio-notte emergenza
 //TODO aggiornare metodo [haServiziOEmergenzeAssegnate] in modo che controlli anche i servizi al centralino
 //TODO non possibile assegnare ad emergenze gente che è centralinista
+//TODO durante inserimento servizi prende valido anche un ID non esistente nella lista pazienti E DA ERRORE ALLA FINE
+//TODO verifica che rimozione disponibilità accettata da admin toglie sia turni centralino che emergenza che sociali
