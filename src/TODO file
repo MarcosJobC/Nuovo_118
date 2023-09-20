@@ -111,3 +111,5 @@ IN ATTESA
 //TODO non possibile assegnare ad emergenze gente che è centralinista
 //TODO durante inserimento servizi prende valido anche un ID non esistente nella lista pazienti E DA ERRORE ALLA FINE
 //TODO verifica che rimozione disponibilità accettata da admin toglie sia turni centralino che emergenza che sociali
+//TODO Far si che se si elimina un mezzo questo venga automaticamente tolto da tutti i servizi a cui è assegnato
+
