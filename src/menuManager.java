@@ -126,6 +126,7 @@ public class menuManager {
                 mostraMenuPazienti(scanner);
                 break;
             case 5:
+                //TODO ATTENZIONE ASSEGNA AUTOMATICAMENTE NON SOLO EMERGENZA MA ANCHE SERVIZI TRASPORTO E CENTRALINO
                 assegnazioneAutomatica.assegnaAutomaticamenteEMERGENZA(scanner);
                 break;
             case 6:
