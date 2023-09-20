@@ -126,7 +126,7 @@ public class menuManager {
                 mostraMenuPazienti(scanner);
                 break;
             case 5:
-                //TODO ATTENZIONE ASSEGNA AUTOMATICAMENTE NON SOLO EMERGENZA MA ANCHE SERVIZI TRASPORTO E CENTRALINO
+                //TODO ATTENZIONE ASSEGNA AUTOMATICAMENTE NON SOLO EMERGENZA MA ANCHE SERVIZI TRASPORTO E CENTRALINO e QUINDI TOGLIERLO DA MENU SERVIZI?
                 assegnazioneAutomatica.assegnaAutomaticamenteEMERGENZA(scanner);
                 break;
             case 6:
