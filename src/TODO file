@@ -90,8 +90,8 @@ IN ATTESA
 //TODO [IMPLEMENTA IN ASSEGNAZIONE AUTOMATICA] QUALIFICA VOLONTARIO TRA AUTISTA-SOCCORITORE-CENTRALINISTA
 //TODO il ragazzo che ha meno di 18 anni non può selezionarsi autista
 //TODO calcolo codice fiscale automatico
--------------------------------------------------------------URGENTI-------------------------------------------------------------
-//TODO [IMPORTANTE] elimina anche le righe si soccorritori emergenza vecchie sennò non è possibile eliminare la riga in tabella emergenza
+-------------------------------------------------------------U-------------------------------------------------------------
+//TODO [IMPORTANTE] elimina anche le righe di soccorritori emergenza vecchie sennò non è possibile eliminare la riga in tabella emergenza
 //TODO far si che quando il volontario chiede rimozione disponibilità funzioni anche per emergenza e non solo per sociali
 //TODO fare che un admin può inserire le persone in turni di emergenza come fa per i servizi
 //TODO non due mezzi con stessa sigla
@@ -109,7 +109,7 @@ IN ATTESA
 //TODO obbligatorio inserire turno mattina-pomeriggio-notte emergenza
 //TODO aggiornare metodo [haServiziOEmergenzeAssegnate] in modo che controlli anche i servizi al centralino
 //TODO non possibile assegnare ad emergenze gente che è centralinista
-//TODO durante inserimento servizi prende valido anche un ID non esistente nella lista pazienti E DA ERRORE ALLA FINE
+//TODO durante inserimento servizi prende valido anche un ID non esistente nella lista pazienti E DA ERRORE ALLA FINE, non deve accadere
 //TODO verifica che rimozione disponibilità accettata da admin toglie sia turni centralino che emergenza che sociali
 //TODO Far si che se si elimina un mezzo questo venga automaticamente tolto da tutti i servizi a cui è assegnato
 //TODO aggiungi metodo per far visualizzare al volontario la lista delle proprie le disponibilità

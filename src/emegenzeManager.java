@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-
+//TODO ELIMINA CLASSE
 public class emegenzeManager {
     private static Connection connection;
 

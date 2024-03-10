@@ -413,46 +413,19 @@ public class volontariManager {
             }
         }
 
-        System.out.print("Seleziona la tipologia del servizio: Emergenza(E) | Servizi sociali (S) | Centralino(C) | lascia vuoto per qualsiasi ruolo: ");
+        System.out.print("Seleziona la tipologia del servizio: Servizi sociali (S) | lascia vuoto per qualsiasi ruolo: ");
         String sceltaTipologia = scanner.nextLine().toUpperCase();
 
         String tipologia;
         switch (sceltaTipologia) {
-            case "E":
-                tipologia = "Emergenza";
-                break;
             case "S":
                 tipologia = "Servizi sociali";
-                break;
-            case "C":
-                tipologia = "Centralino";
                 break;
             default:
                 System.out.println("Tipologia impostata a: qualsiasi ruolo.");
                 tipologia = "Qualsiasi";
         }
 
-        // Condizione per richiedere il turno solo per "Emergenza"
-        String turnoEmergenza = null;
-        if ("Emergenza".equals(tipologia)) {
-            while (turnoEmergenza == null) {
-                System.out.print("Seleziona il turno: 1) Mattina | 2) Pomeriggio | 3) Notte: ");
-                String sceltaTurno = scanner.nextLine();
-                switch (sceltaTurno) {
-                    case "1":
-                        turnoEmergenza = "Mattina";
-                        break;
-                    case "2":
-                        turnoEmergenza = "Pomeriggio";
-                        break;
-                    case "3":
-                        turnoEmergenza = "Notte";
-                        break;
-                    default:
-                        System.out.println("Scelta non valida. Riprova.");
-                }
-            }
-        }
 
         // Condizione per richiedere l'orario di inizio e fine solo per "Servizi sociali"
         if ("Servizi sociali".equals(tipologia)) {
@@ -507,6 +480,7 @@ public class volontariManager {
             insertStatement.setString(2, dataDisponibilita);
             insertStatement.setString(3, tipologia);
             insertStatement.setString(4, "Non confermata");
+            insertStatement.setString(7, tipologia);
 
             if ("Servizi sociali".equals(tipologia)) {
                 insertStatement.setTime(5, Time.valueOf(oraInizio));
@@ -516,11 +490,6 @@ public class volontariManager {
                 insertStatement.setNull(6, Types.TIME);
             }
 
-            if ("Emergenza".equals(tipologia)) {
-                insertStatement.setString(7, turnoEmergenza);
-            } else {
-                insertStatement.setNull(7, Types.VARCHAR);
-            }
 
             insertStatement.executeUpdate();
 

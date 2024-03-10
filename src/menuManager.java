@@ -92,7 +92,6 @@ public class menuManager {
         System.out.println("2. Gestisci volontari");
         System.out.println("3. Gestisci servizi");
         System.out.println("4. Gestisci pazienti");
-        System.out.println("5. Assegna emergenze automaticamente");
 
 
         // Verifica se ci sono richieste di rimozione
@@ -124,10 +123,6 @@ public class menuManager {
                 break;
             case 4:
                 mostraMenuPazienti(scanner);
-                break;
-            case 5:
-                //TODO ATTENZIONE ASSEGNA AUTOMATICAMENTE NON SOLO EMERGENZA MA ANCHE SERVIZI TRASPORTO E CENTRALINO e QUINDI TOGLIERLO DA MENU SERVIZI?
-                assegnazioneAutomatica.assegnaAutomaticamenteEMERGENZA(scanner);
                 break;
             case 6:
                 if (serviziManager.ciSonoRichiesteRimozione()) {
