@@ -888,7 +888,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "BusinessLogic.menuManager",
+					"name": "BusinessLogic.menuControllerler",
 					"ownedElements": [
 						{
 							"_type": "UMLDependency",
@@ -991,7 +991,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uh7aF2+ec="
 							},
-							"name": "BusinessLogic.menuManager",
+							"name": "BusinessLogic.menuControllerler",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -1365,7 +1365,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "BusinessLogic.Mezzo",
+					"name": "BusinessLogic.MezzoController",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -1435,7 +1435,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uh+qGYznA="
 							},
-							"name": "BusinessLogic.Mezzo",
+							"name": "BusinessLogic.MezzoController",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -1827,7 +1827,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "BusinessLogic.Servizio",
+					"name": "BusinessLogic.ServizioController",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -1989,7 +1989,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uiFaG7Fas="
 							},
-							"name": "BusinessLogic.Servizio",
+							"name": "BusinessLogic.ServizioController",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -4538,7 +4538,7 @@
 											"top": 167,
 											"width": 88.130859375,
 											"height": 13,
-											"text": "BusinessLogic.menuManager"
+											"text": "BusinessLogic.menuControllerler"
 										},
 										{
 											"_type": "LabelView",
@@ -4640,7 +4640,7 @@
 											"top": 5,
 											"width": 446.90673828125,
 											"height": 13,
-											"text": "«constructor»+BusinessLogic.menuManager(connection: Connection)",
+											"text": "«constructor»+BusinessLogic.menuControllerler(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5110,7 +5110,7 @@
 											"top": 237,
 											"width": 39,
 											"height": 13,
-											"text": "BusinessLogic.Mezzo"
+											"text": "BusinessLogic.MezzoController"
 										},
 										{
 											"_type": "LabelView",
@@ -5245,7 +5245,7 @@
 											"top": 5,
 											"width": 414.38134765625,
 											"height": 13,
-											"text": "«constructor»+BusinessLogic.Mezzo(siglaMezzo: String, targa: String, tipologia: String)",
+											"text": "«constructor»+BusinessLogic.MezzoController(siglaMezzo: String, targa: String, tipologia: String)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5727,7 +5727,7 @@
 											"top": 307,
 											"width": 49.8544921875,
 											"height": 13,
-											"text": "BusinessLogic.Servizio"
+											"text": "BusinessLogic.ServizioController"
 										},
 										{
 											"_type": "LabelView",
@@ -5896,7 +5896,7 @@
 											"top": 5,
 											"width": 608.9814453125,
 											"height": 13,
-											"text": "«constructor»+BusinessLogic.Servizio(id: int, data: String, orario: Time, volontariAssegnati: Integer[*], siglaMezzo: String)",
+											"text": "«constructor»+BusinessLogic.ServizioController(id: int, data: String, orario: Time, volontariAssegnati: Integer[*], siglaMezzo: String)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -8387,7 +8387,7 @@
 											"top": 783,
 											"width": 446.90673828125,
 											"height": 13,
-											"text": "BusinessLogic.menuManager"
+											"text": "BusinessLogic.menuControllerler"
 										},
 										{
 											"_type": "LabelView",
@@ -8494,7 +8494,7 @@
 											"top": 829,
 											"width": 446.90673828125,
 											"height": 13,
-											"text": "«constructor»+BusinessLogic.menuManager(connection: Connection)",
+											"text": "«constructor»+BusinessLogic.menuControllerler(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -8979,7 +8979,7 @@
 											"top": 1119,
 											"width": 414.38134765625,
 											"height": 13,
-											"text": "BusinessLogic.Mezzo"
+											"text": "BusinessLogic.MezzoController"
 										},
 										{
 											"_type": "LabelView",
@@ -9119,7 +9119,7 @@
 											"top": 1195,
 											"width": 414.38134765625,
 											"height": 13,
-											"text": "«constructor»+BusinessLogic.Mezzo(siglaMezzo: String, targa: String, tipologia: String)",
+											"text": "«constructor»+BusinessLogic.MezzoController(siglaMezzo: String, targa: String, tipologia: String)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -9616,7 +9616,7 @@
 											"top": 727,
 											"width": 608.9814453125,
 											"height": 13,
-											"text": "BusinessLogic.Servizio"
+											"text": "BusinessLogic.ServizioController"
 										},
 										{
 											"_type": "LabelView",
@@ -9790,7 +9790,7 @@
 											"top": 833,
 											"width": 608.9814453125,
 											"height": 13,
-											"text": "«constructor»+BusinessLogic.Servizio(id: int, data: String, orario: Time, volontariAssegnati: Integer[*], siglaMezzo: String)",
+											"text": "«constructor»+BusinessLogic.ServizioController(id: int, data: String, orario: Time, volontariAssegnati: Integer[*], siglaMezzo: String)",
 											"horizontalAlignment": 0
 										},
 										{

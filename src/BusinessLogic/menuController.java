@@ -5,9 +5,9 @@ import ORM.*;
 import java.sql.Connection;
 import java.util.Scanner;
 
-public class menuManager {
+public class menuController {
     private static Connection connection;
-    public menuManager(Connection connection) {
+    public menuController(Connection connection) {
         this.connection = connection;
     }
 

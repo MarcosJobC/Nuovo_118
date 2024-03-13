@@ -13,14 +13,6 @@ import java.util.Scanner;
 
 public class Volontario {
 
-
-    private static Connection connection;
-    public Volontario(Connection connection) {
-        this.connection = connection;
-    }
-
-
-
     private int matricola;
     private String nome;
     private String cognome;

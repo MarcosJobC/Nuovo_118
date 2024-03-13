@@ -1,7 +1,6 @@
 package ORM;
 
-import BusinessLogic.menuManager;
-import ORM.notificheManager;
+import BusinessLogic.menuController;
 
 import java.sql.*;
 import java.time.LocalTime;
@@ -22,7 +21,7 @@ public class assegnazioneAutomatica {
         assegnaSoccorritoriAutomaticamenteSOCIALI();
         System.out.println(" ");
         System.out.println(" ");
-        menuManager.mostraMenuServizi(scanner);
+        menuController.mostraMenuServizi(scanner);
     }
     public static void assegnaAutistiAutomaticamenteSOCIALI() {
         try {

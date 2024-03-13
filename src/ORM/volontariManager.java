@@ -59,7 +59,7 @@ public class volontariManager {
                 sceltaValida = false;
                 System.out.println(" ");
                 System.out.println(" ");
-                menuManager.menuIniziale(scanner);
+                menuController.menuIniziale(scanner);
                 return; // Esci dal metodo per evitare ulteriori operazioni
             }
         }
@@ -90,16 +90,16 @@ public class volontariManager {
 
                 if (isAdmin) {
                     // Mostra il menu per gli utenti amministratori
-                    menuManager.mostraMenuAdmin(scanner);
+                    menuController.mostraMenuAdmin(scanner);
                 } else {
                     // Mostra il menu per gli utenti non amministratori
-                    menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
+                    menuController.mostraMenuUtenteNormale(scanner, matricolaVolontario);
                 }
             } else {
                 System.out.println("Accesso negato. Codice fiscale o password errati.");
                 System.out.println(" ");
                 System.out.println(" ");
-                menuManager.menuIniziale(scanner);
+                menuController.menuIniziale(scanner);
             }
 
             preparedStatement.close();
@@ -132,7 +132,7 @@ public class volontariManager {
                     System.out.println("Annullamento dell'operazione.");
                     System.out.println("  ");
                     System.out.println("  ");
-                    menuManager.mostraMenuVolontari(scanner);
+                    menuController.mostraMenuVolontari(scanner);
                 }
 
                 String verificaQuery = "SELECT * FROM Volontari WHERE Codice_fiscale = ?";
@@ -191,7 +191,7 @@ public class volontariManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        menuManager.mostraMenuVolontari(scanner);
+        menuController.mostraMenuVolontari(scanner);
     }
     public static void eliminaVolontario(Scanner scanner) {
         scanner.nextLine();
@@ -218,7 +218,7 @@ public class volontariManager {
                     System.out.println("Annullamento dell'operazione.");
                     System.out.println("  ");
                     System.out.println("  ");
-                    menuManager.mostraMenuVolontari(scanner);
+                    menuController.mostraMenuVolontari(scanner);
                 }
 
                 String verificaQuery = "SELECT * FROM Volontari WHERE codice_fiscale = ?";
@@ -292,7 +292,7 @@ public class volontariManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        menuManager.mostraMenuVolontari(scanner);
+        menuController.mostraMenuVolontari(scanner);
     }
     public static void inserisciDisponibilita(Scanner scanner, int matricolaVolontario) {
         String dataDisponibilita = "";
@@ -379,7 +379,7 @@ public class volontariManager {
                 System.out.println("Hai già inserito una disponibilità per questa data e tipologia, se vuoi inserirne una nuova prima elimina la precedente.");
                 System.out.println(" ");
                 System.out.println(" ");
-                menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
+                menuController.mostraMenuUtenteNormale(scanner, matricolaVolontario);
             }
 
             String insertQuery = "INSERT INTO Disponibilita (Matricola_volontario, Data_disponibilita, Tipologia, Confermata, Ora_inizio, Ora_fine, Turno_emergenza) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -406,7 +406,7 @@ public class volontariManager {
             insertStatement.close();
             System.out.println(" ");
             System.out.println(" ");
-            menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
+            menuController.mostraMenuUtenteNormale(scanner, matricolaVolontario);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -451,7 +451,7 @@ public class volontariManager {
 
                     System.out.println("Disponibilità rimossa autonomamente con successo!");
                     System.out.println(" ");
-                    menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
+                    menuController.mostraMenuUtenteNormale(scanner, matricolaVolontario);
                 } else if (confermata.equalsIgnoreCase("Reclutato")) {
 
                     System.out.println("Questa disponibilità è già stata confermata e non può esser rimossa autonomamente. Vuoi richiedere la rimozione ad un amministratore? (s/n).");
@@ -483,7 +483,7 @@ public class volontariManager {
             preparedStatement.close();
 
             System.out.println(" ");
-            menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
+            menuController.mostraMenuUtenteNormale(scanner, matricolaVolontario);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -554,7 +554,7 @@ public class volontariManager {
             // Attendiamo che l'utente prema un tasto
             scanner.nextLine();
 
-            menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
+            menuController.mostraMenuUtenteNormale(scanner, matricolaVolontario);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -596,7 +596,7 @@ public class volontariManager {
         }
         System.out.println("Premi un tasto qualsiasi per tornare al menu precedente.");
         scanner.nextLine();
-        menuManager.mostraMenuAdmin(scanner);
+        menuController.mostraMenuAdmin(scanner);
     }
     public static boolean ciSonoDisponibilitaENotificheNonLette() {
         try {
@@ -698,6 +698,6 @@ public class volontariManager {
         scanner.nextLine();
         scanner.nextLine();
         System.out.println(" ");
-        menuManager.mostraMenuVolontari(scanner);
+        menuController.mostraMenuVolontari(scanner);
     }
 }

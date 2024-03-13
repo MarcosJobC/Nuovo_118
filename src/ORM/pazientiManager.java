@@ -1,6 +1,6 @@
 package ORM;
 
-import BusinessLogic.menuManager;
+import BusinessLogic.menuController;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -100,7 +100,7 @@ public class pazientiManager {
         }
         System.out.println(" ");
         System.out.println(" ");
-        menuManager.mostraMenuPazienti(scanner);
+        menuController.mostraMenuPazienti(scanner);
     }
     public static void aggiungiPazientedaServizio(Scanner scanner,boolean newfromservizio,String dataServizio,LocalTime orarioServizio){
         System.out.println(" ");
@@ -292,7 +292,7 @@ public class pazientiManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        menuManager.mostraMenuPazienti(scanner);
+        menuController.mostraMenuPazienti(scanner);
     }
     public static void eliminaPaziente(Scanner scanner) {
         try {
@@ -315,7 +315,7 @@ public class pazientiManager {
 
             if (input.equalsIgnoreCase("q")) {
                 System.out.println("Operazione annullata.");
-                menuManager.mostraMenuPazienti(scanner);
+                menuController.mostraMenuPazienti(scanner);
                 return; // Termina il metodo
             }
 
@@ -387,7 +387,7 @@ public class pazientiManager {
 
         System.out.println(" ");
         System.out.println(" ");
-        menuManager.mostraMenuPazienti(scanner);
+        menuController.mostraMenuPazienti(scanner);
     }
     public static void visualizzaPazienti(Scanner scanner) {
         try {
@@ -413,7 +413,7 @@ public class pazientiManager {
 
             System.out.println("Premi un tasto qualsiasi per tornare al menu pazienti.");
             scanner.nextLine();
-            menuManager.mostraMenuPazienti(scanner);
+            menuController.mostraMenuPazienti(scanner);
 
 
             listaPazientiStatement.close();

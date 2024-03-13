@@ -1,6 +1,6 @@
 package ORM;
 
-import BusinessLogic.menuManager;
+import BusinessLogic.menuController;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -86,7 +86,7 @@ public class mezziManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        menuManager.mostraMenuMezzi(scanner);
+        menuController.mostraMenuMezzi(scanner);
     }
     public static void modificaMezzo(Scanner scanner) {
         try {
@@ -163,7 +163,7 @@ public class mezziManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        menuManager.mostraMenuMezzi(scanner);
+        menuController.mostraMenuMezzi(scanner);
     }
     public static void eliminaMezzo(Scanner scanner) {
         try {
@@ -224,7 +224,7 @@ public class mezziManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        menuManager.mostraMenuMezzi(scanner);
+        menuController.mostraMenuMezzi(scanner);
     }
 
 }

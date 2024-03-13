@@ -1,6 +1,6 @@
 package ORM;
 
-import BusinessLogic.menuManager;
+import BusinessLogic.menuController;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -62,7 +62,7 @@ public class notificheManager {
 
             System.out.println("\nPremi qualsiasi tasto per tornare al menu precedente...");
             scanner.nextLine();
-            menuManager.mostraMenuUtenteNormale(scanner, matricolaVolontario);
+            menuController.mostraMenuUtenteNormale(scanner, matricolaVolontario);
         } catch (SQLException e) {
             e.printStackTrace();
         }

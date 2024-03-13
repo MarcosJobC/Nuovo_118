@@ -14,12 +14,6 @@ import java.util.Scanner;
 public class VolontarioController {
 
 
-    private static Connection connection;
-    public VolontarioController(Connection connection) {
-        this.connection = connection;
-    }
-
-
     //TODO NUOVO METODO SMEZZATO PER REGISTRAZIONE
     public static void registrazione(Scanner scanner, boolean sceltaValida) {
         sceltaValida = true;

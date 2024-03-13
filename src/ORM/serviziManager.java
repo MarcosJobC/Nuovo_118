@@ -1,6 +1,6 @@
 package ORM;
 
-import BusinessLogic.menuManager;
+import BusinessLogic.menuController;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -211,7 +211,7 @@ public class serviziManager {
         }
         System.out.println(" ");
         System.out.println(" ");
-        menuManager.mostraMenuServizi(scanner);
+        menuController.mostraMenuServizi(scanner);
     }
     public static void aggiungiServizioInterno(Scanner scanner, boolean newfromservizio,String dataServizio,LocalTime orarioServizio){
 
@@ -365,7 +365,7 @@ public class serviziManager {
         }
         System.out.println(" ");
         System.out.println(" ");
-        menuManager.mostraMenuServizi(scanner);
+        menuController.mostraMenuServizi(scanner);
     }
     public static void modificaServizio(Scanner scanner) {
         scanner.nextLine();
@@ -403,7 +403,7 @@ public class serviziManager {
                     System.out.println("Annullamento dell'operazione.");
                     System.out.println(" ");
                     System.out.println(" ");
-                    menuManager.mostraMenuServizi(scanner);
+                    menuController.mostraMenuServizi(scanner);
                 } else {
                     try {
                         idServizioDaModificare = Integer.parseInt(input);
@@ -453,7 +453,7 @@ public class serviziManager {
                 System.out.println("Nessun servizio trovato con l'ID specificato.");
                 System.out.println(" ");
                 System.out.println(" ");
-                menuManager.mostraMenuServizi(scanner);
+                menuController.mostraMenuServizi(scanner);
                 return; // Esci dal metodo in caso di ID non valido
             }
             String nuovaData = dataServizio; // Inizializza con la data attuale
@@ -568,7 +568,7 @@ public class serviziManager {
 
         System.out.println(" ");
         System.out.println(" ");
-        menuManager.mostraMenuServizi(scanner);
+        menuController.mostraMenuServizi(scanner);
     }
     public static void eliminaServizio(Scanner scanner) {
         scanner.nextLine();
@@ -600,7 +600,7 @@ public class serviziManager {
 
                     System.out.println(" ");
                     System.out.println(" ");
-                    menuManager.mostraMenuServizi(scanner);
+                    menuController.mostraMenuServizi(scanner);
                     break;
                 } else {
                     try {
@@ -625,7 +625,7 @@ public class serviziManager {
                                     System.out.println("BusinessLogic.Servizio con ID " + idServizioDaEliminare + " eliminato con successo!");
                                     System.out.println(" ");
                                     System.out.println(" ");
-                                    menuManager.mostraMenuServizi(scanner);
+                                    menuController.mostraMenuServizi(scanner);
                                 } else {
                                     System.out.println("Input non valido.");
                                     System.out.print("Inserisci l'ID del servizio da eliminare o premi 'q' per tornare indietro: ");
@@ -701,7 +701,7 @@ public class serviziManager {
                 accettaRichiestaRimozione(idRichiestaDaAccettare, scanner);
             } else {
                 // L'utente ha lasciato vuoto, torna indietro
-                menuManager.mostraMenuAdmin(scanner);
+                menuController.mostraMenuAdmin(scanner);
             }
 
             statement.close();
@@ -729,7 +729,7 @@ public class serviziManager {
                 System.out.println("Richiesta di rimozione accettata. L'assegnazione del volontario al servizio è stata rimossa e la richiesta è stata cancellata.");
                 System.out.println(" ");
                 System.out.println(" ");
-                menuManager.mostraMenuAdmin(scanner);
+                menuController.mostraMenuAdmin(scanner);
             } else {
                 System.out.println("ID non valido - Inserisci l'ID corretto.");
                 visualizzaRichiesteRimozione(scanner);

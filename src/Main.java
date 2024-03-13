@@ -1,5 +1,5 @@
+import BusinessLogic.menuController;
 import ORM.assegnazioneAutomatica;
-import BusinessLogic.menuManager;
 import ORM.*;
 
 import java.util.Scanner;
@@ -12,7 +12,7 @@ import java.util.Scanner;
 
             Scanner scanner = new Scanner(System.in);
 
-            menuManager menuManager = new menuManager(dbConnection.getConnection());
+            menuController menuController = new menuController(dbConnection.getConnection());
             volontariManager volontariManager = new volontariManager(dbConnection.getConnection());
             mezziManager mezziManager = new mezziManager(dbConnection.getConnection());
             serviziManager serviziManager = new serviziManager(dbConnection.getConnection());
@@ -29,7 +29,7 @@ import java.util.Scanner;
             serviziManager.rimuoviServiziScaduti();
 
             // Avvia gestionale
-            menuManager.menuIniziale(scanner);
+            menuController.menuIniziale(scanner);
 
             scanner.close();
         }

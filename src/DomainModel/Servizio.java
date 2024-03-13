@@ -1,4 +1,4 @@
-package BusinessLogic;
+package DomainModel;
 
 import java.sql.Time;
 import java.util.List;
