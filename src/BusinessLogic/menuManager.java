@@ -24,7 +24,7 @@ public class menuManager {
 
             if (choice.equalsIgnoreCase("R")) {
                 sceltaValida = true;
-                Volontario.registrazione(scanner, sceltaValida);
+                VolontarioController.registrazione(scanner, sceltaValida);
             } else if (choice.equalsIgnoreCase("A")) {
                 sceltaValida = true;
                 volontariManager.accesso(scanner, sceltaValida);
