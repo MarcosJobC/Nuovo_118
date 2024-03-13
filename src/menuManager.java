@@ -23,7 +23,7 @@ public class menuManager {
 
             if (choice.equalsIgnoreCase("R")) {
                 sceltaValida = true;
-                volontariManager.registrazione(scanner, sceltaValida);
+                Volontario.registrazione(scanner, sceltaValida);
             } else if (choice.equalsIgnoreCase("A")) {
                 sceltaValida = true;
                 volontariManager.accesso(scanner, sceltaValida);
@@ -92,7 +92,6 @@ public class menuManager {
         System.out.println("2. Gestisci volontari");
         System.out.println("3. Gestisci servizi");
         System.out.println("4. Gestisci pazienti");
-        System.out.println("5. Assegna emergenze automaticamente");
 
 
         // Verifica se ci sono richieste di rimozione
@@ -124,9 +123,6 @@ public class menuManager {
                 break;
             case 4:
                 mostraMenuPazienti(scanner);
-                break;
-            case 5:
-                assegnazioneAutomatica.assegnaAutomaticamenteEMERGENZA(scanner);
                 break;
             case 6:
                 if (serviziManager.ciSonoRichiesteRimozione()) {
