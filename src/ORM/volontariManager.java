@@ -14,7 +14,6 @@ import java.util.Scanner;
 public class volontariManager {
 
     private static Connection connection;
-
     public volontariManager(Connection connection) {
         this.connection = connection;
     }
@@ -43,7 +42,6 @@ public class volontariManager {
             e.printStackTrace();
         }
     }
-
 
 
 
