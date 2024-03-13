@@ -1,3 +1,7 @@
+import ORM.assegnazioneAutomatica;
+import BusinessLogic.menuManager;
+import ORM.*;
+
 import java.util.Scanner;
 
     public class Main {

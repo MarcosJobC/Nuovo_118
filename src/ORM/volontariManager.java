@@ -1,12 +1,13 @@
+package ORM;
+import BusinessLogic.*;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -140,7 +141,7 @@ public class volontariManager {
                 ResultSet volontarioResultSet = verificaStatement.executeQuery();
 
                 if (volontarioResultSet.next()) {
-                    System.out.println("Volontario trovato. Inserisci i nuovi dati: ");
+                    System.out.println("BusinessLogic.Volontario trovato. Inserisci i nuovi dati: ");
 
                     System.out.print("Nuovo nome (lascia vuoto per mantenere invariato): ");
                     String nuovoNome = scanner.nextLine();
@@ -180,7 +181,7 @@ public class volontariManager {
                     System.out.println("  ");
                     volontarioTrovato = true;
                 } else {
-                    System.out.println("Volontario non trovato.");
+                    System.out.println("BusinessLogic.Volontario non trovato.");
                 }
 
                 verificaStatement.close();
@@ -226,7 +227,7 @@ public class volontariManager {
                 ResultSet risultatoVerifica = verificaStatement.executeQuery();
 
                 if (risultatoVerifica.next()) {
-                    System.out.println("Volontario trovato. Sei sicuro di volerlo eliminare? (s/n)");
+                    System.out.println("BusinessLogic.Volontario trovato. Sei sicuro di volerlo eliminare? (s/n)");
                     String conferma = scanner.nextLine();
 
                     if (conferma.equalsIgnoreCase("s")) {
@@ -275,7 +276,7 @@ public class volontariManager {
                         updateStatementServizi.setInt(2, idVolontario);
                         updateStatementServizi.executeUpdate();
 
-                        System.out.println("Volontario eliminato con successo!");
+                        System.out.println("BusinessLogic.Volontario eliminato con successo!");
                         System.out.println("  ");
                         System.out.println("  ");
                         volontarioTrovato = true;
@@ -283,7 +284,7 @@ public class volontariManager {
                         System.out.println("Operazione di eliminazione annullata.");
                     }
                 } else {
-                    System.out.println("Volontario non trovato.");
+                    System.out.println("BusinessLogic.Volontario non trovato.");
                 }
                 verificaStatement.close();
             }
@@ -491,7 +492,7 @@ public class volontariManager {
     public static void visualizzaServiziEEmergenzeAssegnate(Scanner scanner, int matricolaVolontario) {
         try {
             // Query per i servizi assegnati
-            String serviziQuery = "SELECT 'Servizio' AS Tipo, Data, Orario, Sigla_Mezzo FROM Servizi WHERE Autista = ? OR Soccorritore = ?";
+            String serviziQuery = "SELECT 'BusinessLogic.Servizio' AS Tipo, Data, Orario, Sigla_Mezzo FROM Servizi WHERE Autista = ? OR Soccorritore = ?";
             PreparedStatement serviziStatement = connection.prepareStatement(serviziQuery);
             serviziStatement.setInt(1, matricolaVolontario);
             serviziStatement.setInt(2, matricolaVolontario);
@@ -517,8 +518,8 @@ public class volontariManager {
                 StringBuilder risultato = new StringBuilder();
                 risultato.append("Tipo: ").append(tipo).append(" - Data: ").append(data);
 
-                if (tipo.equals("Servizio")) {
-                    risultato.append(" - Orario: ").append(orario).append(" - Mezzo: ").append(siglaMezzo);
+                if (tipo.equals("BusinessLogic.Servizio")) {
+                    risultato.append(" - Orario: ").append(orario).append(" - BusinessLogic.Mezzo: ").append(siglaMezzo);
                 } else if (tipo.equals("Emergenza")) {
                     String turno = serviziResultSet.getString("Turno");
                     risultato.append(" - Turno: ").append(turno);

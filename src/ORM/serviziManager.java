@@ -1,3 +1,7 @@
+package ORM;
+
+import BusinessLogic.menuManager;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -9,11 +13,8 @@ import java.sql.ResultSet;
 
 import java.sql.Date;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
@@ -192,7 +193,7 @@ public class serviziManager {
 
                 preparedStatement.executeUpdate();
 
-                System.out.println("Servizio aggiunto con successo!");
+                System.out.println("BusinessLogic.Servizio aggiunto con successo!");
 
                 preparedStatement.close();
             } catch (SQLException e) {
@@ -346,7 +347,7 @@ public class serviziManager {
 
                 preparedStatement.executeUpdate();
 
-                System.out.println("Servizio aggiunto con successo!");
+                System.out.println("BusinessLogic.Servizio aggiunto con successo!");
 
                 preparedStatement.close();
             } catch (SQLException e) {
@@ -386,7 +387,7 @@ public class serviziManager {
                 int Autista = serviziResultSet.getInt("Autista");
                 int Soccorritore = serviziResultSet.getInt("Soccorritore");
 
-                System.out.println("ID: " + idServizio + " | Data: " + dataServizio + " | Orario: " + orarioServizioString + " | Mezzo: " + siglaMezzo +" | Autista: " + Autista + " | Soccorritore: " + Soccorritore  );
+                System.out.println("ID: " + idServizio + " | Data: " + dataServizio + " | Orario: " + orarioServizioString + " | BusinessLogic.Mezzo: " + siglaMezzo +" | Autista: " + Autista + " | Soccorritore: " + Soccorritore  );
             }
             System.out.println(" ");
 
@@ -552,7 +553,7 @@ public class serviziManager {
 
             int righeModificate = updateServizioStatement.executeUpdate();
             if (righeModificate > 0) {
-                System.out.println("Servizio modificato con successo!");
+                System.out.println("BusinessLogic.Servizio modificato con successo!");
             } else {
                 System.out.println("Si è verificato un errore durante la modifica del servizio.");
             }
@@ -585,7 +586,7 @@ public class serviziManager {
                 String pazienteServizio = resultSet.getString("Paziente");
                 String mezzoServizio = resultSet.getString("Sigla_mezzo");
 
-                System.out.println("ID: " + idServizio + " | Data: " + dataServizio + " | Paziente: " + pazienteServizio + " | Mezzo: " + mezzoServizio);
+                System.out.println("ID: " + idServizio + " | Data: " + dataServizio + " | Paziente: " + pazienteServizio + " | BusinessLogic.Mezzo: " + mezzoServizio);
             }
 
             System.out.println(" ");
@@ -621,7 +622,7 @@ public class serviziManager {
                                 int rowsAffected = deleteStatement.executeUpdate();
 
                                 if (rowsAffected > 0) {
-                                    System.out.println("Servizio con ID " + idServizioDaEliminare + " eliminato con successo!");
+                                    System.out.println("BusinessLogic.Servizio con ID " + idServizioDaEliminare + " eliminato con successo!");
                                     System.out.println(" ");
                                     System.out.println(" ");
                                     menuManager.mostraMenuServizi(scanner);
@@ -679,7 +680,7 @@ public class serviziManager {
                 String tipologia = resultSet.getString("Tipologia");
                 String motivoRimozione = resultSet.getString("Motivo_Rimozione");
 
-                System.out.println("ID: " + idDisponibilita + " - Matricola Volontario: " + matricolaVolontario + " - Data Disponibilità: " + dataDisponibilita + " - Tipologia: " + tipologia + " - Motivo Rimozione: " + motivoRimozione);
+                System.out.println("ID: " + idDisponibilita + " - Matricola BusinessLogic.Volontario: " + matricolaVolontario + " - Data Disponibilità: " + dataDisponibilita + " - Tipologia: " + tipologia + " - Motivo Rimozione: " + motivoRimozione);
             }
 
             // Aggiungi il messaggio per accettare o tornare indietro

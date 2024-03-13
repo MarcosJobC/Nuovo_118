@@ -1,3 +1,7 @@
+package ORM;
+
+import BusinessLogic.menuManager;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -42,7 +46,7 @@ public class mezziManager {
             System.out.println("Seleziona la tipologia del mezzo:");
             System.out.println("1. Auto");
             System.out.println("2. Ambulanza");
-            System.out.println("3. Mezzo attrezzato");
+            System.out.println("3. BusinessLogic.Mezzo attrezzato");
             int choice;
             try {
                 choice = Integer.parseInt(scanner.nextLine());
@@ -58,7 +62,7 @@ public class mezziManager {
                     tipologia = "Ambulanza";
                     break;
                 case 3:
-                    tipologia = "Mezzo attrezzato";
+                    tipologia = "BusinessLogic.Mezzo attrezzato";
                     break;
                 default:
                     System.out.println("Scelta non valida. Devi selezionare 1, 2 o 3.");
@@ -74,7 +78,7 @@ public class mezziManager {
             preparedStatement.setString(3, tipologia);
             preparedStatement.executeUpdate();
 
-            System.out.println("Mezzo aggiunto con successo!");
+            System.out.println("BusinessLogic.Mezzo aggiunto con successo!");
             System.out.println(" ");
             System.out.println(" ");
 
@@ -108,7 +112,7 @@ public class mezziManager {
             ResultSet resultSetVerifica = verificaStatement.executeQuery();
 
             if (resultSetVerifica.next()) {
-                System.out.println("Mezzo trovato. Inserisci i nuovi dati:");
+                System.out.println("BusinessLogic.Mezzo trovato. Inserisci i nuovi dati:");
 
                 System.out.println("Nuova targa del mezzo (lascia vuoto per mantenere quella attuale):");
                 String nuovaTarga = scanner.nextLine();
@@ -121,7 +125,7 @@ public class mezziManager {
                     System.out.println("Seleziona la tipologia del mezzo:");
                     System.out.println("1. Auto");
                     System.out.println("2. Ambulanza");
-                    System.out.println("3. Mezzo attrezzato");
+                    System.out.println("3. BusinessLogic.Mezzo attrezzato");
                     int choice = scanner.nextInt();
                     scanner.nextLine();
                     switch (choice) {
@@ -132,7 +136,7 @@ public class mezziManager {
                             nuovaTipologia = "Ambulanza";
                             break;
                         case 3:
-                            nuovaTipologia = "Mezzo attrezzato";
+                            nuovaTipologia = "BusinessLogic.Mezzo attrezzato";
                             break;
                         default:
                             System.out.println("Scelta non valida. Devi selezionare 1, 2 o 3.");
@@ -146,12 +150,12 @@ public class mezziManager {
                 updateStatement.setString(3, siglaMezzo);
                 updateStatement.executeUpdate();
 
-                System.out.println("Mezzo modificato con successo!");
+                System.out.println("BusinessLogic.Mezzo modificato con successo!");
                 System.out.println(" ");
                 System.out.println(" ");
                 updateStatement.close();
             } else {
-                System.out.println("Mezzo non trovato.");
+                System.out.println("BusinessLogic.Mezzo non trovato.");
                 modificaMezzo(scanner);
             }
 
@@ -193,7 +197,7 @@ public class mezziManager {
                     ResultSet resultSetVerifica = verificaStatement.executeQuery();
 
                     if (resultSetVerifica.next()) {
-                        System.out.println("Mezzo trovato. Sei sicuro di volerlo eliminare? (s/n)");
+                        System.out.println("BusinessLogic.Mezzo trovato. Sei sicuro di volerlo eliminare? (s/n)");
                         String conferma = scanner.nextLine();
 
                         if (conferma.equalsIgnoreCase("s")) {
@@ -202,7 +206,7 @@ public class mezziManager {
                             deleteStatement.setString(1, siglaMezzo);
                             deleteStatement.executeUpdate();
 
-                            System.out.println("Mezzo eliminato con successo!");
+                            System.out.println("BusinessLogic.Mezzo eliminato con successo!");
                             System.out.println(" ");
                             System.out.println(" ");
                         } else {
@@ -211,7 +215,7 @@ public class mezziManager {
 
                         mezzoTrovato = true;
                     } else {
-                        System.out.println("Mezzo non trovato.");
+                        System.out.println("BusinessLogic.Mezzo non trovato.");
                     }
 
                     verificaStatement.close();

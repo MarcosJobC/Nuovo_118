@@ -1,3 +1,6 @@
+package BusinessLogic;
+import ORM.*;
+
 import java.sql.Time;
 import java.util.List;
 import java.sql.*;

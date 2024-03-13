@@ -36,7 +36,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "assegnazioneAutomatica",
+					"name": "ORM.assegnazioneAutomatica",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -203,7 +203,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uhy6E+Lyg="
 							},
-							"name": "assegnazioneAutomatica",
+							"name": "ORM.assegnazioneAutomatica",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -343,7 +343,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "DatabaseConnection",
+					"name": "ORM.DatabaseConnection",
 					"attributes": [
 						{
 							"_type": "UMLAttribute",
@@ -888,7 +888,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "menuManager",
+					"name": "BusinessLogic.menuManager",
 					"ownedElements": [
 						{
 							"_type": "UMLDependency",
@@ -991,7 +991,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uh7aF2+ec="
 							},
-							"name": "menuManager",
+							"name": "BusinessLogic.menuManager",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -1210,7 +1210,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "mezziManager",
+					"name": "ORM.mezziManager",
 					"ownedElements": [
 						{
 							"_type": "UMLDependency",
@@ -1248,7 +1248,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uh+aGMZGk="
 							},
-							"name": "mezziManager",
+							"name": "ORM.mezziManager",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -1365,7 +1365,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "Mezzo",
+					"name": "BusinessLogic.Mezzo",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -1435,7 +1435,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uh+qGYznA="
 							},
-							"name": "Mezzo",
+							"name": "BusinessLogic.Mezzo",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -1616,7 +1616,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "serviziManager",
+					"name": "ORM.serviziManager",
 					"ownedElements": [
 						{
 							"_type": "UMLDependency",
@@ -1680,7 +1680,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uiEKGsm7Y="
 							},
-							"name": "serviziManager",
+							"name": "ORM.serviziManager",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -1827,7 +1827,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "Servizio",
+					"name": "BusinessLogic.Servizio",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -1989,7 +1989,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uiFaG7Fas="
 							},
-							"name": "Servizio",
+							"name": "BusinessLogic.Servizio",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -2327,7 +2327,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "volontariManager",
+					"name": "ORM.volontariManager",
 					"ownedElements": [
 						{
 							"_type": "UMLDependency",
@@ -2365,7 +2365,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uiLqHb7n4="
 							},
-							"name": "volontariManager",
+							"name": "ORM.volontariManager",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -2651,7 +2651,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "Volontario",
+					"name": "BusinessLogic.Volontario",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -3044,7 +3044,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uiMKH43r0="
 							},
-							"name": "Volontario",
+							"name": "BusinessLogic.Volontario",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -3412,7 +3412,7 @@
 											"top": 27,
 											"width": 156.04443359375,
 											"height": 13,
-											"text": "assegnazioneAutomatica"
+											"text": "ORM.assegnazioneAutomatica"
 										},
 										{
 											"_type": "LabelView",
@@ -3514,7 +3514,7 @@
 											"top": 5,
 											"width": 481.62841796875,
 											"height": 13,
-											"text": "«constructor»+assegnazioneAutomatica(connection: Connection)",
+											"text": "«constructor»+ORM.assegnazioneAutomatica(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -3689,7 +3689,7 @@
 											"top": 62,
 											"width": 129.3017578125,
 											"height": 13,
-											"text": "DatabaseConnection"
+											"text": "ORM.DatabaseConnection"
 										},
 										{
 											"_type": "LabelView",
@@ -4538,7 +4538,7 @@
 											"top": 167,
 											"width": 88.130859375,
 											"height": 13,
-											"text": "menuManager"
+											"text": "BusinessLogic.menuManager"
 										},
 										{
 											"_type": "LabelView",
@@ -4640,7 +4640,7 @@
 											"top": 5,
 											"width": 446.90673828125,
 											"height": 13,
-											"text": "«constructor»+menuManager(connection: Connection)",
+											"text": "«constructor»+BusinessLogic.menuManager(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -4851,7 +4851,7 @@
 											"top": 202,
 											"width": 88.86083984375,
 											"height": 13,
-											"text": "mezziManager"
+											"text": "ORM.mezziManager"
 										},
 										{
 											"_type": "LabelView",
@@ -4953,7 +4953,7 @@
 											"top": 5,
 											"width": 316.138671875,
 											"height": 13,
-											"text": "«constructor»+mezziManager(connection: Connection)",
+											"text": "«constructor»+ORM.mezziManager(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5110,7 +5110,7 @@
 											"top": 237,
 											"width": 39,
 											"height": 13,
-											"text": "Mezzo"
+											"text": "BusinessLogic.Mezzo"
 										},
 										{
 											"_type": "LabelView",
@@ -5245,7 +5245,7 @@
 											"top": 5,
 											"width": 414.38134765625,
 											"height": 13,
-											"text": "«constructor»+Mezzo(siglaMezzo: String, targa: String, tipologia: String)",
+											"text": "«constructor»+BusinessLogic.Mezzo(siglaMezzo: String, targa: String, tipologia: String)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5450,7 +5450,7 @@
 											"top": 272,
 											"width": 93.9326171875,
 											"height": 13,
-											"text": "serviziManager"
+											"text": "ORM.serviziManager"
 										},
 										{
 											"_type": "LabelView",
@@ -5552,7 +5552,7 @@
 											"top": 5,
 											"width": 322.98779296875,
 											"height": 13,
-											"text": "«constructor»+serviziManager(connection: Connection)",
+											"text": "«constructor»+ORM.serviziManager(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5727,7 +5727,7 @@
 											"top": 307,
 											"width": 49.8544921875,
 											"height": 13,
-											"text": "Servizio"
+											"text": "BusinessLogic.Servizio"
 										},
 										{
 											"_type": "LabelView",
@@ -5896,7 +5896,7 @@
 											"top": 5,
 											"width": 608.9814453125,
 											"height": 13,
-											"text": "«constructor»+Servizio(id: int, data: String, orario: Time, volontariAssegnati: Integer[*], siglaMezzo: String)",
+											"text": "«constructor»+BusinessLogic.Servizio(id: int, data: String, orario: Time, volontariAssegnati: Integer[*], siglaMezzo: String)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -6169,7 +6169,7 @@
 											"top": 342,
 											"width": 108.3544921875,
 											"height": 13,
-											"text": "volontariManager"
+											"text": "ORM.volontariManager"
 										},
 										{
 											"_type": "LabelView",
@@ -6271,7 +6271,7 @@
 											"top": 5,
 											"width": 439.68310546875,
 											"height": 13,
-											"text": "«constructor»+volontariManager(connection: Connection)",
+											"text": "«constructor»+ORM.volontariManager(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -6500,7 +6500,7 @@
 											"top": 377,
 											"width": 63.3115234375,
 											"height": 13,
-											"text": "Volontario"
+											"text": "BusinessLogic.Volontario"
 										},
 										{
 											"_type": "LabelView",
@@ -6669,7 +6669,7 @@
 											"top": 5,
 											"width": 632.60107421875,
 											"height": 13,
-											"text": "«constructor»+Volontario(matricola: int, nome: String, cognome: String, codiceFiscale: String, qualifica: String)",
+											"text": "«constructor»+BusinessLogic.Volontario(matricola: int, nome: String, cognome: String, codiceFiscale: String, qualifica: String)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -7452,7 +7452,7 @@
 											"top": 471,
 											"width": 481.62841796875,
 											"height": 13,
-											"text": "assegnazioneAutomatica"
+											"text": "ORM.assegnazioneAutomatica"
 										},
 										{
 											"_type": "LabelView",
@@ -7559,7 +7559,7 @@
 											"top": 517,
 											"width": 481.62841796875,
 											"height": 13,
-											"text": "«constructor»+assegnazioneAutomatica(connection: Connection)",
+											"text": "«constructor»+ORM.assegnazioneAutomatica(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -8387,7 +8387,7 @@
 											"top": 783,
 											"width": 446.90673828125,
 											"height": 13,
-											"text": "menuManager"
+											"text": "BusinessLogic.menuManager"
 										},
 										{
 											"_type": "LabelView",
@@ -8494,7 +8494,7 @@
 											"top": 829,
 											"width": 446.90673828125,
 											"height": 13,
-											"text": "«constructor»+menuManager(connection: Connection)",
+											"text": "«constructor»+BusinessLogic.menuManager(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -8710,7 +8710,7 @@
 											"top": 1415,
 											"width": 316.138671875,
 											"height": 13,
-											"text": "mezziManager"
+											"text": "ORM.mezziManager"
 										},
 										{
 											"_type": "LabelView",
@@ -8817,7 +8817,7 @@
 											"top": 1461,
 											"width": 316.138671875,
 											"height": 13,
-											"text": "«constructor»+mezziManager(connection: Connection)",
+											"text": "«constructor»+ORM.mezziManager(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -8979,7 +8979,7 @@
 											"top": 1119,
 											"width": 414.38134765625,
 											"height": 13,
-											"text": "Mezzo"
+											"text": "BusinessLogic.Mezzo"
 										},
 										{
 											"_type": "LabelView",
@@ -9119,7 +9119,7 @@
 											"top": 1195,
 											"width": 414.38134765625,
 											"height": 13,
-											"text": "«constructor»+Mezzo(siglaMezzo: String, targa: String, tipologia: String)",
+											"text": "«constructor»+BusinessLogic.Mezzo(siglaMezzo: String, targa: String, tipologia: String)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -9329,7 +9329,7 @@
 											"top": 799,
 											"width": 322.98779296875,
 											"height": 13,
-											"text": "serviziManager"
+											"text": "ORM.serviziManager"
 										},
 										{
 											"_type": "LabelView",
@@ -9436,7 +9436,7 @@
 											"top": 845,
 											"width": 322.98779296875,
 											"height": 13,
-											"text": "«constructor»+serviziManager(connection: Connection)",
+											"text": "«constructor»+ORM.serviziManager(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -9616,7 +9616,7 @@
 											"top": 727,
 											"width": 608.9814453125,
 											"height": 13,
-											"text": "Servizio"
+											"text": "BusinessLogic.Servizio"
 										},
 										{
 											"_type": "LabelView",
@@ -9790,7 +9790,7 @@
 											"top": 833,
 											"width": 608.9814453125,
 											"height": 13,
-											"text": "«constructor»+Servizio(id: int, data: String, orario: Time, volontariAssegnati: Integer[*], siglaMezzo: String)",
+											"text": "«constructor»+BusinessLogic.Servizio(id: int, data: String, orario: Time, volontariAssegnati: Integer[*], siglaMezzo: String)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -10068,7 +10068,7 @@
 											"top": 111,
 											"width": 439.68310546875,
 											"height": 13,
-											"text": "volontariManager"
+											"text": "ORM.volontariManager"
 										},
 										{
 											"_type": "LabelView",
@@ -10175,7 +10175,7 @@
 											"top": 157,
 											"width": 439.68310546875,
 											"height": 13,
-											"text": "«constructor»+volontariManager(connection: Connection)",
+											"text": "«constructor»+ORM.volontariManager(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -10409,7 +10409,7 @@
 											"top": 295,
 											"width": 632.60107421875,
 											"height": 13,
-											"text": "Volontario"
+											"text": "BusinessLogic.Volontario"
 										},
 										{
 											"_type": "LabelView",
@@ -10583,7 +10583,7 @@
 											"top": 401,
 											"width": 632.60107421875,
 											"height": 13,
-											"text": "«constructor»+Volontario(matricola: int, nome: String, cognome: String, codiceFiscale: String, qualifica: String)",
+											"text": "«constructor»+BusinessLogic.Volontario(matricola: int, nome: String, cognome: String, codiceFiscale: String, qualifica: String)",
 											"horizontalAlignment": 0
 										},
 										{
