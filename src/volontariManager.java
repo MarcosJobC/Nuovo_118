@@ -21,7 +21,7 @@ public class volontariManager {
 
     //GESTIONE VOLONTARI
 
-
+    //TODO NUOVO METODO SMEZZATO PER REGISTRAZIONE
     public static void registrazioneDAO(String nome, String cognome, String dataDiNascita, String qualifica, String codicefiscale, String password) {
         try {
             String query = "INSERT INTO Volontari (Nome, Cognome, data_di_nascita, Qualifica, codice_fiscale, Password, IsAdmin) VALUES (?, ?, ?, ?, ?, ?, ?)";

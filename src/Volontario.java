@@ -82,6 +82,8 @@ public class Volontario {
     }
 
 
+
+    //TODO NUOVO METODO SMEZZATO PER REGISTRAZIONE
     public static void registrazione(Scanner scanner, boolean sceltaValida) {
         sceltaValida = true;
         System.out.print("Inserisci il nome: ");
