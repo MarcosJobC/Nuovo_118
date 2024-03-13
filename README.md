@@ -1,4 +1,6 @@
 # Gestionale 118
+PROGETTO DA TERMINARE - IN CORSO -
+
 Relazione Overleaf: https://it.overleaf.com/read/xmgnfxnpbxtx#4da5a6
 
 L'obiettivo primario del programma è fornire una piattaforma avanzata e intuitiva che metta a disposizione degli operatori gli strumenti essenziali per una gestione efficiente e accurata delle risorse all'interno di un'organizzazione di soccorso.
