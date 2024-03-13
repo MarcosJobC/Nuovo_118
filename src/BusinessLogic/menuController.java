@@ -27,7 +27,7 @@ public class menuController {
                 VolontarioController.registrazione(scanner, sceltaValida);
             } else if (choice.equalsIgnoreCase("A")) {
                 sceltaValida = true;
-                volontariManager.accesso(scanner, sceltaValida);
+                VolontarioController.accesso(scanner, sceltaValida);
             } else if (choice.equalsIgnoreCase("U")) {
                 System.out.println("Grazie per aver utilizzato il gestionale! Arrivederci.");
                 System.exit(0);
@@ -64,7 +64,7 @@ public class menuController {
 
         switch (choice) {
             case 1:
-                volontariManager.inserisciDisponibilita(scanner, matricolaVolontario);
+                VolontarioController.inserisciDisponibilita(scanner, matricolaVolontario);
                 break;
             case 2:
                 volontariManager.rimuoviDisponibilita(scanner, matricolaVolontario);
@@ -158,7 +158,7 @@ public class menuController {
 
         switch (choice) {
             case 1:
-                mezziManager.aggiungiMezzo(scanner);
+                MezzoController.aggiungiMezzo(scanner);
                 break;
             case 2:
                 mezziManager.modificaMezzo(scanner);
@@ -186,7 +186,7 @@ public class menuController {
 
         switch (choice) {
             case 1:
-                volontariManager.modificaAnagrafeVolontari(scanner);
+                volontariManager.modificaAnagrafeVolontariDAO(scanner);
                 break;
             case 2:
                 volontariManager.eliminaVolontario(scanner);
@@ -215,7 +215,7 @@ public class menuController {
 
         switch (choice) {
             case 1:
-                serviziManager.aggiungiServizio(scanner);
+                serviziManager.aggiungiServizioDAO(scanner);
                 break;
             case 2:
                 serviziManager.modificaServizio(scanner);
@@ -251,7 +251,7 @@ public class menuController {
                 pazientiManager.visualizzaPazienti(scanner);
                 break;
             case 2:
-                pazientiManager.aggiungiPaziente(scanner);
+                pazientiController.aggiungiPaziente(scanner);
                 break;
             case 3:
                 pazientiManager.modificaPaziente(scanner);

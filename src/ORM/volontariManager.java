@@ -21,7 +21,7 @@ public class volontariManager {
 
     //GESTIONE VOLONTARI
 
-    //TODO NUOVO METODO SMEZZATO PER REGISTRAZIONE
+    //TODO NUOVO METODI
     public static void registrazioneDAO(String nome, String cognome, String dataDiNascita, String qualifica, String codicefiscale, String password) {
         try {
             String query = "INSERT INTO Volontari (Nome, Cognome, data_di_nascita, Qualifica, codice_fiscale, Password, IsAdmin) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -42,36 +42,8 @@ public class volontariManager {
             e.printStackTrace();
         }
     }
+    public static void accessoDAO(String codicefiscale,String password,Scanner scanner) {
 
-
-
-
-
-
-    public static void accesso(Scanner scanner, boolean sceltaValida) {
-        sceltaValida = true;
-        System.out.print("Inserisci il codice fiscale: ");
-        String codicefiscale = scanner.nextLine();
-
-        while (codicefiscale.isEmpty()) {
-            System.out.print("Il codice fiscale non può essere vuoto. Inserisci il codice fiscale o scrivi exit per uscire: ");
-            codicefiscale = scanner.nextLine();
-            if (codicefiscale.equalsIgnoreCase("exit")) {
-                sceltaValida = false;
-                System.out.println(" ");
-                System.out.println(" ");
-                menuController.menuIniziale(scanner);
-                return; // Esci dal metodo per evitare ulteriori operazioni
-            }
-        }
-
-        System.out.print("Inserisci la password: ");
-        String password = scanner.nextLine();
-
-        while (password.isEmpty()) {
-            System.out.print("La password non può essere vuota. Inserisci la password: ");
-            password = scanner.nextLine();
-        }
 
         try {
             String query = "SELECT * FROM Volontari WHERE Codice_fiscale = ? AND Password = ?";
@@ -108,7 +80,60 @@ public class volontariManager {
             e.printStackTrace();
         }
     }
-    public static void modificaAnagrafeVolontari(Scanner scanner) {
+    public static void inserisciDisponibilitaDAO(Scanner scanner, int matricolaVolontario, String dataDisponibilita, String tipologia, LocalTime oraInizio, LocalTime oraFine) {
+
+        try {
+            // Verifica se esiste già una disponibilità per questa data e tipologia
+            String verificaQuery = "SELECT COUNT(*) FROM Disponibilita WHERE Matricola_volontario = ? AND Data_disponibilita = ? AND Tipologia = ?";
+            PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
+            verificaStatement.setInt(1, matricolaVolontario);
+            verificaStatement.setString(2, dataDisponibilita);
+            verificaStatement.setString(3, tipologia);
+            ResultSet verificaResult = verificaStatement.executeQuery();
+            verificaResult.next();
+            int count = verificaResult.getInt(1);
+            verificaStatement.close();
+
+            if (count > 0) {
+                System.out.println("Hai già inserito una disponibilità per questa data e tipologia, se vuoi inserirne una nuova prima elimina la precedente.");
+                System.out.println(" ");
+                System.out.println(" ");
+                menuController.mostraMenuUtenteNormale(scanner, matricolaVolontario);
+            }
+
+            String insertQuery = "INSERT INTO Disponibilita (Matricola_volontario, Data_disponibilita, Tipologia, Confermata, Ora_inizio, Ora_fine, Turno_emergenza) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
+            insertStatement.setInt(1, matricolaVolontario);
+            insertStatement.setString(2, dataDisponibilita);
+            insertStatement.setString(3, tipologia);
+            insertStatement.setString(4, "Non confermata");
+            insertStatement.setString(7, tipologia);
+
+            if ("Servizi sociali".equals(tipologia)) {
+                insertStatement.setTime(5, Time.valueOf(oraInizio));
+                insertStatement.setTime(6, Time.valueOf(oraFine));
+            } else {
+                insertStatement.setNull(5, Types.TIME);
+                insertStatement.setNull(6, Types.TIME);
+            }
+
+
+            insertStatement.executeUpdate();
+
+            System.out.println(" ");
+            System.out.println("Disponibilità inserita con successo! Grazie mille!");
+            insertStatement.close();
+            System.out.println(" ");
+            System.out.println(" ");
+            menuController.mostraMenuUtenteNormale(scanner, matricolaVolontario);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    //TODO NON MESSI IN BUSINESS LOGIC
+    public static void modificaAnagrafeVolontariDAO(Scanner scanner) {
         scanner.nextLine();
         try {
             String query = "SELECT * FROM Volontari";
@@ -142,7 +167,7 @@ public class volontariManager {
                 ResultSet volontarioResultSet = verificaStatement.executeQuery();
 
                 if (volontarioResultSet.next()) {
-                    System.out.println("BusinessLogic.Volontario trovato. Inserisci i nuovi dati: ");
+                    System.out.println("Volontario trovato. Inserisci i nuovi dati: ");
 
                     System.out.print("Nuovo nome (lascia vuoto per mantenere invariato): ");
                     String nuovoNome = scanner.nextLine();
@@ -294,123 +319,6 @@ public class volontariManager {
             e.printStackTrace();
         }
         menuController.mostraMenuVolontari(scanner);
-    }
-    public static void inserisciDisponibilita(Scanner scanner, int matricolaVolontario) {
-        String dataDisponibilita = "";
-        LocalDateTime dataOdierna = LocalDateTime.now();
-        LocalTime oraInizio = null;
-        LocalTime oraFine = null;
-
-        while (dataDisponibilita.isEmpty()) {
-            System.out.print("Inserisci la data della disponibilità (dd-MM-yyyy): ");
-            dataDisponibilita = scanner.nextLine();
-
-            if (dataDisponibilita.isEmpty()) {
-                System.out.println("La data non può essere vuota. Riprova.");
-            } else {
-                try {
-                    LocalDateTime dataInserita = LocalDateTime.of(LocalDate.parse(dataDisponibilita, DateTimeFormatter.ofPattern("dd-MM-yyyy")), LocalTime.MIDNIGHT);
-
-                    if (dataInserita.isBefore(dataOdierna.minusDays(1))) {
-                        System.out.println("La data della disponibilità non può essere antecedente a oggi.");
-                        dataDisponibilita = "";
-                    }
-                } catch (DateTimeParseException e) {
-                    System.out.println("Formato data non valido. Utilizza il formato dd-MM-yyyy.");
-                    dataDisponibilita = "";
-                }
-            }
-        }
-
-        System.out.print("Seleziona la tipologia del servizio: Servizi sociali (S) | lascia vuoto per qualsiasi ruolo: ");
-        String sceltaTipologia = scanner.nextLine().toUpperCase();
-
-        String tipologia;
-        switch (sceltaTipologia) {
-            case "S":
-                tipologia = "Servizi sociali";
-                break;
-            default:
-                System.out.println("Tipologia impostata a: qualsiasi ruolo.");
-                tipologia = "Qualsiasi";
-        }
-
-
-        // Condizione per richiedere l'orario di inizio e fine solo per "Servizi sociali"
-        if ("Servizi sociali".equals(tipologia)) {
-            while (oraInizio == null) {
-                try {
-                    System.out.print("Inserisci l'orario di inizio (HH:mm): ");
-                    String inputOraInizio = scanner.nextLine();
-                    oraInizio = LocalTime.parse(inputOraInizio, DateTimeFormatter.ofPattern("HH:mm"));
-                } catch (DateTimeParseException e) {
-                    System.out.println("Formato orario non valido. Utilizza il formato HH:mm.");
-                }
-            }
-
-            while (oraFine == null || oraFine.isBefore(oraInizio)) {
-                try {
-                    System.out.print("Inserisci l'orario di fine (HH:mm): ");
-                    String inputOraFine = scanner.nextLine();
-                    oraFine = LocalTime.parse(inputOraFine, DateTimeFormatter.ofPattern("HH:mm"));
-
-                    if (oraFine.isBefore(oraInizio)) {
-                        System.out.println("L'orario di fine deve essere successivo all'orario di inizio.");
-                        oraFine = null;
-                    }
-                } catch (DateTimeParseException e) {
-                    System.out.println("Formato orario non valido. Utilizza il formato HH:mm.");
-                }
-            }
-        }
-
-        try {
-            // Verifica se esiste già una disponibilità per questa data e tipologia
-            String verificaQuery = "SELECT COUNT(*) FROM Disponibilita WHERE Matricola_volontario = ? AND Data_disponibilita = ? AND Tipologia = ?";
-            PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
-            verificaStatement.setInt(1, matricolaVolontario);
-            verificaStatement.setString(2, dataDisponibilita);
-            verificaStatement.setString(3, tipologia);
-            ResultSet verificaResult = verificaStatement.executeQuery();
-            verificaResult.next();
-            int count = verificaResult.getInt(1);
-            verificaStatement.close();
-
-            if (count > 0) {
-                System.out.println("Hai già inserito una disponibilità per questa data e tipologia, se vuoi inserirne una nuova prima elimina la precedente.");
-                System.out.println(" ");
-                System.out.println(" ");
-                menuController.mostraMenuUtenteNormale(scanner, matricolaVolontario);
-            }
-
-            String insertQuery = "INSERT INTO Disponibilita (Matricola_volontario, Data_disponibilita, Tipologia, Confermata, Ora_inizio, Ora_fine, Turno_emergenza) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
-            insertStatement.setInt(1, matricolaVolontario);
-            insertStatement.setString(2, dataDisponibilita);
-            insertStatement.setString(3, tipologia);
-            insertStatement.setString(4, "Non confermata");
-            insertStatement.setString(7, tipologia);
-
-            if ("Servizi sociali".equals(tipologia)) {
-                insertStatement.setTime(5, Time.valueOf(oraInizio));
-                insertStatement.setTime(6, Time.valueOf(oraFine));
-            } else {
-                insertStatement.setNull(5, Types.TIME);
-                insertStatement.setNull(6, Types.TIME);
-            }
-
-
-            insertStatement.executeUpdate();
-
-            System.out.println(" ");
-            System.out.println("Disponibilità inserita con successo! Grazie mille!");
-            insertStatement.close();
-            System.out.println(" ");
-            System.out.println(" ");
-            menuController.mostraMenuUtenteNormale(scanner, matricolaVolontario);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
     public static void rimuoviDisponibilita(Scanner scanner, int matricolaVolontario) {
         scanner.nextLine();

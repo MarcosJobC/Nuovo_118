@@ -1,6 +1,7 @@
 package ORM;
 
 import BusinessLogic.menuController;
+import BusinessLogic.pazientiController;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -25,7 +26,8 @@ public class serviziManager {
     }
 
     //GESTIONE SERVIZI
-    public static void aggiungiServizio(Scanner scanner) {
+    //TODO NON MODIFICATI
+    public static void aggiungiServizioDAO(Scanner scanner) {
         boolean newfromservizio = false;
         scanner.nextLine();
 
@@ -43,7 +45,7 @@ public class serviziManager {
             // Verifica se la data inserita è antecedente a oggi
             if (dataInserita.isBefore(dataOggi)) {
                 System.out.println("La data del servizio non può essere antecedente a oggi.");
-                aggiungiServizio(scanner);
+                aggiungiServizioDAO(scanner);
                 return; // Termina il metodo in modo da evitare richieste aggiuntive
             }
 
@@ -90,7 +92,7 @@ public class serviziManager {
                         if (sceltaAggiunta.equalsIgnoreCase("s")) {
                             // Inserimento di un nuovo paziente
                             newfromservizio = true;
-                            pazientiManager.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
+                            pazientiController.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
                             return; // Termina il metodo dopo l'inserimento del nuovo paziente
                         } else {
                             // L'utente ha scelto di non aggiungere un nuovo paziente, ripeti la richiesta
@@ -114,7 +116,7 @@ public class serviziManager {
 
                             if (scelta.equals("q")) {
                                 // Inserimento di un nuovo paziente
-                                pazientiManager.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
+                                pazientiController.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
                                 return; // Termina il metodo dopo l'inserimento del nuovo paziente
                             } else {
                                 try {
@@ -207,13 +209,13 @@ public class serviziManager {
             }
         } catch (DateTimeParseException e) {
             System.out.println("Formato data non valido. Utilizza il formato dd-mm-yyyy.");
-            aggiungiServizio(scanner);
+            aggiungiServizioDAO(scanner);
         }
         System.out.println(" ");
         System.out.println(" ");
         menuController.mostraMenuServizi(scanner);
     }
-    public static void aggiungiServizioInterno(Scanner scanner, boolean newfromservizio,String dataServizio,LocalTime orarioServizio){
+    public static void aggiungiServizioInternoDAO(Scanner scanner, boolean newfromservizio,String dataServizio,LocalTime orarioServizio){
 
         try {
 
@@ -244,7 +246,7 @@ public class serviziManager {
                         if (sceltaAggiunta.equalsIgnoreCase("s")) {
                             // Inserimento di un nuovo paziente
                             newfromservizio = true;
-                            pazientiManager.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
+                            pazientiController.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
                             return; // Termina il metodo dopo l'inserimento del nuovo paziente
                         } else {
                             // L'utente ha scelto di non aggiungere un nuovo paziente, ripeti la richiesta
@@ -268,7 +270,7 @@ public class serviziManager {
 
                             if (scelta.equals("q")) {
                                 // Inserimento di un nuovo paziente
-                                pazientiManager.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
+                                pazientiController.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
                                 return; // Termina il metodo dopo l'inserimento del nuovo paziente
                             } else {
                                 try {
@@ -361,12 +363,13 @@ public class serviziManager {
             }
         } catch (DateTimeParseException e) {
             System.out.println("Formato data non valido. Utilizza il formato dd-mm-yyyy.");
-            aggiungiServizio(scanner);
+            aggiungiServizioDAO(scanner);
         }
         System.out.println(" ");
         System.out.println(" ");
         menuController.mostraMenuServizi(scanner);
     }
+
     public static void modificaServizio(Scanner scanner) {
         scanner.nextLine();
         Time nuovoOrarioTime = null;
@@ -809,6 +812,8 @@ public class serviziManager {
             e.printStackTrace();
         }
     }
+
+
 
 }
 
