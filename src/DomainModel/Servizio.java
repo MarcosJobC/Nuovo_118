@@ -11,7 +11,7 @@ public class Servizio {
     private List<Integer> volontariAssegnati;
     private Mezzo mezzo;
 
-    public Servizio(int id, String data, Time orario, List<Integer> volontariAssegnati, Mezzo mezzo) {
+    public Servizio(int id, String data, Time orario, List<Integer> volontariAssegnati, Mezzo mezzo ) {
         this.id = id;
         this.data = data;
         this.orario = orario;
@@ -53,9 +53,6 @@ public class Servizio {
         this.volontariAssegnati = volontariAssegnati;
     }
 
-    public void setSiglaMezzo(String siglaMezzo) {
-        this.siglaMezzo = siglaMezzo;
-    }
 
 }
 
