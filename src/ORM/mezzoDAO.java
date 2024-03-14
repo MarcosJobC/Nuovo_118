@@ -16,10 +16,6 @@ public class mezzoDAO {
     }
 
 
-
-
-    //GESTIONE MEZZI
-    // TODO MODIFICATI
     public static void aggiungiMezzoDAO(String siglaMezzo, String targa,String tipologia ) {
 
         try {
@@ -39,8 +35,6 @@ public class mezzoDAO {
             e.printStackTrace();
         }
     }
-
-    // TODO NON MODIFICATI
     public static void modificaMezzo(Scanner scanner) {
         try {
             String query = "SELECT * FROM Mezzi";

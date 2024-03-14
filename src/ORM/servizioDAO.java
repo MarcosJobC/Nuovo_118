@@ -28,8 +28,6 @@ public class servizioDAO {
         this.connection = connection;
     }
 
-    //GESTIONE SERVIZI
-    //TODO NON MODIFICATI
     public static void aggiungiServizioDAO(Scanner scanner) {
         boolean newfromservizio = false;
         scanner.nextLine();

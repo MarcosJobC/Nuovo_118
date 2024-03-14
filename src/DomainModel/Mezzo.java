@@ -37,4 +37,8 @@ public class Mezzo {
     public void setTipologia(String tipologia) {
         this.tipologia = tipologia;
     }
+
+    public void getSiglaMezzo(String siglaMezzo) {
+        this.siglaMezzo = siglaMezzo;
+    }
 }

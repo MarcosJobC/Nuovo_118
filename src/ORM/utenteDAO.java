@@ -15,9 +15,6 @@ public class utenteDAO {
     }
 
 
-    //GESTIONE VOLONTARI
-
-    //TODO NUOVO METODI
     public static void registrazioneDAO(String nome, String cognome, String dataDiNascita, String qualifica, String codicefiscale, String password) {
         try {
             String query = "INSERT INTO Volontari (Nome, Cognome, data_di_nascita, Qualifica, codice_fiscale, Password, IsAdmin) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -128,7 +125,6 @@ public class utenteDAO {
     }
 
 
-    //TODO NON MESSI IN BUSINESS LOGIC
     public static void modificaAnagrafeVolontariDAO(Scanner scanner) {
         scanner.nextLine();
         try {

@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 public class pazientiController {
 
+    //TODO AGGIUNGI IN aggiungiPaziente CHE CREA UN NUOVO OGGETTO PAZIENTE E LO VEDE
     public static void aggiungiPaziente(Scanner scanner){
         System.out.println(" ");
         System.out.println("INSERIMENTO NUOVO PAZIENTE:");

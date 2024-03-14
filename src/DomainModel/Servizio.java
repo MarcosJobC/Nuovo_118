@@ -9,14 +9,14 @@ public class Servizio {
     private String data;
     private Time orario;
     private List<Integer> volontariAssegnati;
-    private String siglaMezzo;
+    private Mezzo mezzo;
 
-    public Servizio(int id, String data, Time orario, List<Integer> volontariAssegnati, String siglaMezzo) {
+    public Servizio(int id, String data, Time orario, List<Integer> volontariAssegnati, Mezzo mezzo) {
         this.id = id;
         this.data = data;
         this.orario = orario;
         this.volontariAssegnati = volontariAssegnati;
-        this.siglaMezzo = siglaMezzo;
+        this.mezzo = mezzo;
     }
 
     // Metodi getter
@@ -34,10 +34,6 @@ public class Servizio {
 
     public List<Integer> getVolontariAssegnati() {
         return volontariAssegnati;
-    }
-
-    public String getSiglaMezzo() {
-        return siglaMezzo;
     }
 
     // Metodi setter
@@ -60,6 +56,7 @@ public class Servizio {
     public void setSiglaMezzo(String siglaMezzo) {
         this.siglaMezzo = siglaMezzo;
     }
+
 }
 
 

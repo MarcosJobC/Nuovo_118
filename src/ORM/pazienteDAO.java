@@ -17,8 +17,9 @@ public class pazienteDAO {
         this.connection = connection;
     }
 
-    //METODI PAZIENTI
-    //TODO MODIFICATI
+
+
+    //TODO AGGIUNGI IN aggiungiPazienteDAO CHE RICEVE PAZIENTE DA PAZIENTE CONTROLLER CHE CREA UN NUOVO OGGETTO
     public static void aggiungiPazienteDAO(Scanner scanner,String nomePaziente,String cognomePaziente,LocalDate dataNascita,String luogoNascita,String indirizzoResidenza){
         try {
 
@@ -65,7 +66,6 @@ public class pazienteDAO {
         }
     }
 
-    //TODO NON MODIFICATI
     public static void modificaPaziente(Scanner scanner) {
         System.out.println("MODIFICA PAZIENTE:");
 
