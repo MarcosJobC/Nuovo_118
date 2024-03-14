@@ -18,6 +18,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Calendar;
 
+import static ORM.utenteDAO.cambiaStatoVolontario;
+import static ORM.utenteDAO.trovaVolontarioDisponibileNonConfermatoSOCIALI;
+
 
 public class servizioDAO {
     private static Connection connection;
@@ -815,6 +818,82 @@ public class servizioDAO {
 
 
 
+    public static void assegnaAutomaticamenteSOCIALI(Scanner scanner) {
+        //Vengono assegnati prima tutti gli autisti e successivamente tutti i soccoritori
+        assegnaAutistiAutomaticamenteSOCIALI();
+        assegnaSoccorritoriAutomaticamenteSOCIALI();
+        System.out.println(" ");
+        System.out.println(" ");
+        menuController.mostraMenuServizi(scanner);
+    }
+    public static void assegnaAutistiAutomaticamenteSOCIALI() {
+        try {
+
+            String serviziSenzaAutistaQuery = "SELECT * FROM Servizi WHERE Autista = 0";
+            PreparedStatement serviziSenzaAutistaStatement = connection.prepareStatement(serviziSenzaAutistaQuery);
+            ResultSet serviziSenzaAutistaResultSet = serviziSenzaAutistaStatement.executeQuery();
+
+
+            while (serviziSenzaAutistaResultSet.next()) {
+                int idServizio = serviziSenzaAutistaResultSet.getInt("Id");
+                String dataServizio = serviziSenzaAutistaResultSet.getString("Data");
+                LocalTime orarioServizio = serviziSenzaAutistaResultSet.getTime("orario").toLocalTime();
+
+                // Trova un autista volontario disponibile e non confermato per questa data
+                int autistaDisponibile = trovaVolontarioDisponibileNonConfermatoSOCIALI(dataServizio, orarioServizio);
+
+                if (autistaDisponibile != 0) {
+                    // Cambia lo stato del volontario da "Non confermata" a "Reclutato"
+                    cambiaStatoVolontario(autistaDisponibile, dataServizio);
+
+                    String updateQuery = "UPDATE Servizi SET Autista = ? WHERE Id = ? AND Autista = 0";
+                    PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
+                    updateStatement.setInt(1, autistaDisponibile);
+                    updateStatement.setInt(2, idServizio);
+                    updateStatement.executeUpdate();
+                    System.out.println("Autista assegnato automaticamente al servizio con ID " + idServizio);
+                    updateStatement.close();
+                }
+            }
+
+            serviziSenzaAutistaStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void assegnaSoccorritoriAutomaticamenteSOCIALI() {
+        try {
+            String serviziSenzaSoccorritoreQuery = "SELECT * FROM Servizi WHERE Soccorritore = 0";
+            PreparedStatement serviziSenzaSoccorritoreStatement = connection.prepareStatement(serviziSenzaSoccorritoreQuery);
+            ResultSet serviziSenzaSoccorritoreResultSet = serviziSenzaSoccorritoreStatement.executeQuery();
+
+            while (serviziSenzaSoccorritoreResultSet.next()) {
+                int idServizio = serviziSenzaSoccorritoreResultSet.getInt("Id");
+                String dataServizio = serviziSenzaSoccorritoreResultSet.getString("Data");
+                LocalTime orarioServizio = serviziSenzaSoccorritoreResultSet.getTime("orario").toLocalTime();
+
+                // Trova un soccorritore volontario disponibile e non confermato per questa data
+                int soccorritoreDisponibile = trovaVolontarioDisponibileNonConfermatoSOCIALI(dataServizio, orarioServizio);
+
+                if (soccorritoreDisponibile != 0) {
+                    // Cambia lo stato del volontario da "Non confermata" a "Reclutato"
+                    cambiaStatoVolontario(soccorritoreDisponibile, dataServizio);
+
+                    String updateQuery = "UPDATE Servizi SET Soccorritore = ? WHERE Id = ? AND Soccorritore = 0";
+                    PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
+                    updateStatement.setInt(1, soccorritoreDisponibile);
+                    updateStatement.setInt(2, idServizio);
+                    updateStatement.executeUpdate();
+                    System.out.println("Soccorritore assegnato automaticamente al servizio con ID " + idServizio);
+                    updateStatement.close();
+                }
+            }
+
+            serviziSenzaSoccorritoreStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

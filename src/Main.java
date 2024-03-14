@@ -1,5 +1,4 @@
 import BusinessLogic.menuController;
-import ORM.assegnazioneAutomaticaDAO;
 import ORM.*;
 
 import java.util.Scanner;
