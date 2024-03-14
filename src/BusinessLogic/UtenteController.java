@@ -1,7 +1,6 @@
 package BusinessLogic;
 import ORM.*;
 
-import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -13,7 +12,7 @@ import java.util.Scanner;
 
 
 
-public class VolontarioController {
+public class UtenteController {
 
     public static void registrazione(Scanner scanner, boolean sceltaValida) {
         sceltaValida = true;
@@ -111,7 +110,7 @@ public class VolontarioController {
             System.out.print("La password non può essere vuota. Inserisci la password: ");
             password = scanner.nextLine();
         }
-        volontariManager.registrazioneDAO(nome,cognome,dataDiNascita,qualifica,codicefiscale,password);
+        utentiManager.registrazioneDAO(nome,cognome,dataDiNascita,qualifica,codicefiscale,password);
 
     }
     public static void accesso(Scanner scanner, boolean sceltaValida) {
@@ -139,7 +138,7 @@ public class VolontarioController {
             password = scanner.nextLine();
         }
 
-        volontariManager.accessoDAO(codicefiscale,password,scanner);
+        utentiManager.accessoDAO(codicefiscale,password,scanner);
 
     }
     public static void inserisciDisponibilita(Scanner scanner, int matricolaVolontario) {
@@ -210,7 +209,7 @@ public class VolontarioController {
                 }
             }
         }
-        volontariManager.inserisciDisponibilitaDAO(scanner,matricolaVolontario,dataDisponibilita,tipologia,oraFine,oraInizio);
+        utentiManager.inserisciDisponibilitaDAO(scanner,matricolaVolontario,dataDisponibilita,tipologia,oraFine,oraInizio);
     }
 
 

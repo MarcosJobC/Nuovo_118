@@ -1,17 +1,7 @@
 package DomainModel;
 
-import ORM.volontariManager;
 
-import java.sql.Connection;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
-
-public class Volontario {
+public class Utente {
 
     private int matricola;
     private String nome;
@@ -20,7 +10,7 @@ public class Volontario {
     private String qualifica;
     // Altri campi e metodi
 
-    public Volontario(int matricola, String nome, String cognome, String codiceFiscale, String qualifica) {
+    public Utente(int matricola, String nome, String cognome, String codiceFiscale, String qualifica) {
         this.matricola = matricola;
         this.nome = nome;
         this.cognome = cognome;

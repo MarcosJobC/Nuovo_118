@@ -38,7 +38,7 @@ Modifica del servizio per includere l'ID del paziente al posto del nome paziente
 #### Menu iniziale
 Non consentire l'accesso se i campi CF (Codice Fiscale) e password sono vuoti.
 Reindirizzamento al menu iniziale dopo la registrazione.
-Qualifica BusinessLogic.VolontarioController:
+Qualifica BusinessLogic.UtenteController:
 
 #### Eliminazione Volontari:
 Risolvere il problema delle notifiche, disponibilità e servizi associati quando si elimina un volontario.

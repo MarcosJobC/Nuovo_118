@@ -2327,8 +2327,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "ORM.volontariManager",
-					"ownedElements": [
+					"name": "ORM.utentiManager					"ownedElements": [
 						{
 							"_type": "UMLDependency",
 							"_id": "AAAAAAGKO3C4gmpjCtU=",
@@ -2365,8 +2364,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uiLqHb7n4="
 							},
-							"name": "ORM.volontariManager",
-							"stereotype": "constructor",
+							"name": "ORM.utentiManager							"stereotype": "constructor",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -2651,7 +2649,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "BusinessLogic.VolontarioController",
+					"name": "BusinessLogic.UtenteController",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -3044,7 +3042,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uiMKH43r0="
 							},
-							"name": "BusinessLogic.VolontarioController",
+							"name": "BusinessLogic.UtenteController",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -6169,8 +6167,7 @@
 											"top": 342,
 											"width": 108.3544921875,
 											"height": 13,
-											"text": "ORM.volontariManager"
-										},
+											"text": "ORM.utentiManager									},
 										{
 											"_type": "LabelView",
 											"_id": "AAAAAAGKO0uiXKOWTFk=",
@@ -6271,7 +6268,7 @@
 											"top": 5,
 											"width": 439.68310546875,
 											"height": 13,
-											"text": "«constructor»+ORM.volontariManager(connection: Connection)",
+											"text": "«constructor»+ORM.utentiManagernnection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -6500,7 +6497,7 @@
 											"top": 377,
 											"width": 63.3115234375,
 											"height": 13,
-											"text": "BusinessLogic.VolontarioController"
+											"text": "BusinessLogic.UtenteController"
 										},
 										{
 											"_type": "LabelView",
@@ -6669,7 +6666,7 @@
 											"top": 5,
 											"width": 632.60107421875,
 											"height": 13,
-											"text": "«constructor»+BusinessLogic.VolontarioController(matricola: int, nome: String, cognome: String, codiceFiscale: String, qualifica: String)",
+											"text": "«constructor»+BusinessLogic.UtenteController(matricola: int, nome: String, cognome: String, codiceFiscale: String, qualifica: String)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -10068,8 +10065,7 @@
 											"top": 111,
 											"width": 439.68310546875,
 											"height": 13,
-											"text": "ORM.volontariManager"
-										},
+											"text": "ORM.utentiManager									},
 										{
 											"_type": "LabelView",
 											"_id": "AAAAAAGKO0uiw6bOZ9c=",
@@ -10175,7 +10171,7 @@
 											"top": 157,
 											"width": 439.68310546875,
 											"height": 13,
-											"text": "«constructor»+ORM.volontariManager(connection: Connection)",
+											"text": "«constructor»+ORM.utentiManagernnection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -10409,7 +10405,7 @@
 											"top": 295,
 											"width": 632.60107421875,
 											"height": 13,
-											"text": "BusinessLogic.VolontarioController"
+											"text": "BusinessLogic.UtenteController"
 										},
 										{
 											"_type": "LabelView",
@@ -10583,7 +10579,7 @@
 											"top": 401,
 											"width": 632.60107421875,
 											"height": 13,
-											"text": "«constructor»+BusinessLogic.VolontarioController(matricola: int, nome: String, cognome: String, codiceFiscale: String, qualifica: String)",
+											"text": "«constructor»+BusinessLogic.UtenteController(matricola: int, nome: String, cognome: String, codiceFiscale: String, qualifica: String)",
 											"horizontalAlignment": 0
 										},
 										{

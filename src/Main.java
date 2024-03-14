@@ -13,7 +13,7 @@ import java.util.Scanner;
             Scanner scanner = new Scanner(System.in);
 
             menuController menuController = new menuController(dbConnection.getConnection());
-            volontariManager volontariManager = new volontariManager(dbConnection.getConnection());
+            utentiManager utentiManager = new utentiManager(dbConnection.getConnection());
             mezziManager mezziManager = new mezziManager(dbConnection.getConnection());
             serviziManager serviziManager = new serviziManager(dbConnection.getConnection());
             assegnazioneAutomatica assegnazioneAutomatica = new assegnazioneAutomatica(dbConnection.getConnection());

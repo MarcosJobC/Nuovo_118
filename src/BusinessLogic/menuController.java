@@ -22,10 +22,10 @@ public class menuController {
 
             if (choice.equalsIgnoreCase("R")) {
                 sceltaValida = true;
-                VolontarioController.registrazione(scanner, sceltaValida);
+                UtenteController.registrazione(scanner, sceltaValida);
             } else if (choice.equalsIgnoreCase("A")) {
                 sceltaValida = true;
-                VolontarioController.accesso(scanner, sceltaValida);
+                UtenteController.accesso(scanner, sceltaValida);
             } else if (choice.equalsIgnoreCase("U")) {
                 System.out.println("Grazie per aver utilizzato il gestionale! Arrivederci.");
                 System.exit(0);
@@ -41,7 +41,7 @@ public class menuController {
         System.out.println("1. Dai disponibilità");
 
         // Verifica se l'utente ha delle disponibilità prima di visualizzare il punto 2
-        if (volontariManager.haDisponibilita(matricolaVolontario)) {
+        if (utentiManager.haDisponibilita(matricolaVolontario)) {
             System.out.println("2. Rimuovi disponibilità");
         }
         // Controlla se ci sono notifiche non lette e mostra il punto 4 solo se necessario
@@ -49,7 +49,7 @@ public class menuController {
             System.out.println("3. Visualizza notifiche");
         }
 
-        if (volontariManager.haServiziOEmergenzeAssegnate(matricolaVolontario)) {
+        if (utentiManager.haServiziOEmergenzeAssegnate(matricolaVolontario)) {
             System.out.println("4. Visualizza servizi assegnati");
         }
 
@@ -62,17 +62,17 @@ public class menuController {
 
         switch (choice) {
             case 1:
-                VolontarioController.inserisciDisponibilita(scanner, matricolaVolontario);
+                UtenteController.inserisciDisponibilita(scanner, matricolaVolontario);
                 break;
             case 2:
-                volontariManager.rimuoviDisponibilita(scanner, matricolaVolontario);
+                utentiManager.rimuoviDisponibilita(scanner, matricolaVolontario);
                 break;
             case 3:
                 // Visualizzare le notifiche e segnarle come lette
                 notificheManager.visualizzaNotifiche(scanner, matricolaVolontario);
                 break;
             case 4:
-                volontariManager.visualizzaServiziEEmergenzeAssegnate(scanner, matricolaVolontario);
+                utentiManager.visualizzaServiziEEmergenzeAssegnate(scanner, matricolaVolontario);
                 break;
             case 5:
                 menuIniziale(scanner);
@@ -97,7 +97,7 @@ public class menuController {
         }
 
         // Verifica se ci sono disponibilità non confermate o notifiche non lette
-        if (volontariManager.ciSonoDisponibilitaENotificheNonLette()) {
+        if (utentiManager.ciSonoDisponibilitaENotificheNonLette()) {
             System.out.println("7. Visualizza disponibilità e notifiche non lette");
         }
 
@@ -130,7 +130,7 @@ public class menuController {
                 break;
             case 7:
                 // Visualizza disponibilità e notifiche non lette
-                volontariManager.visualizzaDisponibilitaENotificheNonLette(scanner);
+                utentiManager.visualizzaDisponibilitaENotificheNonLette(scanner);
                 break;
             case 8:
                 // Uscire dal menu
@@ -182,13 +182,13 @@ public class menuController {
 
         switch (choice) {
             case 1:
-                volontariManager.modificaAnagrafeVolontariDAO(scanner);
+                utentiManager.modificaAnagrafeVolontariDAO(scanner);
                 break;
             case 2:
-                volontariManager.eliminaVolontario(scanner);
+                utentiManager.eliminaVolontario(scanner);
                 break;
             case 3:
-                volontariManager.mostraListaVolontari(scanner);
+                utentiManager.mostraListaVolontari(scanner);
                 break;
             case 4:
                 mostraMenuAdmin(scanner);
