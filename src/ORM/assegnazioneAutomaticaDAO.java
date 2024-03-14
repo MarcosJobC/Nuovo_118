@@ -91,6 +91,8 @@ public class assegnazioneAutomaticaDAO {
             e.printStackTrace();
         }
     }
+
+
     public static int trovaVolontarioDisponibileNonConfermatoSOCIALI(String dataServizio, LocalTime orarioServizio) {
         try {
             String disponibilitaQuery = "SELECT matricola_volontario, ora_inizio, ora_fine " +
