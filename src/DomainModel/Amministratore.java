@@ -1,6 +1,8 @@
 package DomainModel;
 
 //TODO AGGIUNGI ATTRIBUTI CORRETTI
+
+//TODO IL TEST CONTROLLER è AGGIUNGERE UTENTE E CONTROLLARE CHE SIA AGGIUNTO CORRETTAMENTE NEL DAO
 public class Amministratore {
 
     private int matricola;
