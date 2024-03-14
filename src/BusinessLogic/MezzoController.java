@@ -7,18 +7,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MezzoController {
-    private String siglaMezzo;
-    private String targa;
-    private String tipologia;
 
-
-
-    public MezzoController(String siglaMezzo, String targa, String tipologia) {
-        this.siglaMezzo = siglaMezzo;
-        this.targa = targa;
-        this.tipologia = tipologia;
-    }
-    //TODO NUOVO METODO
     public static void aggiungiMezzo(Scanner scanner) {
         String siglaMezzo;
         String targa;

@@ -13,8 +13,6 @@ import java.util.Scanner;
 
 public class pazientiController {
 
-
-    //TODO NUOVI METODI
     public static void aggiungiPaziente(Scanner scanner){
         System.out.println(" ");
         System.out.println("INSERIMENTO NUOVO PAZIENTE:");

@@ -10,8 +10,6 @@ public class menuController {
     public menuController(Connection connection) {
         this.connection = connection;
     }
-
-
     //MENU INIZIALE
     public static void menuIniziale(Scanner scanner) {
 
@@ -84,8 +82,6 @@ public class menuController {
                 mostraMenuUtenteNormale(scanner, matricolaVolontario);
         }
     }
-
-
     //MENU ADMIN
     public static void mostraMenuAdmin(Scanner scanner) {
         System.out.println("Menu Amministratore:");
