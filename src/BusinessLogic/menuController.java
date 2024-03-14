@@ -41,15 +41,15 @@ public class menuController {
         System.out.println("1. Dai disponibilità");
 
         // Verifica se l'utente ha delle disponibilità prima di visualizzare il punto 2
-        if (utentiManager.haDisponibilita(matricolaVolontario)) {
+        if (utenteDAO.haDisponibilita(matricolaVolontario)) {
             System.out.println("2. Rimuovi disponibilità");
         }
         // Controlla se ci sono notifiche non lette e mostra il punto 4 solo se necessario
-        if (notificheManager.ciSonoNotificheNonLette(matricolaVolontario)) {
+        if (notificaDAO.ciSonoNotificheNonLette(matricolaVolontario)) {
             System.out.println("3. Visualizza notifiche");
         }
 
-        if (utentiManager.haServiziOEmergenzeAssegnate(matricolaVolontario)) {
+        if (utenteDAO.haServiziOEmergenzeAssegnate(matricolaVolontario)) {
             System.out.println("4. Visualizza servizi assegnati");
         }
 
@@ -65,14 +65,14 @@ public class menuController {
                 UtenteController.inserisciDisponibilita(scanner, matricolaVolontario);
                 break;
             case 2:
-                utentiManager.rimuoviDisponibilita(scanner, matricolaVolontario);
+                utenteDAO.rimuoviDisponibilita(scanner, matricolaVolontario);
                 break;
             case 3:
                 // Visualizzare le notifiche e segnarle come lette
-                notificheManager.visualizzaNotifiche(scanner, matricolaVolontario);
+                notificaDAO.visualizzaNotifiche(scanner, matricolaVolontario);
                 break;
             case 4:
-                utentiManager.visualizzaServiziEEmergenzeAssegnate(scanner, matricolaVolontario);
+                utenteDAO.visualizzaServiziEEmergenzeAssegnate(scanner, matricolaVolontario);
                 break;
             case 5:
                 menuIniziale(scanner);
@@ -92,12 +92,12 @@ public class menuController {
 
 
         // Verifica se ci sono richieste di rimozione
-        if (serviziManager.ciSonoRichiesteRimozione()) {
+        if (servizioDAO.ciSonoRichiesteRimozione()) {
             System.out.println("6. Visualizza RICHIESTE URGENTI rimozione disponibilità");
         }
 
         // Verifica se ci sono disponibilità non confermate o notifiche non lette
-        if (utentiManager.ciSonoDisponibilitaENotificheNonLette()) {
+        if (utenteDAO.ciSonoDisponibilitaENotificheNonLette()) {
             System.out.println("7. Visualizza disponibilità e notifiche non lette");
         }
 
@@ -122,15 +122,15 @@ public class menuController {
                 mostraMenuPazienti(scanner);
                 break;
             case 6:
-                if (serviziManager.ciSonoRichiesteRimozione()) {
-                    serviziManager.visualizzaRichiesteRimozione(scanner);
+                if (servizioDAO.ciSonoRichiesteRimozione()) {
+                    servizioDAO.visualizzaRichiesteRimozione(scanner);
                 } else {
                     System.out.print(" ");
                 }
                 break;
             case 7:
                 // Visualizza disponibilità e notifiche non lette
-                utentiManager.visualizzaDisponibilitaENotificheNonLette(scanner);
+                utenteDAO.visualizzaDisponibilitaENotificheNonLette(scanner);
                 break;
             case 8:
                 // Uscire dal menu
@@ -157,10 +157,10 @@ public class menuController {
                 MezzoController.aggiungiMezzo(scanner);
                 break;
             case 2:
-                mezziManager.modificaMezzo(scanner);
+                mezzoDAO.modificaMezzo(scanner);
                 break;
             case 3:
-                mezziManager.eliminaMezzo(scanner);
+                mezzoDAO.eliminaMezzo(scanner);
                 break;
             case 4:
                 mostraMenuAdmin(scanner);
@@ -182,13 +182,13 @@ public class menuController {
 
         switch (choice) {
             case 1:
-                utentiManager.modificaAnagrafeVolontariDAO(scanner);
+                utenteDAO.modificaAnagrafeVolontariDAO(scanner);
                 break;
             case 2:
-                utentiManager.eliminaVolontario(scanner);
+                utenteDAO.eliminaVolontario(scanner);
                 break;
             case 3:
-                utentiManager.mostraListaVolontari(scanner);
+                utenteDAO.mostraListaVolontari(scanner);
                 break;
             case 4:
                 mostraMenuAdmin(scanner);
@@ -211,16 +211,16 @@ public class menuController {
 
         switch (choice) {
             case 1:
-                serviziManager.aggiungiServizioDAO(scanner);
+                servizioDAO.aggiungiServizioDAO(scanner);
                 break;
             case 2:
-                serviziManager.modificaServizio(scanner);
+                servizioDAO.modificaServizio(scanner);
                 break;
             case 3:
-                serviziManager.eliminaServizio(scanner);
+                servizioDAO.eliminaServizio(scanner);
                 break;
             case 4:
-                assegnazioneAutomatica.assegnaAutomaticamenteSOCIALI(scanner);
+                assegnazioneAutomaticaDAO.assegnaAutomaticamenteSOCIALI(scanner);
                 break;
             case 5:
                 mostraMenuAdmin(scanner);
@@ -244,16 +244,16 @@ public class menuController {
 
         switch (choice) {
             case 1:
-                pazientiManager.visualizzaPazienti(scanner);
+                pazienteDAO.visualizzaPazienti(scanner);
                 break;
             case 2:
                 pazientiController.aggiungiPaziente(scanner);
                 break;
             case 3:
-                pazientiManager.modificaPaziente(scanner);
+                pazienteDAO.modificaPaziente(scanner);
                 break;
             case 4:
-                pazientiManager.eliminaPaziente(scanner);
+                pazienteDAO.eliminaPaziente(scanner);
                 break;
             case 5:
                 mostraMenuAdmin(scanner);

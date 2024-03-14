@@ -19,9 +19,9 @@ import java.sql.SQLException;
 import java.util.Calendar;
 
 
-public class serviziManager {
+public class servizioDAO {
     private static Connection connection;
-    public serviziManager(Connection connection) {
+    public servizioDAO(Connection connection) {
         this.connection = connection;
     }
 
@@ -202,10 +202,10 @@ public class serviziManager {
                 e.printStackTrace();
             }
             if (Autista > 0) {
-                notificheManager.inviaNotificaVolontario(Autista, dataServizio);
+                notificaDAO.inviaNotificaVolontario(Autista, dataServizio);
             }
             if (Soccorritore > 0) {
-                notificheManager.inviaNotificaVolontario(Soccorritore, dataServizio);
+                notificaDAO.inviaNotificaVolontario(Soccorritore, dataServizio);
             }
         } catch (DateTimeParseException e) {
             System.out.println("Formato data non valido. Utilizza il formato dd-mm-yyyy.");
@@ -356,10 +356,10 @@ public class serviziManager {
                 e.printStackTrace();
             }
             if (Autista > 0) {
-                notificheManager.inviaNotificaVolontario(Autista, dataServizio);
+                notificaDAO.inviaNotificaVolontario(Autista, dataServizio);
             }
             if (Soccorritore > 0) {
-                notificheManager.inviaNotificaVolontario(Soccorritore, dataServizio);
+                notificaDAO.inviaNotificaVolontario(Soccorritore, dataServizio);
             }
         } catch (DateTimeParseException e) {
             System.out.println("Formato data non valido. Utilizza il formato dd-mm-yyyy.");

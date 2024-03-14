@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class utentiManager {
+public class utenteDAO {
 
     private static Connection connection;
-    public utentiManager(Connection connection) {
+    public utenteDAO(Connection connection) {
         this.connection = connection;
     }
 

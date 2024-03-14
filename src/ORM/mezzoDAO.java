@@ -8,10 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class mezziManager {
+public class mezzoDAO {
 
     private static Connection connection;
-    public mezziManager(Connection connection) {
+    public mezzoDAO(Connection connection) {
         this.connection = connection;
     }
 
@@ -40,7 +40,7 @@ public class mezziManager {
         }
     }
 
-    //TODO NON MODIFICATI
+    // TODO NON MODIFICATI
     public static void modificaMezzo(Scanner scanner) {
         try {
             String query = "SELECT * FROM Mezzi";
@@ -65,7 +65,7 @@ public class mezziManager {
             ResultSet resultSetVerifica = verificaStatement.executeQuery();
 
             if (resultSetVerifica.next()) {
-                System.out.println("BusinessLogic.Mezzo trovato. Inserisci i nuovi dati:");
+                System.out.println("Mezzo trovato. Inserisci i nuovi dati:");
 
                 System.out.println("Nuova targa del mezzo (lascia vuoto per mantenere quella attuale):");
                 String nuovaTarga = scanner.nextLine();

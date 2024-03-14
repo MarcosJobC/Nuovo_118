@@ -36,7 +36,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "ORM.assegnazioneAutomatica",
+					"name": "ORM.assegnazioneAutomaticaDAODAO",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -203,7 +203,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uhy6E+Lyg="
 							},
-							"name": "ORM.assegnazioneAutomatica",
+							"name": "ORM.assegnazioneAutomaticaDAODAO",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -1210,7 +1210,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "ORM.mezziManager",
+					"name": "ORM.mezziManagerDAODAO",
 					"ownedElements": [
 						{
 							"_type": "UMLDependency",
@@ -1248,7 +1248,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uh+aGMZGk="
 							},
-							"name": "ORM.mezziManager",
+							"name": "ORM.mezziManagerDAODAO",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -1616,8 +1616,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "ORM.serviziManager",
-					"ownedElements": [
+					"name": "ORM.servizioDAO					"ownedElements": [
 						{
 							"_type": "UMLDependency",
 							"_id": "AAAAAAGKO3ahhrtmXi0=",
@@ -1680,8 +1679,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uiEKGsm7Y="
 							},
-							"name": "ORM.serviziManager",
-							"stereotype": "constructor",
+							"name": "ORM.servizioDAO							"stereotype": "constructor",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -2327,7 +2325,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "ORM.utentiManager					"ownedElements": [
+					"name": "ORM.utenteDAO	"ownedElements": [
 						{
 							"_type": "UMLDependency",
 							"_id": "AAAAAAGKO3C4gmpjCtU=",
@@ -2364,7 +2362,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uiLqHb7n4="
 							},
-							"name": "ORM.utentiManager							"stereotype": "constructor",
+							"name": "ORM.utenteDAO			"stereotype": "constructor",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -3410,7 +3408,7 @@
 											"top": 27,
 											"width": 156.04443359375,
 											"height": 13,
-											"text": "ORM.assegnazioneAutomatica"
+											"text": "ORM.assegnazioneAutomaticaDAODAO"
 										},
 										{
 											"_type": "LabelView",
@@ -3512,7 +3510,7 @@
 											"top": 5,
 											"width": 481.62841796875,
 											"height": 13,
-											"text": "«constructor»+ORM.assegnazioneAutomatica(connection: Connection)",
+											"text": "«constructor»+ORM.assegnazioneAutomaticaDAODAO(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -4849,7 +4847,7 @@
 											"top": 202,
 											"width": 88.86083984375,
 											"height": 13,
-											"text": "ORM.mezziManager"
+											"text": "ORM.mezziManagerDAODAO"
 										},
 										{
 											"_type": "LabelView",
@@ -4951,7 +4949,7 @@
 											"top": 5,
 											"width": 316.138671875,
 											"height": 13,
-											"text": "«constructor»+ORM.mezziManager(connection: Connection)",
+											"text": "«constructor»+ORM.mezziManagerDAODAO(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5448,8 +5446,7 @@
 											"top": 272,
 											"width": 93.9326171875,
 											"height": 13,
-											"text": "ORM.serviziManager"
-										},
+											"text": "ORM.servizioDAO									},
 										{
 											"_type": "LabelView",
 											"_id": "AAAAAAGKO0uiXKOC9H4=",
@@ -5550,7 +5547,7 @@
 											"top": 5,
 											"width": 322.98779296875,
 											"height": 13,
-											"text": "«constructor»+ORM.serviziManager(connection: Connection)",
+											"text": "«constructor»+ORM.servizioDAOnnection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -6167,7 +6164,7 @@
 											"top": 342,
 											"width": 108.3544921875,
 											"height": 13,
-											"text": "ORM.utentiManager									},
+											"text": "ORM.utenteDAO					},
 										{
 											"_type": "LabelView",
 											"_id": "AAAAAAGKO0uiXKOWTFk=",
@@ -7449,7 +7446,7 @@
 											"top": 471,
 											"width": 481.62841796875,
 											"height": 13,
-											"text": "ORM.assegnazioneAutomatica"
+											"text": "ORM.assegnazioneAutomaticaDAODAO"
 										},
 										{
 											"_type": "LabelView",
@@ -7556,7 +7553,7 @@
 											"top": 517,
 											"width": 481.62841796875,
 											"height": 13,
-											"text": "«constructor»+ORM.assegnazioneAutomatica(connection: Connection)",
+											"text": "«constructor»+ORM.assegnazioneAutomaticaDAODAO(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -8707,7 +8704,7 @@
 											"top": 1415,
 											"width": 316.138671875,
 											"height": 13,
-											"text": "ORM.mezziManager"
+											"text": "ORM.mezziManagerDAODAO"
 										},
 										{
 											"_type": "LabelView",
@@ -8814,7 +8811,7 @@
 											"top": 1461,
 											"width": 316.138671875,
 											"height": 13,
-											"text": "«constructor»+ORM.mezziManager(connection: Connection)",
+											"text": "«constructor»+ORM.mezziManagerDAODAO(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -9326,8 +9323,7 @@
 											"top": 799,
 											"width": 322.98779296875,
 											"height": 13,
-											"text": "ORM.serviziManager"
-										},
+											"text": "ORM.servizioDAO									},
 										{
 											"_type": "LabelView",
 											"_id": "AAAAAAGKO0uiw6a6in0=",
@@ -9433,7 +9429,7 @@
 											"top": 845,
 											"width": 322.98779296875,
 											"height": 13,
-											"text": "«constructor»+ORM.serviziManager(connection: Connection)",
+											"text": "«constructor»+ORM.servizioDAOnnection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -10065,7 +10061,7 @@
 											"top": 111,
 											"width": 439.68310546875,
 											"height": 13,
-											"text": "ORM.utentiManager									},
+											"text": "ORM.utenteDAO					},
 										{
 											"_type": "LabelView",
 											"_id": "AAAAAAGKO0uiw6bOZ9c=",

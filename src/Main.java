@@ -1,5 +1,5 @@
 import BusinessLogic.menuController;
-import ORM.assegnazioneAutomatica;
+import ORM.assegnazioneAutomaticaDAO;
 import ORM.*;
 
 import java.util.Scanner;
@@ -13,20 +13,20 @@ import java.util.Scanner;
             Scanner scanner = new Scanner(System.in);
 
             menuController menuController = new menuController(dbConnection.getConnection());
-            utentiManager utentiManager = new utentiManager(dbConnection.getConnection());
-            mezziManager mezziManager = new mezziManager(dbConnection.getConnection());
-            serviziManager serviziManager = new serviziManager(dbConnection.getConnection());
-            assegnazioneAutomatica assegnazioneAutomatica = new assegnazioneAutomatica(dbConnection.getConnection());
-            notificheManager notificheManager = new notificheManager(dbConnection.getConnection());
-            pazientiManager pazientiManager = new pazientiManager(dbConnection.getConnection());
+            utenteDAO utenteDAO = new utenteDAO(dbConnection.getConnection());
+            mezzoDAO mezzoDAO = new mezzoDAO(dbConnection.getConnection());
+            servizioDAO servizioDAO = new servizioDAO(dbConnection.getConnection());
+            assegnazioneAutomaticaDAO assegnazioneAutomaticaDAO = new assegnazioneAutomaticaDAO(dbConnection.getConnection());
+            notificaDAO notificaDAO = new notificaDAO(dbConnection.getConnection());
+            pazienteDAO pazienteDAO = new pazienteDAO(dbConnection.getConnection());
 
 
             // Rimuovi le disponibilità scadute e le notifiche lette
-            serviziManager.rimuoviDisponibilitaScadute();
-            notificheManager.eliminaNotificheLette();
+            servizioDAO.rimuoviDisponibilitaScadute();
+            notificaDAO.eliminaNotificheLette();
 
             // Rimuovi i servizi scaduti
-            serviziManager.rimuoviServiziScaduti();
+            servizioDAO.rimuoviServiziScaduti();
 
             // Avvia gestionale
             menuController.menuIniziale(scanner);

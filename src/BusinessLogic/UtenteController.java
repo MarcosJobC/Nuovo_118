@@ -110,7 +110,7 @@ public class UtenteController {
             System.out.print("La password non può essere vuota. Inserisci la password: ");
             password = scanner.nextLine();
         }
-        utentiManager.registrazioneDAO(nome,cognome,dataDiNascita,qualifica,codicefiscale,password);
+        utenteDAO.registrazioneDAO(nome,cognome,dataDiNascita,qualifica,codicefiscale,password);
 
     }
     public static void accesso(Scanner scanner, boolean sceltaValida) {
@@ -138,7 +138,7 @@ public class UtenteController {
             password = scanner.nextLine();
         }
 
-        utentiManager.accessoDAO(codicefiscale,password,scanner);
+        utenteDAO.accessoDAO(codicefiscale,password,scanner);
 
     }
     public static void inserisciDisponibilita(Scanner scanner, int matricolaVolontario) {
@@ -209,7 +209,7 @@ public class UtenteController {
                 }
             }
         }
-        utentiManager.inserisciDisponibilitaDAO(scanner,matricolaVolontario,dataDisponibilita,tipologia,oraFine,oraInizio);
+        utenteDAO.inserisciDisponibilitaDAO(scanner,matricolaVolontario,dataDisponibilita,tipologia,oraFine,oraInizio);
     }
 
 

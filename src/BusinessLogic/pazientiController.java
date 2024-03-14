@@ -1,9 +1,8 @@
 package BusinessLogic;
 
-import ORM.pazientiManager;
-import ORM.serviziManager;
+import ORM.pazienteDAO;
+import ORM.servizioDAO;
 
-import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -75,7 +74,7 @@ public class pazientiController {
             }
         } while (indirizzoResidenza.isEmpty());
 
-        pazientiManager.aggiungiPazienteDAO(scanner,nomePaziente, cognomePaziente, dataNascita, luogoNascita, indirizzoResidenza);
+        pazienteDAO.aggiungiPazienteDAO(scanner,nomePaziente, cognomePaziente, dataNascita, luogoNascita, indirizzoResidenza);
 
         System.out.println(" ");
         System.out.println(" ");
@@ -143,10 +142,10 @@ public class pazientiController {
             }
         } while (indirizzoResidenza.isEmpty());
 
-        pazientiManager.aggiungiPazientedaServizioDAO(scanner,nomePaziente, cognomePaziente, dataNascitaString, luogoNascita, indirizzoResidenza, dataNascita, dataServizio, orarioServizio);
+        pazienteDAO.aggiungiPazientedaServizioDAO(scanner,nomePaziente, cognomePaziente, dataNascitaString, luogoNascita, indirizzoResidenza, dataNascita, dataServizio, orarioServizio);
 
         System.out.println(" ");
-        serviziManager.aggiungiServizioInternoDAO(scanner, newfromservizio, dataServizio, orarioServizio);
+        servizioDAO.aggiungiServizioInternoDAO(scanner, newfromservizio, dataServizio, orarioServizio);
     }
 
 }

@@ -5,17 +5,15 @@ import BusinessLogic.menuController;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 
-public class pazientiManager {
+public class pazienteDAO {
     private static Connection connection;
-    public pazientiManager(Connection connection) {
+    public pazienteDAO(Connection connection) {
         this.connection = connection;
     }
 

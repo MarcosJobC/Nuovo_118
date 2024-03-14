@@ -6,10 +6,10 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class notificheManager {
+public class notificaDAO {
 
     private static Connection connection;
-    public notificheManager(Connection connection) {
+    public notificaDAO(Connection connection) {
         this.connection = connection;
     }
     public static boolean ciSonoNotificheNonLette(int matricolaVolontario) {

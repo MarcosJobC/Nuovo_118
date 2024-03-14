@@ -1,9 +1,7 @@
 package BusinessLogic;
 
-import ORM.mezziManager;
+import ORM.mezzoDAO;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MezzoController {
@@ -58,7 +56,7 @@ public class MezzoController {
                     tipologia = ""; // Imposta tipologia a vuoto per ripetere il ciclo
             }
         } while (tipologia.isEmpty());
-        mezziManager.aggiungiMezzoDAO(siglaMezzo,  targa, tipologia );
+        mezzoDAO.aggiungiMezzoDAO(siglaMezzo,  targa, tipologia );
         menuController.mostraMenuMezzi(scanner);
     }
 }

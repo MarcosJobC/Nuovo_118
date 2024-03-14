@@ -7,10 +7,10 @@ import java.time.LocalTime;
 import java.util.Scanner;
 
 
-public class assegnazioneAutomatica {
+public class assegnazioneAutomaticaDAO {
 
     private static Connection connection;
-    public assegnazioneAutomatica(Connection connection) {
+    public assegnazioneAutomaticaDAO(Connection connection) {
         this.connection = connection;
     }
 
@@ -134,7 +134,7 @@ public class assegnazioneAutomatica {
 
 
             // Creazione della notifica
-            notificheManager.inviaNotificaVolontario(matricolaVolontario, dataServizio);
+            notificaDAO.inviaNotificaVolontario(matricolaVolontario, dataServizio);
 
         } catch (SQLException e) {
             e.printStackTrace();
