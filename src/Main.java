@@ -15,7 +15,6 @@ import java.util.Scanner;
             utenteDAO utenteDAO = new utenteDAO(dbConnection.getConnection());
             mezzoDAO mezzoDAO = new mezzoDAO(dbConnection.getConnection());
             servizioDAO servizioDAO = new servizioDAO(dbConnection.getConnection());
-            assegnazioneAutomaticaDAO assegnazioneAutomaticaDAO = new assegnazioneAutomaticaDAO(dbConnection.getConnection());
             notificaDAO notificaDAO = new notificaDAO(dbConnection.getConnection());
             pazienteDAO pazienteDAO = new pazienteDAO(dbConnection.getConnection());
 

@@ -1,6 +1,6 @@
 package DomainModel;
 
-
+//TODO AGGIUNGI ATTRIBUTI CORRETTI
 public class Amministratore {
 
     private int matricola;
