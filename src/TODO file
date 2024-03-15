@@ -87,33 +87,19 @@ Gestionale
 // notifiche lette vengono cancellate dal database
 
 IN ATTESA
-//TODO [IMPLEMENTA IN ASSEGNAZIONE AUTOMATICA] QUALIFICA VOLONTARIO TRA AUTISTA-SOCCORITORE-CENTRALINISTA
 //TODO il ragazzo che ha meno di 18 anni non può selezionarsi autista
 //TODO calcolo codice fiscale automatico
 -------------------------------------------------------------U-------------------------------------------------------------
-//TODO [IMPORTANTE] elimina anche le righe di soccorritori emergenza vecchie sennò non è possibile eliminare la riga in tabella emergenza
-//TODO far si che quando il volontario chiede rimozione disponibilità funzioni anche per emergenza e non solo per sociali
-//TODO fare che un admin può inserire le persone in turni di emergenza come fa per i servizi
 //TODO non due mezzi con stessa sigla
 //TODO non due mezzi con stessa targa
-//TODO quando elimino volontari vengono cancellati sia da servizi sociali che da turni emergenza
 //TODO aggiungi che admin vede anche data di nascita nella lista volontari
-//TODO admin può aggiungere e modificare i turni di emergenza
 //TODO metti a posto visualizzazione pazienti
 //TODO eliminazione paziente elimina anche servizio associato a lui
 //TODO l'amministratore può modificare i dati anagrafici solo degli utenti non amministratori
 //TODO visualizzazione lista volontari (SOLO VOLONTARI)
-//TODO mettere che impossibile due codice fiscali siano uguali quindi: [{{{{{{{NO}}}}}}}[[1)volontario gia esistente modifica password]]] 2)inserisci nuovamente i dati
-//TODO [NO] inserire metodo per modificare password dimenticata
-//TODO mettere che se si lascia vuoto il campo tipologia durante l'inserimento della disponibilità viene messo centralinista
-//TODO obbligatorio inserire turno mattina-pomeriggio-notte emergenza
-//TODO aggiornare metodo [haServiziOEmergenzeAssegnate] in modo che controlli anche i servizi al centralino
-//TODO non possibile assegnare ad emergenze gente che è centralinista
 //TODO durante inserimento servizi prende valido anche un ID non esistente nella lista pazienti E DA ERRORE ALLA FINE, non deve accadere
-//TODO verifica che rimozione disponibilità accettata da admin toglie sia turni centralino che emergenza che sociali
 //TODO Far si che se si elimina un mezzo questo venga automaticamente tolto da tutti i servizi a cui è assegnato
 //TODO aggiungi metodo per far visualizzare al volontario la lista delle proprie le disponibilità
-//TODO metti che il volontario quando guarda i servizi assegnati vede anche quelli al centralino
 
 
 
