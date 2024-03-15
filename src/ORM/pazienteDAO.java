@@ -43,9 +43,9 @@ public class pazienteDAO {
         System.out.println(" ");
         menuController.mostraMenuPazienti(scanner);
     }
-    public static void aggiungiPazientedaServizioDAO(Scanner scanner,String nomePaziente,String cognomePaziente,String dataNascitaString,String luogoNascita,String indirizzoResidenza,LocalDate dataNascita,String dataServizio,LocalTime orarioServizio){
+    public static void aggiungiPazientedaServizioDAO(Scanner scanner,String nomePaziente,String cognomePaziente,String dataNascitaString, String luogoNascita,String indirizzoResidenza,LocalDate dataNascita,String dataServizio,LocalTime orarioServizio){
         try {
-
+            //TODO TOGLIERE
             String insertQuery = "INSERT INTO Pazienti (Nome, Cognome, DataNascita, LuogoNascita, IndirizzoResidenza) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
             insertStatement.setString(1, nomePaziente);

@@ -14,6 +14,9 @@ import java.util.Scanner;
 
 public class AmministratoreController {
 
+
+
+
     public static void aggiungiMezzo(Scanner scanner) {
         String siglaMezzo;
         String targa;

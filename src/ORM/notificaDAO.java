@@ -14,8 +14,9 @@ public class notificaDAO {
     }
 
 
-    //TODO SPOSTA META' IN MENUCONTROLLER
+
     public static boolean ciSonoNotificheNonLette(int matricolaVolontario) {
+        //TODO Sposta metà in MenuController
         try {
             String notificheQuery = "SELECT Id FROM Notifiche WHERE Matricola_Volontario = ? AND Letta = false";
             PreparedStatement notificheStatement = connection.prepareStatement(notificheQuery);
@@ -45,8 +46,9 @@ public class notificaDAO {
         }
     }
 
-    //TODO SPOSTA META' IN MENUCONTROLLER
+
     public static void visualizzaNotifiche(Scanner scanner, int matricolaVolontario) {
+        //TODO Sposta metà in VolontarioController
         try {
             String notificheQuery = "SELECT * FROM Notifiche WHERE Matricola_Volontario = ? ORDER BY Data_Invio DESC";
             PreparedStatement notificheStatement = connection.prepareStatement(notificheQuery);
