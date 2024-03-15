@@ -55,8 +55,6 @@ Assegnazione automatica
 //Accettazione rimozione disponibilità
 // dopo aver accettato richiesta rimozione disponibilità torna al menu amministratore
 
-//NUOVI---------------------------------------------------------------------------------------------------------------------------------------------------------
-
 Pazienti
 //Metodo di aggiunta paziente i campi non devono esser lasciati vuoti e la data di nascita non dev'esser successiva ad oggi
 // quando voglio eliminare paziente non me lo fa eliminare se ci sono servizi a lui collegati fare avviso e rimozione servizi connessi e pazienti

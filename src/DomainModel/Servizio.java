@@ -8,16 +8,17 @@ public class Servizio {
     private String data;
     private Time orario;
     private String siglamezzo;
-    private int Autista;
-    private int Soccorritore;
-
-    public Servizio(int id, String data, Time orario, String siglamezzo, int Autista, int Soccorritore) {
+    private Utente autista;
+    private Utente soccorritore;
+    private Paziente paziente;
+    public Servizio(int id, String data, Time orario, String siglamezzo, Utente autista, Utente soccorritore, Paziente paziente) {
         this.id = id;
         this.data = data;
         this.orario = orario;
         this.siglamezzo = siglamezzo;
-        this.Autista = Autista;
-        this.Soccorritore = Soccorritore;
+        this.autista = autista;
+        this.soccorritore = soccorritore;
+        this.paziente = paziente;
     }
 
     // Getter per id
@@ -60,28 +61,34 @@ public class Servizio {
         this.siglamezzo = siglamezzo;
     }
 
-    // Getter per Autista
-    public int getAutista() {
-        return Autista;
+    // Getter per autista
+    public Utente getAutista() {
+        return autista;
     }
 
-    // Setter per Autista
-    public void setAutista(int Autista) {
-        this.Autista = Autista;
+    // Setter per autista
+    public void setAutista(Utente autista) {
+        this.autista = autista;
     }
 
-    // Getter per Soccorritore
-    public int getSoccorritore() {
-        return Soccorritore;
+    // Getter per soccorritore
+    public Utente getSoccorritore() {
+        return soccorritore;
     }
 
-    // Setter per Soccorritore
-    public void setSoccorritore(int Soccorritore) {
-        this.Soccorritore = Soccorritore;
+    // Setter per soccorritore
+    public void setSoccorritore(Utente soccorritore) {
+        this.soccorritore = soccorritore;
+    }
+
+
+    // Getter per paziente
+    public Paziente getPaziente() {
+        return paziente;
+    }
+
+    // Setter per paziente
+    public void setPaziente(Paziente paziente) {
+        this.paziente = paziente;
     }
 }
-
-
-
-
-
