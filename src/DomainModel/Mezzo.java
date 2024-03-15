@@ -5,40 +5,40 @@ public class Mezzo {
     private String targa;
     private String tipologia;
 
+    // Costruttore
     public Mezzo(String siglaMezzo, String targa, String tipologia) {
         this.siglaMezzo = siglaMezzo;
         this.targa = targa;
         this.tipologia = tipologia;
     }
 
-
-    // Metodi getter
+    // Getter per siglaMezzo
     public String getSiglaMezzo() {
         return siglaMezzo;
     }
 
-    public String getTarga() {
-        return targa;
-    }
-
-    public String getTipologia() {
-        return tipologia;
-    }
-
-    // Metodi setter
+    // Setter per siglaMezzo
     public void setSiglaMezzo(String siglaMezzo) {
         this.siglaMezzo = siglaMezzo;
     }
 
+    // Getter per targa
+    public String getTarga() {
+        return targa;
+    }
+
+    // Setter per targa
     public void setTarga(String targa) {
         this.targa = targa;
     }
 
-    public void setTipologia(String tipologia) {
-        this.tipologia = tipologia;
+    // Getter per tipologia
+    public String getTipologia() {
+        return tipologia;
     }
 
-    public void getSiglaMezzo(String siglaMezzo) {
-        this.siglaMezzo = siglaMezzo;
+    // Setter per tipologia
+    public void setTipologia(String tipologia) {
+        this.tipologia = tipologia;
     }
 }
