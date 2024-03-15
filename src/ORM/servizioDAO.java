@@ -1,7 +1,6 @@
 package ORM;
 
-import BusinessLogic.AmministratoreController;
-import BusinessLogic.menuController;
+import BusinessLogic.*;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -20,8 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Calendar;
 
-import static ORM.utenteDAO.cambiaStatoVolontario;
-import static ORM.utenteDAO.trovaVolontarioDisponibileNonConfermatoSOCIALI;
+
 
 
 public class servizioDAO {
@@ -835,11 +833,11 @@ public class servizioDAO {
                 LocalTime orarioServizio = serviziSenzaAutistaResultSet.getTime("orario").toLocalTime();
 
                 // Trova un autista volontario disponibile e non confermato per questa data
-                int autistaDisponibile = trovaVolontarioDisponibileNonConfermatoSOCIALI(dataServizio, orarioServizio);
+                int autistaDisponibile = utenteDAO.trovaVolontarioDisponibileNonConfermato(dataServizio, orarioServizio);
 
                 if (autistaDisponibile != 0) {
                     // Cambia lo stato del volontario da "Non confermata" a "Reclutato"
-                    cambiaStatoVolontario(autistaDisponibile, dataServizio);
+                    utenteDAO.cambiaStatoVolontario(autistaDisponibile, dataServizio);
 
                     String updateQuery = "UPDATE Servizi SET Autista = ? WHERE Id = ? AND Autista = 0";
                     PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
@@ -868,11 +866,11 @@ public class servizioDAO {
                 LocalTime orarioServizio = serviziSenzaSoccorritoreResultSet.getTime("orario").toLocalTime();
 
                 // Trova un soccorritore volontario disponibile e non confermato per questa data
-                int soccorritoreDisponibile = trovaVolontarioDisponibileNonConfermatoSOCIALI(dataServizio, orarioServizio);
+                int soccorritoreDisponibile = utenteDAO.trovaVolontarioDisponibileNonConfermato(dataServizio, orarioServizio);
 
                 if (soccorritoreDisponibile != 0) {
                     // Cambia lo stato del volontario da "Non confermata" a "Reclutato"
-                    cambiaStatoVolontario(soccorritoreDisponibile, dataServizio);
+                    utenteDAO.cambiaStatoVolontario(soccorritoreDisponibile, dataServizio);
 
                     String updateQuery = "UPDATE Servizi SET Soccorritore = ? WHERE Id = ? AND Soccorritore = 0";
                     PreparedStatement updateStatement = connection.prepareStatement(updateQuery);

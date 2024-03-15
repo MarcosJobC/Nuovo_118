@@ -413,7 +413,7 @@ public class utenteDAO {
 
 
 
-    public static int trovaVolontarioDisponibileNonConfermatoSOCIALI(String dataServizio, LocalTime orarioServizio) {
+    public static int trovaVolontarioDisponibileNonConfermato(String dataServizio, LocalTime orarioServizio) {
         try {
             String disponibilitaQuery = "SELECT matricola_volontario, ora_inizio, ora_fine " +
                     "FROM Disponibilita WHERE data_disponibilita = ? " +
