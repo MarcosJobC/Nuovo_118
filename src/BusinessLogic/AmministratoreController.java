@@ -205,7 +205,9 @@ public class AmministratoreController {
         System.out.println(" ");
         servizioDAO.aggiungiServizioInternoDAO(scanner, newfromservizio, dataServizio, orarioServizio);
     }
-
+    public static void visualizzaRichiesteRimozione(Scanner scanner) {
+        servizioDAO.visualizzaRichiesteRimozioneDAO(scanner);
+    }
 
 
 }

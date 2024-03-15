@@ -658,7 +658,8 @@ public class servizioDAO {
         }
 
     }
-    private static boolean verificaEsistenzaVolontario(int idSoccorritore) {
+
+    /*private static boolean verificaEsistenzaVolontario(int idSoccorritore) {
         try {
             String verificaQuery = "SELECT id FROM Volontari WHERE id = ?";
             PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
@@ -669,8 +670,9 @@ public class servizioDAO {
             e.printStackTrace();
             return false; // In caso di errore, restituisci false
         }
-    }
-    public static void visualizzaRichiesteRimozione(Scanner scanner) {
+    }*/
+
+    public static void visualizzaRichiesteRimozioneDAO(Scanner scanner) {
         try {
             String query = "SELECT * FROM Disponibilita WHERE Richiesta_Rimozione = true";
             PreparedStatement statement = connection.prepareStatement(query);
@@ -736,7 +738,7 @@ public class servizioDAO {
                 menuController.mostraMenuAdmin(scanner);
             } else {
                 System.out.println("ID non valido - Inserisci l'ID corretto.");
-                visualizzaRichiesteRimozione(scanner);
+                AmministratoreController.visualizzaRichiesteRimozione(scanner);
             }
 
             preparedStatement.close();

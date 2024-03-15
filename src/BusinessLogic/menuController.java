@@ -123,7 +123,7 @@ public class menuController {
                 break;
             case 6:
                 if (servizioDAO.ciSonoRichiesteRimozione()) {
-                    servizioDAO.visualizzaRichiesteRimozione(scanner);
+                    AmministratoreController.visualizzaRichiesteRimozione(scanner);
                 } else {
                     System.out.print(" ");
                 }
