@@ -247,7 +247,7 @@ public class menuController {
                 pazienteDAO.visualizzaPazienti(scanner);
                 break;
             case 2:
-                pazientiController.aggiungiPaziente(scanner);
+                PazienteController.aggiungiPaziente(scanner);
                 break;
             case 3:
                 pazienteDAO.modificaPaziente(scanner);

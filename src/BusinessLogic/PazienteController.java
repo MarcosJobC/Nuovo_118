@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 
-public class pazientiController {
+public class PazienteController {
 
     //TODO AGGIUNGI IN aggiungiPaziente CHE CREA UN NUOVO OGGETTO PAZIENTE E LO VEDE
     public static void aggiungiPaziente(Scanner scanner){
