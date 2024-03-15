@@ -22,7 +22,7 @@ public class Amministratore {
         this.qualifica = qualifica;
         this.codiceFiscale = codiceFiscale;
         this.password = password;
-        this.isAdmin = false;
+        this.isAdmin = true;
     }
 
     // Metodi getter
