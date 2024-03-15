@@ -6,10 +6,7 @@ import java.sql.Connection;
 import java.util.Scanner;
 
 public class menuController {
-    private static Connection connection;
-    public menuController(Connection connection) {
-        this.connection = connection;
-    }
+
     //MENU INIZIALE
     public static void menuIniziale(Scanner scanner) {
 

@@ -11,7 +11,6 @@ import java.util.Scanner;
 
             Scanner scanner = new Scanner(System.in);
 
-            menuController menuController = new menuController(dbConnection.getConnection());
             utenteDAO utenteDAO = new utenteDAO(dbConnection.getConnection());
             mezzoDAO mezzoDAO = new mezzoDAO(dbConnection.getConnection());
             servizioDAO servizioDAO = new servizioDAO(dbConnection.getConnection());
