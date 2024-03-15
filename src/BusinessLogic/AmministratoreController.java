@@ -14,8 +14,12 @@ import java.util.Scanner;
 
 public class AmministratoreController {
 
-
-
+    //TODO fare che visualizza pazienti esegue queste cose:
+    /*
+    1- funzione qui chiama funzione in dao
+    2- funzione in dao salva risultati in arraylist e ritorna arraylist a funzione qui
+    3- funzione qui stampa risultati
+     */
 
     public static void aggiungiMezzo(Scanner scanner) {
         String siglaMezzo;
@@ -70,6 +74,7 @@ public class AmministratoreController {
         mezzoDAO.aggiungiMezzoDAO(siglaMezzo,  targa, tipologia );
         menuController.mostraMenuMezzi(scanner);
     }
+
     public static void aggiungiPaziente(Scanner scanner){
         System.out.println(" ");
         System.out.println("INSERIMENTO NUOVO PAZIENTE:");
