@@ -3,15 +3,15 @@ package DomainModel;
 
 public class Paziente {
 
+    private int id;
     private String nomePaziente;
     private String cognomePaziente;
     private String dataNascita;
     private String luogoNascita;
     private String indirizzoResidenza;
 
-    // Altri campi e metodi
-
-    public Paziente(String nomePaziente, String cognomePaziente, String dataNascita, String luogoNascita, String indirizzoResidenza) {
+    public Paziente(int id, String nomePaziente, String cognomePaziente, String dataNascita, String luogoNascita, String indirizzoResidenza) {
+        this.id = id;
         this.nomePaziente = nomePaziente;
         this.cognomePaziente = cognomePaziente;
         this.dataNascita = dataNascita;
@@ -19,27 +19,63 @@ public class Paziente {
         this.indirizzoResidenza = indirizzoResidenza;
     }
 
-    // Metodi getter
+    // Getter per id
+    public int getId() {
+        return id;
+    }
+
+    // Setter per id
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    // Getter per nomePaziente
     public String getNomePaziente() {
         return nomePaziente;
     }
 
+    // Setter per nomePaziente
+    public void setNomePaziente(String nomePaziente) {
+        this.nomePaziente = nomePaziente;
+    }
+
+    // Getter per cognomePaziente
     public String getCognomePaziente() {
         return cognomePaziente;
     }
 
+    // Setter per cognomePaziente
+    public void setCognomePaziente(String cognomePaziente) {
+        this.cognomePaziente = cognomePaziente;
+    }
+
+    // Getter per dataNascita
     public String getDataNascita() {
         return dataNascita;
     }
 
+    // Setter per dataNascita
+    public void setDataNascita(String dataNascita) {
+        this.dataNascita = dataNascita;
+    }
+
+    // Getter per luogoNascita
     public String getLuogoNascita() {
         return luogoNascita;
     }
 
-    // Metodi setter
-    public void setIndirizzoResidenza(int indirizzoResidenza) {
-        this.indirizzoResidenza = String.valueOf(indirizzoResidenza);
+    // Setter per luogoNascita
+    public void setLuogoNascita(String luogoNascita) {
+        this.luogoNascita = luogoNascita;
     }
 
+    // Getter per indirizzoResidenza
+    public String getIndirizzoResidenza() {
+        return indirizzoResidenza;
+    }
 
+    // Setter per indirizzoResidenza
+    public void setIndirizzoResidenza(String indirizzoResidenza) {
+        this.indirizzoResidenza = indirizzoResidenza;
+    }
 }
