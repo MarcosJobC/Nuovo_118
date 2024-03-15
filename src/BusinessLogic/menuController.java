@@ -96,6 +96,7 @@ public class menuController {
             System.out.println("6. Visualizza RICHIESTE URGENTI rimozione disponibilità");
         }
 
+
         // Verifica se ci sono disponibilità non confermate o notifiche non lette
         if (utenteDAO.ciSonoDisponibilitaENotificheNonLette()) {
             System.out.println("7. Visualizza disponibilità e notifiche non lette");

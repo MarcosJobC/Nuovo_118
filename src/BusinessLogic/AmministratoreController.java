@@ -15,11 +15,11 @@ import java.util.Scanner;
 public class AmministratoreController {
 
     //TODO fare che visualizza pazienti esegue queste cose:
-    /*
-    1- funzione qui chiama funzione in dao
-    2- funzione in dao salva risultati in arraylist e ritorna arraylist a funzione qui
-    3- funzione qui stampa risultati
-     */
+    // 1- funzione qui chiama funzione in dao
+    // 2- funzione in dao salva risultati in arraylist e ritorna arraylist a funzione qui
+    // 3- funzione qui stampa risultati
+
+    //TODO CREA METODI INUTILI CHE PASSINO PRIMA DAL CONTROLLER
 
     public static void aggiungiMezzo(Scanner scanner) {
         String siglaMezzo;
