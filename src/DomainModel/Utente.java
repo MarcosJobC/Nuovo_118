@@ -6,11 +6,11 @@ public class Utente {
     private int matricola;
     private String nome;
     private String cognome;
-    private String datadinascita; // Nota: mancava un punto e virgola qui
-    private String qualifica; // Nota: c'era un punto e virgola extra qui
+    private String datadinascita;
+    private String qualifica;
     private String codiceFiscale;
     private String password;
-    private Boolean isAdmin; // Nota: Potrebbe essere meglio utilizzare un tipo booleano per isAdmin
+    private Boolean isAdmin;
 
     // Costruttore
     public Utente(int matricola, String nome, String cognome, String datadinascita, String qualifica, String codiceFiscale, String password, Boolean isAdmin) {

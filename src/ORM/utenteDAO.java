@@ -123,8 +123,6 @@ public class utenteDAO {
             e.printStackTrace();
         }
     }
-
-
     public static void modificaAnagrafeVolontariDAO(Scanner scanner) {
         scanner.nextLine();
         try {
