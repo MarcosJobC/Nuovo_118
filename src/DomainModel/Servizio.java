@@ -7,15 +7,15 @@ public class Servizio {
     private int id;
     private String data;
     private Time orario;
-    private String siglamezzo;
+    private Mezzo mezzo;
     private Utente autista;
     private Utente soccorritore;
     private Paziente paziente;
-    public Servizio(int id, String data, Time orario, String siglamezzo, Utente autista, Utente soccorritore, Paziente paziente) {
+    public Servizio(int id, String data, Time orario, Mezzo mezzo, Utente autista, Utente soccorritore, Paziente paziente) {
         this.id = id;
         this.data = data;
         this.orario = orario;
-        this.siglamezzo = siglamezzo;
+        this.mezzo = mezzo;
         this.autista = autista;
         this.soccorritore = soccorritore;
         this.paziente = paziente;
@@ -52,13 +52,13 @@ public class Servizio {
     }
 
     // Getter per siglamezzo
-    public String getSiglamezzo() {
-        return siglamezzo;
+    public Mezzo getMezzo() {
+        return mezzo;
     }
 
     // Setter per siglamezzo
-    public void setSiglamezzo(String siglamezzo) {
-        this.siglamezzo = siglamezzo;
+    public void setMezzo(Mezzo mezzo) {
+        this.mezzo = mezzo;
     }
 
     // Getter per autista
