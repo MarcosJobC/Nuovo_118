@@ -1,9 +1,6 @@
 package BusinessLogic;
 
-import ORM.mezzoDAO;
-import ORM.pazienteDAO;
-import ORM.servizioDAO;
-import ORM.utenteDAO;
+import ORM.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -212,7 +209,7 @@ public class VolontarioController {
                 }
             }
         }
-        utenteDAO.inserisciDisponibilitaDAO(scanner,matricolaVolontario,dataDisponibilita,tipologia,oraFine,oraInizio);
+        DisponibilitaDAO.inserisciDisponibilitaDAO(scanner,matricolaVolontario,dataDisponibilita,tipologia,oraFine,oraInizio);
     }
 
 

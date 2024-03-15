@@ -65,7 +65,7 @@ public class menuController {
                 VolontarioController.inserisciDisponibilita(scanner, matricolaVolontario);
                 break;
             case 2:
-                utenteDAO.rimuoviDisponibilita(scanner, matricolaVolontario);
+                DisponibilitaDAO.rimuoviDisponibilita(scanner, matricolaVolontario);
                 break;
             case 3:
                 // Visualizzare le notifiche e segnarle come lette
