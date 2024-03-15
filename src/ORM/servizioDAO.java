@@ -818,15 +818,8 @@ public class servizioDAO {
 
 
 
-    public static void assegnaAutomaticamenteSOCIALI(Scanner scanner) {
-        //Vengono assegnati prima tutti gli autisti e successivamente tutti i soccoritori
-        assegnaAutistiAutomaticamenteSOCIALI();
-        assegnaSoccorritoriAutomaticamenteSOCIALI();
-        System.out.println(" ");
-        System.out.println(" ");
-        menuController.mostraMenuServizi(scanner);
-    }
-    public static void assegnaAutistiAutomaticamenteSOCIALI() {
+
+    public static void assegnaAutistiAutomaticamente() {
         try {
 
             String serviziSenzaAutistaQuery = "SELECT * FROM Servizi WHERE Autista = 0";
@@ -861,7 +854,7 @@ public class servizioDAO {
             e.printStackTrace();
         }
     }
-    public static void assegnaSoccorritoriAutomaticamenteSOCIALI() {
+    public static void assegnaSoccorritoriAutomaticamente() {
         try {
             String serviziSenzaSoccorritoreQuery = "SELECT * FROM Servizi WHERE Soccorritore = 0";
             PreparedStatement serviziSenzaSoccorritoreStatement = connection.prepareStatement(serviziSenzaSoccorritoreQuery);

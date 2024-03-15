@@ -213,6 +213,13 @@ public class AmministratoreController {
     public static void visualizzaRichiesteRimozione(Scanner scanner) {
         servizioDAO.visualizzaRichiesteRimozioneDAO(scanner);
     }
-
+    public static void assegnaAutomaticamente(Scanner scanner) {
+        //Vengono assegnati prima tutti gli autisti e successivamente tutti i soccoritori
+        servizioDAO.assegnaAutistiAutomaticamente();
+        servizioDAO.assegnaSoccorritoriAutomaticamente();
+        System.out.println(" ");
+        System.out.println(" ");
+        menuController.mostraMenuServizi(scanner);
+    }
 
 }

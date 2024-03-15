@@ -220,7 +220,7 @@ public class menuController {
                 servizioDAO.eliminaServizio(scanner);
                 break;
             case 4:
-                servizioDAO.assegnaAutomaticamenteSOCIALI(scanner);
+                AmministratoreController.assegnaAutomaticamente(scanner);
                 break;
             case 5:
                 mostraMenuAdmin(scanner);
