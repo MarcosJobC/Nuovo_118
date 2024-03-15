@@ -2647,7 +2647,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "BusinessLogic.UtenteController",
+					"name": "BusinessLogic.AmministratoreController",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -3040,7 +3040,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uiMKH43r0="
 							},
-							"name": "BusinessLogic.UtenteController",
+							"name": "BusinessLogic.AmministratoreController",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -6494,7 +6494,7 @@
 											"top": 377,
 											"width": 63.3115234375,
 											"height": 13,
-											"text": "BusinessLogic.UtenteController"
+											"text": "BusinessLogic.AmministratoreController"
 										},
 										{
 											"_type": "LabelView",
@@ -6663,7 +6663,7 @@
 											"top": 5,
 											"width": 632.60107421875,
 											"height": 13,
-											"text": "«constructor»+BusinessLogic.UtenteController(matricola: int, nome: String, cognome: String, codiceFiscale: String, qualifica: String)",
+											"text": "«constructor»+BusinessLogic.AmministratoreController(matricola: int, nome: String, cognome: String, codiceFiscale: String, qualifica: String)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -10401,7 +10401,7 @@
 											"top": 295,
 											"width": 632.60107421875,
 											"height": 13,
-											"text": "BusinessLogic.UtenteController"
+											"text": "BusinessLogic.AmministratoreController"
 										},
 										{
 											"_type": "LabelView",
@@ -10575,7 +10575,7 @@
 											"top": 401,
 											"width": 632.60107421875,
 											"height": 13,
-											"text": "«constructor»+BusinessLogic.UtenteController(matricola: int, nome: String, cognome: String, codiceFiscale: String, qualifica: String)",
+											"text": "«constructor»+BusinessLogic.AmministratoreController(matricola: int, nome: String, cognome: String, codiceFiscale: String, qualifica: String)",
 											"horizontalAlignment": 0
 										},
 										{

@@ -22,10 +22,10 @@ public class menuController {
 
             if (choice.equalsIgnoreCase("R")) {
                 sceltaValida = true;
-                UtenteController.registrazione(scanner, sceltaValida);
+                VolontarioController.registrazione(scanner, sceltaValida);
             } else if (choice.equalsIgnoreCase("A")) {
                 sceltaValida = true;
-                UtenteController.accesso(scanner, sceltaValida);
+                VolontarioController.accesso(scanner, sceltaValida);
             } else if (choice.equalsIgnoreCase("U")) {
                 System.out.println("Grazie per aver utilizzato il gestionale! Arrivederci.");
                 System.exit(0);
@@ -62,7 +62,7 @@ public class menuController {
 
         switch (choice) {
             case 1:
-                UtenteController.inserisciDisponibilita(scanner, matricolaVolontario);
+                VolontarioController.inserisciDisponibilita(scanner, matricolaVolontario);
                 break;
             case 2:
                 utenteDAO.rimuoviDisponibilita(scanner, matricolaVolontario);
@@ -154,7 +154,7 @@ public class menuController {
 
         switch (choice) {
             case 1:
-                UtenteController.aggiungiMezzo(scanner);
+                AmministratoreController.aggiungiMezzo(scanner);
                 break;
             case 2:
                 mezzoDAO.modificaMezzo(scanner);
@@ -247,7 +247,7 @@ public class menuController {
                 pazienteDAO.visualizzaPazienti(scanner);
                 break;
             case 2:
-                UtenteController.aggiungiPaziente(scanner);
+                AmministratoreController.aggiungiPaziente(scanner);
                 break;
             case 3:
                 pazienteDAO.modificaPaziente(scanner);

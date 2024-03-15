@@ -1,6 +1,6 @@
 package ORM;
 
-import BusinessLogic.UtenteController;
+import BusinessLogic.AmministratoreController;
 import BusinessLogic.menuController;
 
 import java.sql.*;
@@ -93,7 +93,7 @@ public class servizioDAO {
                         if (sceltaAggiunta.equalsIgnoreCase("s")) {
                             // Inserimento di un nuovo paziente
                             newfromservizio = true;
-                            UtenteController.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
+                            AmministratoreController.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
                             return; // Termina il metodo dopo l'inserimento del nuovo paziente
                         } else {
                             // L'utente ha scelto di non aggiungere un nuovo paziente, ripeti la richiesta
@@ -117,7 +117,7 @@ public class servizioDAO {
 
                             if (scelta.equals("q")) {
                                 // Inserimento di un nuovo paziente
-                                UtenteController.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
+                                AmministratoreController.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
                                 return; // Termina il metodo dopo l'inserimento del nuovo paziente
                             } else {
                                 try {
@@ -247,7 +247,7 @@ public class servizioDAO {
                         if (sceltaAggiunta.equalsIgnoreCase("s")) {
                             // Inserimento di un nuovo paziente
                             newfromservizio = true;
-                            UtenteController.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
+                            AmministratoreController.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
                             return; // Termina il metodo dopo l'inserimento del nuovo paziente
                         } else {
                             // L'utente ha scelto di non aggiungere un nuovo paziente, ripeti la richiesta
@@ -271,7 +271,7 @@ public class servizioDAO {
 
                             if (scelta.equals("q")) {
                                 // Inserimento di un nuovo paziente
-                                UtenteController.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
+                                AmministratoreController.aggiungiPazientedaServizio(scanner,newfromservizio, dataServizio, orarioServizio);
                                 return; // Termina il metodo dopo l'inserimento del nuovo paziente
                             } else {
                                 try {
