@@ -154,7 +154,7 @@ public class menuController {
 
         switch (choice) {
             case 1:
-                MezzoController.aggiungiMezzo(scanner);
+                UtenteController.aggiungiMezzo(scanner);
                 break;
             case 2:
                 mezzoDAO.modificaMezzo(scanner);
@@ -247,7 +247,7 @@ public class menuController {
                 pazienteDAO.visualizzaPazienti(scanner);
                 break;
             case 2:
-                PazienteController.aggiungiPaziente(scanner);
+                UtenteController.aggiungiPaziente(scanner);
                 break;
             case 3:
                 pazienteDAO.modificaPaziente(scanner);
