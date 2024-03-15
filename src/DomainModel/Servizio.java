@@ -3,9 +3,6 @@ package DomainModel;
 import java.sql.Time;
 import java.util.List;
 
-
-import java.sql.Time; // Assicurati di importare Time da java.sql o utilizza la libreria appropriata
-
 public class Servizio {
     private int id;
     private String data;
