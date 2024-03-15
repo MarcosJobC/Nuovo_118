@@ -73,7 +73,7 @@ public class utenteDAO {
             e.printStackTrace();
         }
     }
-    public static void modificaAnagrafeVolontariDAO(Scanner scanner) {
+    public static void modificaUtenteDAO(Scanner scanner) {
         scanner.nextLine();
         try {
             String query = "SELECT * FROM Volontari";
@@ -261,78 +261,10 @@ public class utenteDAO {
         menuController.mostraMenuVolontari(scanner);
     }
 
-    public static void visualizzaServiziEEmergenzeAssegnate(Scanner scanner, int matricolaVolontario) {
-        try {
-            // Query per i servizi assegnati
-            String serviziQuery = "SELECT 'BusinessLogic.Servizio' AS Tipo, Data, Orario, Sigla_Mezzo FROM Servizi WHERE Autista = ? OR Soccorritore = ?";
-            PreparedStatement serviziStatement = connection.prepareStatement(serviziQuery);
-            serviziStatement.setInt(1, matricolaVolontario);
-            serviziStatement.setInt(2, matricolaVolontario);
 
-            // Query per le emergenze assegnate
-            String emergenzeQuery = "SELECT 'Emergenza' AS Tipo, Data, Turno FROM Emergenze " +
-                    "WHERE ID IN (SELECT EmergenzaID FROM SoccorritoriEmergenza WHERE SoccorritoreID = ?)";
-            PreparedStatement emergenzeStatement = connection.prepareStatement(emergenzeQuery);
-            emergenzeStatement.setInt(1, matricolaVolontario);
 
-            // Esecuzione delle query e combinazione dei risultati
-            ResultSet serviziResultSet = serviziStatement.executeQuery();
-            ResultSet emergenzeResultSet = emergenzeStatement.executeQuery();
-
-            List<String> serviziEdEmergenze = new ArrayList<>();
-
-            while (serviziResultSet.next()) {
-                String tipo = serviziResultSet.getString("Tipo");
-                String data = serviziResultSet.getString("Data");
-                Time orario = serviziResultSet.getTime("Orario");
-                String siglaMezzo = serviziResultSet.getString("Sigla_Mezzo");
-
-                StringBuilder risultato = new StringBuilder();
-                risultato.append("Tipo: ").append(tipo).append(" - Data: ").append(data);
-
-                if (tipo.equals("BusinessLogic.Servizio")) {
-                    risultato.append(" - Orario: ").append(orario).append(" - BusinessLogic.Mezzo: ").append(siglaMezzo);
-                } else if (tipo.equals("Emergenza")) {
-                    String turno = serviziResultSet.getString("Turno");
-                    risultato.append(" - Turno: ").append(turno);
-                }
-
-                serviziEdEmergenze.add(risultato.toString());
-            }
-
-            while (emergenzeResultSet.next()) {
-                String tipo = emergenzeResultSet.getString("Tipo");
-                String data = emergenzeResultSet.getString("Data");
-                String turno = emergenzeResultSet.getString("Turno");
-
-                StringBuilder risultato = new StringBuilder();
-                risultato.append("Tipo: ").append(tipo).append(" - Data: ").append(data).append(" - Turno: ").append(turno);
-
-                serviziEdEmergenze.add(risultato.toString());
-            }
-
-            serviziStatement.close();
-            emergenzeStatement.close();
-
-            System.out.println("Servizi ed Emergenze assegnati:");
-
-            for (String risultato : serviziEdEmergenze) {
-                System.out.println(risultato);
-            }
-
-            System.out.println(" ");
-            System.out.println("Premi un qualsiasi tasto per tornare indietro...");
-
-            // Attendiamo che l'utente prema un tasto
-            scanner.nextLine();
-
-            menuController.mostraMenuUtenteNormale(scanner, matricolaVolontario);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
     public static void visualizzaDisponibilitaENotificheNonLette(Scanner scanner) {
+        //TODO metto nel Amministratorecontroller
         try {
             // Recupera le disponibilità non confermate
             String disponibilitaQuery = "SELECT matricola_volontario, data_disponibilita, tipologia FROM Disponibilita WHERE confermata = 'Non confermata'";
@@ -370,7 +302,9 @@ public class utenteDAO {
         scanner.nextLine();
         menuController.mostraMenuAdmin(scanner);
     }
+
     public static boolean ciSonoDisponibilitaENotificheNonLette() {
+        //TODO metto nel Utentecontroller
         try {
             // Verifica se ci sono disponibilità non confermate
             String disponibilitaQuery = "SELECT COUNT(*) FROM Disponibilita WHERE confermata = 'Non confermata'";
@@ -394,6 +328,10 @@ public class utenteDAO {
             return false; // Gestione delle eccezioni: se si verifica un errore, restituisci false di default
         }
     }
+
+
+
+
     public static boolean haDisponibilita(int matricolaVolontario) {
         try {
             String query = "SELECT COUNT(*) FROM Disponibilita WHERE matricola_volontario = ?";
@@ -410,7 +348,7 @@ public class utenteDAO {
         }
         return false; // In caso di errore o nessuna disponibilità
     }
-    public static boolean haServiziOEmergenzeAssegnate(int matricolaVolontario) {
+    public static boolean haServiziAssegnati(int matricolaVolontario) {
         try {
             // Query per verificare se il volontario ha servizi assegnati
             String serviziQuery = "SELECT * FROM Servizi WHERE Autista = ? OR Soccorritore = ?";

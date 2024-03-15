@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.sql.ResultSet;
 
@@ -887,6 +889,79 @@ public class servizioDAO {
             e.printStackTrace();
         }
     }
+
+    public static void visualizzaServiziAssegnati(Scanner scanner, int matricolaVolontario) {
+        try {
+            // Query per i servizi assegnati
+            String serviziQuery = "SELECT 'BusinessLogic.Servizio' AS Tipo, Data, Orario, Sigla_Mezzo FROM Servizi WHERE Autista = ? OR Soccorritore = ?";
+            PreparedStatement serviziStatement = connection.prepareStatement(serviziQuery);
+            serviziStatement.setInt(1, matricolaVolontario);
+            serviziStatement.setInt(2, matricolaVolontario);
+
+            // Query per le emergenze assegnate
+            String emergenzeQuery = "SELECT 'Emergenza' AS Tipo, Data, Turno FROM Emergenze " +
+                    "WHERE ID IN (SELECT EmergenzaID FROM SoccorritoriEmergenza WHERE SoccorritoreID = ?)";
+            PreparedStatement emergenzeStatement = connection.prepareStatement(emergenzeQuery);
+            emergenzeStatement.setInt(1, matricolaVolontario);
+
+            // Esecuzione delle query e combinazione dei risultati
+            ResultSet serviziResultSet = serviziStatement.executeQuery();
+            ResultSet emergenzeResultSet = emergenzeStatement.executeQuery();
+
+            List<String> serviziEdEmergenze = new ArrayList<>();
+
+            while (serviziResultSet.next()) {
+                String tipo = serviziResultSet.getString("Tipo");
+                String data = serviziResultSet.getString("Data");
+                Time orario = serviziResultSet.getTime("Orario");
+                String siglaMezzo = serviziResultSet.getString("Sigla_Mezzo");
+
+                StringBuilder risultato = new StringBuilder();
+                risultato.append("Tipo: ").append(tipo).append(" - Data: ").append(data);
+
+                if (tipo.equals("BusinessLogic.Servizio")) {
+                    risultato.append(" - Orario: ").append(orario).append(" - BusinessLogic.Mezzo: ").append(siglaMezzo);
+                } else if (tipo.equals("Emergenza")) {
+                    String turno = serviziResultSet.getString("Turno");
+                    risultato.append(" - Turno: ").append(turno);
+                }
+
+                serviziEdEmergenze.add(risultato.toString());
+            }
+
+            while (emergenzeResultSet.next()) {
+                String tipo = emergenzeResultSet.getString("Tipo");
+                String data = emergenzeResultSet.getString("Data");
+                String turno = emergenzeResultSet.getString("Turno");
+
+                StringBuilder risultato = new StringBuilder();
+                risultato.append("Tipo: ").append(tipo).append(" - Data: ").append(data).append(" - Turno: ").append(turno);
+
+                serviziEdEmergenze.add(risultato.toString());
+            }
+
+            serviziStatement.close();
+            emergenzeStatement.close();
+
+            System.out.println("Servizi ed Emergenze assegnati:");
+
+            for (String risultato : serviziEdEmergenze) {
+                System.out.println(risultato);
+            }
+
+            System.out.println(" ");
+            System.out.println("Premi un qualsiasi tasto per tornare indietro...");
+
+            // Attendiamo che l'utente prema un tasto
+            scanner.nextLine();
+
+            menuController.mostraMenuUtenteNormale(scanner, matricolaVolontario);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
 

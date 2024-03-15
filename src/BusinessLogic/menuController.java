@@ -49,7 +49,7 @@ public class menuController {
             System.out.println("3. Visualizza notifiche");
         }
 
-        if (utenteDAO.haServiziOEmergenzeAssegnate(matricolaVolontario)) {
+        if (utenteDAO.haServiziAssegnati(matricolaVolontario)) {
             System.out.println("4. Visualizza servizi assegnati");
         }
 
@@ -72,7 +72,7 @@ public class menuController {
                 notificaDAO.visualizzaNotifiche(scanner, matricolaVolontario);
                 break;
             case 4:
-                utenteDAO.visualizzaServiziEEmergenzeAssegnate(scanner, matricolaVolontario);
+                servizioDAO.visualizzaServiziAssegnati(scanner, matricolaVolontario);
                 break;
             case 5:
                 menuIniziale(scanner);
@@ -183,7 +183,7 @@ public class menuController {
 
         switch (choice) {
             case 1:
-                utenteDAO.modificaAnagrafeVolontariDAO(scanner);
+                utenteDAO.modificaUtenteDAO(scanner);
                 break;
             case 2:
                 utenteDAO.eliminaVolontario(scanner);
