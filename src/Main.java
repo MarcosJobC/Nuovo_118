@@ -17,6 +17,7 @@ import java.util.Scanner;
             servizioDAO servizioDAO = new servizioDAO(dbConnection.getConnection());
             notificaDAO notificaDAO = new notificaDAO(dbConnection.getConnection());
             pazienteDAO pazienteDAO = new pazienteDAO(dbConnection.getConnection());
+            DisponibilitaDAO disponibilitaDAO = new DisponibilitaDAO(dbConnection.getConnection());
 
 
             // Rimuovi le disponibilità scadute e le notifiche lette

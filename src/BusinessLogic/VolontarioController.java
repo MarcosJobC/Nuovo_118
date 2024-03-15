@@ -178,7 +178,7 @@ public class VolontarioController {
                 break;
             default:
                 System.out.println("Tipologia impostata a: qualsiasi ruolo.");
-                tipologia = "Qualsiasi";
+                tipologia = "Servizi sociali";
         }
 
 

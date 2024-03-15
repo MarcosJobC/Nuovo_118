@@ -1,14 +1,28 @@
 package ORM;
 
-import BusinessLogic.menuController;
+import BusinessLogic.*;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.sql.ResultSet;
+
+import java.sql.Date;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Calendar;
 
 public class DisponibilitaDAO {
 
     private static Connection connection;
+
     public DisponibilitaDAO(Connection connection) {
         this.connection = connection;
     }
