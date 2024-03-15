@@ -21,7 +21,7 @@ public class Utente {
         this.qualifica = qualifica;
         this.codiceFiscale = codiceFiscale;
         this.password = password;
-        this.isAdmin = true;
+        this.isAdmin = false;
     }
 
     // Metodi getter

@@ -15,7 +15,7 @@ public class mezzoDAO {
         this.connection = connection;
     }
 
-
+    //TODO Utilizzare oggetto mezzo in modo da creare poi oggetto e passare parametri con getSiglaMezzo
     public static void aggiungiMezzoDAO(String siglaMezzo, String targa,String tipologia ) {
 
         try {
@@ -26,7 +26,7 @@ public class mezzoDAO {
             preparedStatement.setString(3, tipologia);
             preparedStatement.executeUpdate();
 
-            System.out.println("BusinessLogic.Mezzo aggiunto con successo!");
+            System.out.println("Mezzo aggiunto con successo!");
             System.out.println(" ");
             System.out.println(" ");
 
