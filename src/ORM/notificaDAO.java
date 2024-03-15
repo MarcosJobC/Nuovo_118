@@ -12,6 +12,9 @@ public class notificaDAO {
     public notificaDAO(Connection connection) {
         this.connection = connection;
     }
+
+
+    //TODO SPOSTA META' IN MENUCONTROLLER
     public static boolean ciSonoNotificheNonLette(int matricolaVolontario) {
         try {
             String notificheQuery = "SELECT Id FROM Notifiche WHERE Matricola_Volontario = ? AND Letta = false";
@@ -28,6 +31,8 @@ public class notificaDAO {
             return false;
         }
     }
+
+
     public static void segnaNotificheComeLette(int matricolaVolontario) {
         try {
             String segnaLetteQuery = "UPDATE Notifiche SET Letta = true WHERE Matricola_Volontario = ?";
@@ -39,6 +44,8 @@ public class notificaDAO {
             e.printStackTrace();
         }
     }
+
+    //TODO SPOSTA META' IN MENUCONTROLLER
     public static void visualizzaNotifiche(Scanner scanner, int matricolaVolontario) {
         try {
             String notificheQuery = "SELECT * FROM Notifiche WHERE Matricola_Volontario = ? ORDER BY Data_Invio DESC";
@@ -91,9 +98,6 @@ public class notificaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-    public void modificaNotifica() {
-
     }
 
 

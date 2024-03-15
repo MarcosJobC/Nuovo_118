@@ -87,7 +87,6 @@ Gestionale
 IN ATTESA
 //TODO il ragazzo che ha meno di 18 anni non può selezionarsi autista
 //TODO calcolo codice fiscale automatico
--------------------------------------------------------------U-------------------------------------------------------------
 //TODO non due mezzi con stessa sigla
 //TODO non due mezzi con stessa targa
 //TODO aggiungi che admin vede anche data di nascita nella lista volontari

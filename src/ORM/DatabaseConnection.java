@@ -25,7 +25,7 @@ public class DatabaseConnection {
         return connection;
     }
 
-    //TODO far chiudere la connessione alla fine di ogni metodo
+    //TODO Apri e fai chiudere la connessione all'inizio e alla fine di ogni metodo DAO
 
 
 
