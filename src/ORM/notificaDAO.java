@@ -15,7 +15,7 @@ public class notificaDAO {
 
 
 
-    public static boolean ciSonoNotificheNonLette(int matricolaVolontario) {
+    public static boolean ciSonoNotificheNonLetteDAO(int matricolaVolontario) {
         //TODO Sposta metà in MenuController
         try {
             String notificheQuery = "SELECT Id FROM Notifiche WHERE Matricola_Volontario = ? AND Letta = false";
@@ -34,7 +34,7 @@ public class notificaDAO {
     }
 
 
-    public static void segnaNotificheComeLette(int matricolaVolontario) {
+    public static void segnaNotificheComeLetteDAO(int matricolaVolontario) {
         try {
             String segnaLetteQuery = "UPDATE Notifiche SET Letta = true WHERE Matricola_Volontario = ?";
             PreparedStatement segnaLetteStatement = connection.prepareStatement(segnaLetteQuery);
@@ -47,7 +47,7 @@ public class notificaDAO {
     }
 
 
-    public static void visualizzaNotifiche(Scanner scanner, int matricolaVolontario) {
+    public static void visualizzaNotificheDAO(Scanner scanner, int matricolaVolontario) {
         //TODO Sposta metà in VolontarioController
         try {
             String notificheQuery = "SELECT * FROM Notifiche WHERE Matricola_Volontario = ? ORDER BY Data_Invio DESC";
@@ -66,7 +66,7 @@ public class notificaDAO {
             }
 
             // Segna le notifiche come lette
-            segnaNotificheComeLette(matricolaVolontario);
+            segnaNotificheComeLetteDAO(matricolaVolontario);
             notificheStatement.close();
 
             System.out.println("\nPremi qualsiasi tasto per tornare al menu precedente...");
@@ -77,7 +77,7 @@ public class notificaDAO {
         }
 
     }
-    public static void inviaNotificaVolontario(int matricolaVolontario, String giorno) {
+    public static void inviaNotificaVolontarioDAO(int matricolaVolontario, String giorno) {
         try {
             String inserisciNotificaQuery = "INSERT INTO Notifiche (Matricola_Volontario, Giorno, Data_Invio, Letta) VALUES (?, ?, ?, ?)";
             PreparedStatement inserisciNotificaStatement = connection.prepareStatement(inserisciNotificaQuery);
@@ -91,7 +91,7 @@ public class notificaDAO {
             e.printStackTrace();
         }
     }
-    public void eliminaNotificheLette() {
+    public void eliminaNotificheLetteDAO() {
         try {
             String query = "DELETE FROM Notifiche WHERE letta = 'true'";
             PreparedStatement preparedStatement = connection.prepareStatement(query);

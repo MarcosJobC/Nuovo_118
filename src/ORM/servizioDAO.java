@@ -203,10 +203,10 @@ public class servizioDAO {
                 e.printStackTrace();
             }
             if (Autista > 0) {
-                notificaDAO.inviaNotificaVolontario(Autista, dataServizio);
+                notificaDAO.inviaNotificaVolontarioDAO(Autista, dataServizio);
             }
             if (Soccorritore > 0) {
-                notificaDAO.inviaNotificaVolontario(Soccorritore, dataServizio);
+                notificaDAO.inviaNotificaVolontarioDAO(Soccorritore, dataServizio);
             }
         } catch (DateTimeParseException e) {
             System.out.println("Formato data non valido. Utilizza il formato dd-mm-yyyy.");
@@ -357,10 +357,10 @@ public class servizioDAO {
                 e.printStackTrace();
             }
             if (Autista > 0) {
-                notificaDAO.inviaNotificaVolontario(Autista, dataServizio);
+                notificaDAO.inviaNotificaVolontarioDAO(Autista, dataServizio);
             }
             if (Soccorritore > 0) {
-                notificaDAO.inviaNotificaVolontario(Soccorritore, dataServizio);
+                notificaDAO.inviaNotificaVolontarioDAO(Soccorritore, dataServizio);
             }
         } catch (DateTimeParseException e) {
             System.out.println("Formato data non valido. Utilizza il formato dd-mm-yyyy.");
@@ -371,7 +371,7 @@ public class servizioDAO {
         menuController.mostraMenuServizi(scanner);
     }
 
-    public static void modificaServizio(Scanner scanner) {
+    public static void modificaServizioDAO(Scanner scanner) {
         scanner.nextLine();
         Time nuovoOrarioTime = null;
         try {
@@ -574,7 +574,7 @@ public class servizioDAO {
         System.out.println(" ");
         menuController.mostraMenuServizi(scanner);
     }
-    public static void eliminaServizio(Scanner scanner) {
+    public static void eliminaServizioDAO(Scanner scanner) {
         scanner.nextLine();
         boolean operazioneAnnullata = false;
 
@@ -659,105 +659,12 @@ public class servizioDAO {
 
     }
 
-    /*private static boolean verificaEsistenzaVolontario(int idSoccorritore) {
-        try {
-            String verificaQuery = "SELECT id FROM Volontari WHERE id = ?";
-            PreparedStatement verificaStatement = connection.prepareStatement(verificaQuery);
-            verificaStatement.setInt(1, idSoccorritore);
-            ResultSet resultSet = verificaStatement.executeQuery();
-            return resultSet.next(); // Restituisce true se l'ID esiste, altrimenti false
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false; // In caso di errore, restituisci false
-        }
-    }*/
 
-    public static void visualizzaRichiesteRimozioneDAO(Scanner scanner) {
-        try {
-            String query = "SELECT * FROM Disponibilita WHERE Richiesta_Rimozione = true";
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
 
-            System.out.println("RICHIESTE URGENTI DI RIMOZIONE:");
-            while (resultSet.next()) {
-                int idDisponibilita = resultSet.getInt("ID_disponibilita");
-                int matricolaVolontario = resultSet.getInt("Matricola_volontario");
-                String dataDisponibilita = resultSet.getString("Data_disponibilita");
-                String tipologia = resultSet.getString("Tipologia");
-                String motivoRimozione = resultSet.getString("Motivo_Rimozione");
 
-                System.out.println("ID: " + idDisponibilita + " - Matricola BusinessLogic.Volontario: " + matricolaVolontario + " - Data Disponibilità: " + dataDisponibilita + " - Tipologia: " + tipologia + " - Motivo Rimozione: " + motivoRimozione);
-            }
 
-            // Aggiungi il messaggio per accettare o tornare indietro
-            System.out.print("Inserisci l'ID della richiesta di rimozione da accettare oppure lascia vuoto per tornare indietro: ");
 
-            //Scanner scanner = new Scanner(System.in);
-            String input = scanner.nextLine().trim(); // Leggi l'input e rimuovi spazi iniziali e finali
-
-            // Loop finché l'input non è vuoto o un ID valido
-            while (!input.isEmpty() && !input.matches("\\d+")) {
-                System.out.println("Input non valido. Inserisci l'ID della richiesta o lascia vuoto per tornare indietro.");
-                System.out.print("Inserisci l'ID della richiesta di rimozione da accettare oppure lascia vuoto per tornare indietro: ");
-                input = scanner.nextLine().trim();
-            }
-
-            if (!input.isEmpty()) {
-                int idRichiestaDaAccettare = Integer.parseInt(input);
-                accettaRichiestaRimozione(idRichiestaDaAccettare, scanner);
-            } else {
-                // L'utente ha lasciato vuoto, torna indietro
-                menuController.mostraMenuAdmin(scanner);
-            }
-
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public static void accettaRichiestaRimozione(int idRichiesta, Scanner scanner) {
-        try {
-            String query = "SELECT * FROM Disponibilita WHERE ID_disponibilita = ? AND Richiesta_Rimozione = true";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, idRichiesta);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                String dataDisponibilita = resultSet.getString("Data_disponibilita");
-                int matricolaVolontario = resultSet.getInt("Matricola_volontario");
-
-                // Rimuovi l'assegnazione del volontario al servizio
-                rimuoviAssegnazioneServizio(dataDisponibilita, matricolaVolontario);
-
-                // Cancella la riga della richiesta dalla tabella Disponibilita
-                cancellaRichiestaRimozione(idRichiesta);
-
-                System.out.println("Richiesta di rimozione accettata. L'assegnazione del volontario al servizio è stata rimossa e la richiesta è stata cancellata.");
-                System.out.println(" ");
-                System.out.println(" ");
-                menuController.mostraMenuAdmin(scanner);
-            } else {
-                System.out.println("ID non valido - Inserisci l'ID corretto.");
-                AmministratoreController.visualizzaRichiesteRimozione(scanner);
-            }
-
-            preparedStatement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public static void cancellaRichiestaRimozione(int idRichiesta) {
-        try {
-            String deleteQuery = "DELETE FROM Disponibilita WHERE ID_disponibilita = ?";
-            PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
-            deleteStatement.setInt(1, idRichiesta);
-            deleteStatement.executeUpdate();
-            deleteStatement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public static void rimuoviAssegnazioneServizio(String dataDisponibilita, int matricolaVolontario) {
+    public static void rimuoviAssegnazioneServizioDAO(String dataDisponibilita, int matricolaVolontario) {
         try {
             String updateQuery = "UPDATE Servizi SET Autista = CASE WHEN Autista = ? THEN 0 ELSE Autista END, Soccorritore = CASE WHEN Soccorritore = ? THEN 0 ELSE Soccorritore END WHERE Data = ?";
             PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
@@ -770,7 +677,7 @@ public class servizioDAO {
             e.printStackTrace();
         }
     }
-    public static boolean ciSonoRichiesteRimozione() {
+    public static boolean ciSonoRichiesteRimozioneDAO() {
         try {
             String query = "SELECT COUNT(*) FROM Disponibilita WHERE Richiesta_Rimozione = true";
             Statement statement = connection.createStatement();
@@ -783,7 +690,7 @@ public class servizioDAO {
             return false;
         }
     }
-    public static void rimuoviDisponibilitaScadute() {
+    public static void rimuoviDisponibilitaScaduteDAO() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Calendar cal = Calendar.getInstance();
         String oggi = dateFormat.format(cal.getTime()); // Ottieni la data odierna nel formato dd-MM-yyyy
@@ -799,7 +706,7 @@ public class servizioDAO {
             e.printStackTrace();
         }
     }
-    public static void rimuoviServiziScaduti() {
+    public static void rimuoviServiziScadutiDAO() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Calendar cal = Calendar.getInstance();
         String oggi = dateFormat.format(cal.getTime()); // Ottieni la data odierna nel formato dd-MM-yyyy
@@ -819,7 +726,7 @@ public class servizioDAO {
 
 
 
-    public static void assegnaAutistiAutomaticamente() {
+    public static void assegnaAutistiAutomaticamenteDAO() {
         try {
 
             String serviziSenzaAutistaQuery = "SELECT * FROM Servizi WHERE Autista = 0";
@@ -854,7 +761,7 @@ public class servizioDAO {
             e.printStackTrace();
         }
     }
-    public static void assegnaSoccorritoriAutomaticamente() {
+    public static void assegnaSoccorritoriAutomaticamenteDAO() {
         try {
             String serviziSenzaSoccorritoreQuery = "SELECT * FROM Servizi WHERE Soccorritore = 0";
             PreparedStatement serviziSenzaSoccorritoreStatement = connection.prepareStatement(serviziSenzaSoccorritoreQuery);
@@ -888,7 +795,7 @@ public class servizioDAO {
         }
     }
 
-    public static void visualizzaServiziAssegnati(Scanner scanner, int matricolaVolontario) {
+    public static void visualizzaServiziAssegnatiDAO(Scanner scanner, int matricolaVolontario) {
         try {
             // Query per i servizi assegnati
             String serviziQuery = "SELECT 'BusinessLogic.Servizio' AS Tipo, Data, Orario, Sigla_Mezzo FROM Servizi WHERE Autista = ? OR Soccorritore = ?";

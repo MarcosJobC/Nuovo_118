@@ -211,6 +211,10 @@ public class VolontarioController {
         }
         DisponibilitaDAO.inserisciDisponibilitaDAO(scanner,matricolaVolontario,dataDisponibilita,tipologia,oraFine,oraInizio);
     }
-
-
+    public static void visualizzaNotifiche(Scanner scanner, int matricolaVolontario) {
+        notificaDAO.visualizzaNotificheDAO(scanner, matricolaVolontario);
+    }
+    public static void visualizzaServiziAssegnati(Scanner scanner, int matricolaVolontario) {
+        servizioDAO.visualizzaServiziAssegnatiDAO(scanner, matricolaVolontario);
+    }
 }

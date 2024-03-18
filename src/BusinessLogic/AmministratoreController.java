@@ -21,6 +21,7 @@ public class AmministratoreController {
 
     //TODO CREA METODI INUTILI CHE PASSINO PRIMA DAL CONTROLLER
 
+    //Mezzi
     public static void aggiungiMezzo(Scanner scanner) {
         String siglaMezzo;
         String targa;
@@ -74,7 +75,15 @@ public class AmministratoreController {
         mezzoDAO.aggiungiMezzoDAO(siglaMezzo,  targa, tipologia );
         menuController.mostraMenuMezzi(scanner);
     }
+    public static void modificaMezzo(Scanner scanner) {
+        mezzoDAO.modificaMezzoDAO(scanner);
+    }
+    public static void eliminaMezzo(Scanner scanner) {
+        mezzoDAO.eliminaMezzoDAO(scanner);
+    }
 
+
+    //Pazienti
     public static void aggiungiPaziente(Scanner scanner){
         System.out.println(" ");
         System.out.println("INSERIMENTO NUOVO PAZIENTE:");
@@ -210,16 +219,58 @@ public class AmministratoreController {
         System.out.println(" ");
         servizioDAO.aggiungiServizioInternoDAO(scanner, newfromservizio, dataServizio, orarioServizio);
     }
-    public static void visualizzaRichiesteRimozione(Scanner scanner) {
-        servizioDAO.visualizzaRichiesteRimozioneDAO(scanner);
+    public static void modificaPaziente(Scanner scanner) {
+        pazienteDAO.modificaPazienteDAO(scanner);
+    }
+    public static void eliminaPaziente(Scanner scanner) {
+        pazienteDAO.eliminaPazienteDAO(scanner);
+    }
+    public static void visualizzaPazienti(Scanner scanner) {
+        pazienteDAO.visualizzaPazientiDAO(scanner);
+    }
+
+
+    //Servizi
+    public static void aggiungiServizio(Scanner scanner) {
+        servizioDAO.aggiungiServizioDAO(scanner);
+    }
+    public static void modificaServizio(Scanner scanner) {
+        servizioDAO.modificaServizioDAO(scanner);
+    }
+    public static void eliminaServizio(Scanner scanner) {
+        servizioDAO.eliminaServizioDAO(scanner);
     }
     public static void assegnaAutomaticamente(Scanner scanner) {
         //Vengono assegnati prima tutti gli autisti e successivamente tutti i soccoritori
-        servizioDAO.assegnaAutistiAutomaticamente();
-        servizioDAO.assegnaSoccorritoriAutomaticamente();
+        servizioDAO.assegnaAutistiAutomaticamenteDAO();
+        servizioDAO.assegnaSoccorritoriAutomaticamenteDAO();
         System.out.println(" ");
         System.out.println(" ");
         menuController.mostraMenuServizi(scanner);
     }
+
+
+
+
+    //Disponibilità
+    public static void visualizzaRichiesteRimozione(Scanner scanner) {
+        DisponibilitaDAO.visualizzaRichiesteRimozioneDAO(scanner);
+    }
+
+
+    //Utenti
+    public static void modificaUtente(Scanner scanner) {
+        utenteDAO.modificaUtenteDAO(scanner);
+    }
+    public static void eliminaUtente(Scanner scanner) {
+        utenteDAO.eliminaUtenteDAO(scanner);
+    }
+    public static void visualizzaDisponibilitaENotificheNonLette(Scanner scanner) {
+        utenteDAO.visualizzaDisponibilitaENotificheNonLetteDAO(scanner);
+    }
+    public static void mostraListaVolontari(Scanner scanner) {
+        utenteDAO.mostraListaVolontariDAO(scanner);
+    }
+
 
 }

@@ -159,7 +159,7 @@ public class utenteDAO {
         }
         menuController.mostraMenuVolontari(scanner);
     }
-    public static void eliminaVolontario(Scanner scanner) {
+    public static void eliminaUtenteDAO(Scanner scanner) {
         scanner.nextLine();
         try {
             String query = "SELECT * FROM Volontari WHERE id <> 0";
@@ -263,7 +263,7 @@ public class utenteDAO {
 
 
 
-    public static void visualizzaDisponibilitaENotificheNonLette(Scanner scanner) {
+    public static void visualizzaDisponibilitaENotificheNonLetteDAO(Scanner scanner) {
         //TODO metto nel Amministratorecontroller
         try {
             // Recupera le disponibilità non confermate
@@ -377,7 +377,7 @@ public class utenteDAO {
             return false; // Gestione delle eccezioni: se si verifica un errore, restituisci false di default
         }
     }
-    public static void mostraListaVolontari(Scanner scanner) {
+    public static void mostraListaVolontariDAO(Scanner scanner) {
         try {
             // Prepara la query per ottenere la lista di tutti i volontari
             String query = "SELECT * FROM Volontari WHERE id <> 0";
@@ -456,7 +456,7 @@ public class utenteDAO {
 
 
             // Creazione della notifica
-            notificaDAO.inviaNotificaVolontario(matricolaVolontario, dataServizio);
+            notificaDAO.inviaNotificaVolontarioDAO(matricolaVolontario, dataServizio);
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -15,7 +15,7 @@ public class mezzoDAO {
         this.connection = connection;
     }
 
-    //TODO Utilizzare oggetto mezzo in modo da creare poi oggetto e passare parametri con getSiglaMezzo
+    //TODO Utilizzare oggetto mezzo in modo da creare poi oggetto e passare parametri con getSiglaMezzo, [questo lo facciamo solo scritto senza farlo funzionare effettivamente]
     public static void aggiungiMezzoDAO(String siglaMezzo, String targa,String tipologia ) {
 
         try {
@@ -35,7 +35,7 @@ public class mezzoDAO {
             e.printStackTrace();
         }
     }
-    public static void modificaMezzo(Scanner scanner) {
+    public static void modificaMezzoDAO(Scanner scanner) {
         try {
             String query = "SELECT * FROM Mezzi";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -103,7 +103,7 @@ public class mezzoDAO {
                 updateStatement.close();
             } else {
                 System.out.println("BusinessLogic.Mezzo non trovato.");
-                modificaMezzo(scanner);
+                modificaMezzoDAO(scanner);
             }
 
             verificaStatement.close();
@@ -112,7 +112,7 @@ public class mezzoDAO {
         }
         menuController.mostraMenuMezzi(scanner);
     }
-    public static void eliminaMezzo(Scanner scanner) {
+    public static void eliminaMezzoDAO(Scanner scanner) {
         try {
             String query = "SELECT * FROM Mezzi";
             PreparedStatement preparedStatement = connection.prepareStatement(query);

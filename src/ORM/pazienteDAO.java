@@ -66,7 +66,7 @@ public class pazienteDAO {
         }
     }
 
-    public static void modificaPaziente(Scanner scanner) {
+    public static void modificaPazienteDAO(Scanner scanner) {
         System.out.println("MODIFICA PAZIENTE:");
 
         try {
@@ -175,7 +175,7 @@ public class pazienteDAO {
         }
         menuController.mostraMenuPazienti(scanner);
     }
-    public static void eliminaPaziente(Scanner scanner) {
+    public static void eliminaPazienteDAO(Scanner scanner) {
         try {
             // Visualizza la lista dei pazienti
             String listaPazientiQuery = "SELECT * FROM Pazienti";
@@ -251,14 +251,14 @@ public class pazienteDAO {
                     System.out.println("Nessun paziente trovato con l'ID fornito.");
 
                     // Chiedi nuovamente l'ID del paziente
-                    eliminaPaziente(scanner);
+                    eliminaPazienteDAO(scanner);
                 }
 
                 resultSet.close();
                 verificaStatement.close();
             } catch (NumberFormatException e) {
                 System.out.println("Input non valido. Inserisci un ID numerico valido o premi 'q' per annullare.");
-                eliminaPaziente(scanner);
+                eliminaPazienteDAO(scanner);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -270,7 +270,7 @@ public class pazienteDAO {
         System.out.println(" ");
         menuController.mostraMenuPazienti(scanner);
     }
-    public static void visualizzaPazienti(Scanner scanner) {
+    public static void visualizzaPazientiDAO(Scanner scanner) {
         try {
             // Ottieni una lista di tutti i pazienti
             String listaPazientiQuery = "SELECT * FROM Pazienti";

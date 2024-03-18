@@ -42,7 +42,7 @@ public class menuController {
             System.out.println("2. Rimuovi disponibilità");
         }
         // Controlla se ci sono notifiche non lette e mostra il punto 4 solo se necessario
-        if (notificaDAO.ciSonoNotificheNonLette(matricolaVolontario)) {
+        if (notificaDAO.ciSonoNotificheNonLetteDAO(matricolaVolontario)) {
             System.out.println("3. Visualizza notifiche");
         }
 
@@ -62,14 +62,14 @@ public class menuController {
                 VolontarioController.inserisciDisponibilita(scanner, matricolaVolontario);
                 break;
             case 2:
-                DisponibilitaDAO.rimuoviDisponibilita(scanner, matricolaVolontario);
+                DisponibilitaDAO.rimuoviDisponibilitaDAO(scanner, matricolaVolontario);
                 break;
             case 3:
                 // Visualizzare le notifiche e segnarle come lette
-                notificaDAO.visualizzaNotifiche(scanner, matricolaVolontario);
+                VolontarioController.visualizzaNotifiche(scanner, matricolaVolontario);
                 break;
             case 4:
-                servizioDAO.visualizzaServiziAssegnati(scanner, matricolaVolontario);
+                VolontarioController.visualizzaServiziAssegnati(scanner, matricolaVolontario);
                 break;
             case 5:
                 menuIniziale(scanner);
@@ -89,7 +89,7 @@ public class menuController {
 
 
         // Verifica se ci sono richieste di rimozione
-        if (servizioDAO.ciSonoRichiesteRimozione()) {
+        if (servizioDAO.ciSonoRichiesteRimozioneDAO()) {
             System.out.println("6. Visualizza RICHIESTE URGENTI rimozione disponibilità");
         }
 
@@ -120,7 +120,7 @@ public class menuController {
                 mostraMenuPazienti(scanner);
                 break;
             case 6:
-                if (servizioDAO.ciSonoRichiesteRimozione()) {
+                if (servizioDAO.ciSonoRichiesteRimozioneDAO()) {
                     AmministratoreController.visualizzaRichiesteRimozione(scanner);
                 } else {
                     System.out.print(" ");
@@ -128,7 +128,7 @@ public class menuController {
                 break;
             case 7:
                 // Visualizza disponibilità e notifiche non lette
-                utenteDAO.visualizzaDisponibilitaENotificheNonLette(scanner);
+                AmministratoreController.visualizzaDisponibilitaENotificheNonLette(scanner);
                 break;
             case 8:
                 // Uscire dal menu
@@ -138,6 +138,7 @@ public class menuController {
                 System.out.println("Scelta non valida.");
         }
     }
+
     //MENU MEZZI
     public static void mostraMenuMezzi(Scanner scanner) {
         System.out.println("Menu Gestione Mezzi:");
@@ -155,10 +156,10 @@ public class menuController {
                 AmministratoreController.aggiungiMezzo(scanner);
                 break;
             case 2:
-                mezzoDAO.modificaMezzo(scanner);
+                AmministratoreController.modificaMezzo(scanner);
                 break;
             case 3:
-                mezzoDAO.eliminaMezzo(scanner);
+                AmministratoreController.eliminaMezzo(scanner);
                 break;
             case 4:
                 mostraMenuAdmin(scanner);
@@ -180,13 +181,13 @@ public class menuController {
 
         switch (choice) {
             case 1:
-                utenteDAO.modificaUtenteDAO(scanner);
+                AmministratoreController.modificaUtente(scanner);
                 break;
             case 2:
-                utenteDAO.eliminaVolontario(scanner);
+                AmministratoreController.eliminaUtente(scanner);
                 break;
             case 3:
-                utenteDAO.mostraListaVolontari(scanner);
+                AmministratoreController.mostraListaVolontari(scanner);
                 break;
             case 4:
                 mostraMenuAdmin(scanner);
@@ -209,13 +210,13 @@ public class menuController {
 
         switch (choice) {
             case 1:
-                servizioDAO.aggiungiServizioDAO(scanner);
+                AmministratoreController.aggiungiServizio(scanner);
                 break;
             case 2:
-                servizioDAO.modificaServizio(scanner);
+                AmministratoreController.modificaServizio(scanner);
                 break;
             case 3:
-                servizioDAO.eliminaServizio(scanner);
+                AmministratoreController.eliminaServizio(scanner);
                 break;
             case 4:
                 AmministratoreController.assegnaAutomaticamente(scanner);
@@ -242,17 +243,16 @@ public class menuController {
 
         switch (choice) {
             case 1:
-                pazienteDAO.visualizzaPazienti(scanner);
+                AmministratoreController.visualizzaPazienti(scanner);
                 break;
             case 2:
-                boolean menu=false;
                 AmministratoreController.aggiungiPaziente(scanner);
                 break;
             case 3:
-                pazienteDAO.modificaPaziente(scanner);
+                AmministratoreController.modificaPaziente(scanner);
                 break;
             case 4:
-                pazienteDAO.eliminaPaziente(scanner);
+                AmministratoreController.eliminaPaziente(scanner);
                 break;
             case 5:
                 mostraMenuAdmin(scanner);

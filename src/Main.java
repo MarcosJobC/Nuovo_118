@@ -20,11 +20,11 @@ import java.util.Scanner;
 
 
             // Rimuovi le disponibilità scadute e le notifiche lette
-            servizioDAO.rimuoviDisponibilitaScadute();
-            notificaDAO.eliminaNotificheLette();
+            servizioDAO.rimuoviDisponibilitaScaduteDAO();
+            notificaDAO.eliminaNotificheLetteDAO();
 
             // Rimuovi i servizi scaduti
-            servizioDAO.rimuoviServiziScaduti();
+            servizioDAO.rimuoviServiziScadutiDAO();
 
             // Avvia gestionale
             menuController.menuIniziale(scanner);

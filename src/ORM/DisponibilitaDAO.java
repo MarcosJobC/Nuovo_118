@@ -28,7 +28,7 @@ public class DisponibilitaDAO {
     }
 
 
-    public static void rimuoviDisponibilita(Scanner scanner, int matricolaVolontario) {
+    public static void rimuoviDisponibilitaDAO(Scanner scanner, int matricolaVolontario) {
         scanner.nextLine();
 
         try {
@@ -93,7 +93,7 @@ public class DisponibilitaDAO {
                 }
             } else {
                 System.out.println("Disponibilità non trovata.");
-                rimuoviDisponibilita(scanner, matricolaVolontario);
+                rimuoviDisponibilitaDAO(scanner, matricolaVolontario);
             }
 
             verificaStatement.close();
@@ -157,5 +157,93 @@ public class DisponibilitaDAO {
         }
     }
 
+
+
+
+    public static void visualizzaRichiesteRimozioneDAO(Scanner scanner) {
+        try {
+            String query = "SELECT * FROM Disponibilita WHERE Richiesta_Rimozione = true";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            System.out.println("RICHIESTE URGENTI DI RIMOZIONE:");
+            while (resultSet.next()) {
+                int idDisponibilita = resultSet.getInt("ID_disponibilita");
+                int matricolaVolontario = resultSet.getInt("Matricola_volontario");
+                String dataDisponibilita = resultSet.getString("Data_disponibilita");
+                String tipologia = resultSet.getString("Tipologia");
+                String motivoRimozione = resultSet.getString("Motivo_Rimozione");
+
+                System.out.println("ID: " + idDisponibilita + " - Matricola BusinessLogic.Volontario: " + matricolaVolontario + " - Data Disponibilità: " + dataDisponibilita + " - Tipologia: " + tipologia + " - Motivo Rimozione: " + motivoRimozione);
+            }
+
+            // Aggiungi il messaggio per accettare o tornare indietro
+            System.out.print("Inserisci l'ID della richiesta di rimozione da accettare oppure lascia vuoto per tornare indietro: ");
+
+            //Scanner scanner = new Scanner(System.in);
+            String input = scanner.nextLine().trim(); // Leggi l'input e rimuovi spazi iniziali e finali
+
+            // Loop finché l'input non è vuoto o un ID valido
+            while (!input.isEmpty() && !input.matches("\\d+")) {
+                System.out.println("Input non valido. Inserisci l'ID della richiesta o lascia vuoto per tornare indietro.");
+                System.out.print("Inserisci l'ID della richiesta di rimozione da accettare oppure lascia vuoto per tornare indietro: ");
+                input = scanner.nextLine().trim();
+            }
+
+            if (!input.isEmpty()) {
+                int idRichiestaDaAccettare = Integer.parseInt(input);
+                accettaRichiestaRimozioneDAO(idRichiestaDaAccettare, scanner);
+            } else {
+                // L'utente ha lasciato vuoto, torna indietro
+                menuController.mostraMenuAdmin(scanner);
+            }
+
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void accettaRichiestaRimozioneDAO(int idRichiesta, Scanner scanner) {
+        try {
+            String query = "SELECT * FROM Disponibilita WHERE ID_disponibilita = ? AND Richiesta_Rimozione = true";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, idRichiesta);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String dataDisponibilita = resultSet.getString("Data_disponibilita");
+                int matricolaVolontario = resultSet.getInt("Matricola_volontario");
+
+                // Rimuovi l'assegnazione del volontario al servizio
+                servizioDAO.rimuoviAssegnazioneServizioDAO(dataDisponibilita, matricolaVolontario);
+
+                // Cancella la riga della richiesta dalla tabella Disponibilita
+                cancellaRichiestaRimozioneDAO(idRichiesta);
+
+                System.out.println("Richiesta di rimozione accettata. L'assegnazione del volontario al servizio è stata rimossa e la richiesta è stata cancellata.");
+                System.out.println(" ");
+                System.out.println(" ");
+                menuController.mostraMenuAdmin(scanner);
+            } else {
+                System.out.println("ID non valido - Inserisci l'ID corretto.");
+                AmministratoreController.visualizzaRichiesteRimozione(scanner);
+            }
+
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void cancellaRichiestaRimozioneDAO(int idRichiesta) {
+        try {
+            String deleteQuery = "DELETE FROM Disponibilita WHERE ID_disponibilita = ?";
+            PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
+            deleteStatement.setInt(1, idRichiesta);
+            deleteStatement.executeUpdate();
+            deleteStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
