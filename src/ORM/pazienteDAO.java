@@ -17,9 +17,6 @@ public class pazienteDAO {
         this.connection = connection;
     }
 
-
-
-    //TODO AGGIUNGI IN aggiungiPazienteDAO CHE RICEVE PAZIENTE DA PAZIENTE CONTROLLER CHE CREA UN NUOVO OGGETTO
     public static void aggiungiPazienteDAO(Scanner scanner,String nomePaziente,String cognomePaziente,LocalDate dataNascita,String luogoNascita,String indirizzoResidenza){
         try {
 
@@ -45,7 +42,6 @@ public class pazienteDAO {
     }
     public static void aggiungiPazientedaServizioDAO(Scanner scanner,String nomePaziente,String cognomePaziente,String dataNascitaString, String luogoNascita,String indirizzoResidenza,LocalDate dataNascita,String dataServizio,LocalTime orarioServizio){
         try {
-            //TODO TOGLIERE
             String insertQuery = "INSERT INTO Pazienti (Nome, Cognome, DataNascita, LuogoNascita, IndirizzoResidenza) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
             insertStatement.setString(1, nomePaziente);
