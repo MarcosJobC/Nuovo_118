@@ -63,13 +63,14 @@ public class AmministratoreController {
                     tipologia = "Ambulanza";
                     break;
                 case 3:
-                    tipologia = "BusinessLogic.Mezzo attrezzato";
+                    tipologia = "Mezzo attrezzato";
                     break;
                 default:
                     System.out.println("Scelta non valida. Devi selezionare 1, 2 o 3.");
                     tipologia = ""; // Imposta tipologia a vuoto per ripetere il ciclo
             }
         } while (tipologia.isEmpty());
+        //TODO passare solo mezzo come oggetto
         mezzoDAO.aggiungiMezzoDAO(siglaMezzo,  targa, tipologia );
         menuController.mostraMenuMezzi(scanner);
     }
@@ -79,7 +80,6 @@ public class AmministratoreController {
     public static void eliminaMezzo(Scanner scanner) {
         mezzoDAO.eliminaMezzoDAO(scanner);
     }
-
 
     //Pazienti
     public static void aggiungiPaziente(Scanner scanner){
@@ -227,7 +227,6 @@ public class AmministratoreController {
         pazienteDAO.visualizzaPazientiDAO(scanner);
     }
 
-
     //Servizi
     public static void aggiungiServizio(Scanner scanner) {
         servizioDAO.aggiungiServizioDAO(scanner);
@@ -247,14 +246,10 @@ public class AmministratoreController {
         menuController.mostraMenuServizi(scanner);
     }
 
-
-
-
     //Disponibilità
     public static void visualizzaRichiesteRimozione(Scanner scanner) {
         DisponibilitaDAO.visualizzaRichiesteRimozioneDAO(scanner);
     }
-
 
     //Utenti
     public static void modificaUtente(Scanner scanner) {

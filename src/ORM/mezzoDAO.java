@@ -72,7 +72,7 @@ public class mezzoDAO {
                     System.out.println("Seleziona la tipologia del mezzo:");
                     System.out.println("1. Auto");
                     System.out.println("2. Ambulanza");
-                    System.out.println("3. BusinessLogic.Mezzo attrezzato");
+                    System.out.println("3. Mezzo attrezzato");
                     int choice = scanner.nextInt();
                     scanner.nextLine();
                     switch (choice) {
@@ -83,7 +83,7 @@ public class mezzoDAO {
                             nuovaTipologia = "Ambulanza";
                             break;
                         case 3:
-                            nuovaTipologia = "BusinessLogic.Mezzo attrezzato";
+                            nuovaTipologia = "Mezzo attrezzato";
                             break;
                         default:
                             System.out.println("Scelta non valida. Devi selezionare 1, 2 o 3.");
@@ -97,12 +97,12 @@ public class mezzoDAO {
                 updateStatement.setString(3, siglaMezzo);
                 updateStatement.executeUpdate();
 
-                System.out.println("BusinessLogic.Mezzo modificato con successo!");
+                System.out.println("Mezzo modificato con successo!");
                 System.out.println(" ");
                 System.out.println(" ");
                 updateStatement.close();
             } else {
-                System.out.println("BusinessLogic.Mezzo non trovato.");
+                System.out.println("Mezzo non trovato.");
                 modificaMezzoDAO(scanner);
             }
 
@@ -144,7 +144,7 @@ public class mezzoDAO {
                     ResultSet resultSetVerifica = verificaStatement.executeQuery();
 
                     if (resultSetVerifica.next()) {
-                        System.out.println("BusinessLogic.Mezzo trovato. Sei sicuro di volerlo eliminare? (s/n)");
+                        System.out.println("Mezzo trovato. Sei sicuro di volerlo eliminare? (s/n)");
                         String conferma = scanner.nextLine();
 
                         if (conferma.equalsIgnoreCase("s")) {
@@ -153,7 +153,7 @@ public class mezzoDAO {
                             deleteStatement.setString(1, siglaMezzo);
                             deleteStatement.executeUpdate();
 
-                            System.out.println("BusinessLogic.Mezzo eliminato con successo!");
+                            System.out.println("Mezzo eliminato con successo!");
                             System.out.println(" ");
                             System.out.println(" ");
                         } else {
@@ -162,7 +162,7 @@ public class mezzoDAO {
 
                         mezzoTrovato = true;
                     } else {
-                        System.out.println("BusinessLogic.Mezzo non trovato.");
+                        System.out.println("Mezzo non trovato.");
                     }
 
                     verificaStatement.close();
