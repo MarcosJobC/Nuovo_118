@@ -1,7 +1,5 @@
 # Gestionale 118
-PROGETTO DA TERMINARE - IN CORSO -
-
-Relazione Overleaf: https://it.overleaf.com/read/xmgnfxnpbxtx#4da5a6
+PROGETTO IN CORSO - FILE README DA AGGIORNARE
 
 L'obiettivo primario del programma è fornire una piattaforma avanzata e intuitiva che metta a disposizione degli operatori gli strumenti essenziali per una gestione efficiente e accurata delle risorse all'interno di un'organizzazione di soccorso.
 
@@ -48,6 +46,9 @@ Migliorare la formattazione dei dati dei mezzi (Sigla mezzo, Targa, Tipologia).
 Assicurarsi che venga selezionata solo la tipologia corretta (1, 2 o 3).
 Reindirizzamento al menu mezzi dopo la modifica.
 
+#### Aggiunta Mezzi:
+Non può esser lasciato vuoto alcun campo nell'aggiunta del mezzo nuovo
+Ritorno al menu mezzi dopo l'inserimento
 #### Eliminazione Mezzi:
 Gestire la situazione in cui viene inserita una sigla mezzo errata.
 Reindirizzamento al menu mezzi dopo l'eliminazione.

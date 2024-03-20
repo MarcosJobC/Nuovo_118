@@ -15,7 +15,7 @@ public class mezzoDAO {
         this.connection = connection;
     }
 
-    //TODO Utilizzare oggetto mezzo in modo da creare poi oggetto e passare parametri con getSiglaMezzo, [questo lo facciamo solo scritto senza farlo funzionare effettivamente]
+    //TODO Utilizzare oggetto mezzo in modo da creare poi oggetto e passare parametri con getSiglaMezzo
     public static void aggiungiMezzoDAO(String siglaMezzo, String targa,String tipologia ) {
 
         try {
