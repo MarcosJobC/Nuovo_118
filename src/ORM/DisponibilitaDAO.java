@@ -192,7 +192,7 @@ public class DisponibilitaDAO {
 
             if (!input.isEmpty()) {
                 int idRichiestaDaAccettare = Integer.parseInt(input);
-                accettaRichiestaRimozioneDAO(idRichiestaDaAccettare, scanner);
+                AmministratoreController.accettaRichiesteRimozione(idRichiestaDaAccettare, scanner);
             } else {
                 // L'utente ha lasciato vuoto, torna indietro
                 menuController.mostraMenuAdmin(scanner);
@@ -218,7 +218,7 @@ public class DisponibilitaDAO {
                 servizioDAO.rimuoviAssegnazioneServizioDAO(dataDisponibilita, matricolaVolontario);
 
                 // Cancella la riga della richiesta dalla tabella Disponibilita
-                cancellaRichiestaRimozioneDAO(idRichiesta);
+                AmministratoreController.cancellaRichiesteRimozione(idRichiesta);
 
                 System.out.println("Richiesta di rimozione accettata. L'assegnazione del volontario al servizio è stata rimossa e la richiesta è stata cancellata.");
                 System.out.println(" ");

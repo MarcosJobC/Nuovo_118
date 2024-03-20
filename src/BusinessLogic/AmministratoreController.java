@@ -250,6 +250,12 @@ public class AmministratoreController {
     public static void visualizzaRichiesteRimozione(Scanner scanner) {
         DisponibilitaDAO.visualizzaRichiesteRimozioneDAO(scanner);
     }
+    public static void accettaRichiesteRimozione(int idRichiesta, Scanner scanner) {
+        DisponibilitaDAO.accettaRichiestaRimozioneDAO(idRichiesta,scanner);
+    }
+    public static void cancellaRichiesteRimozione(int idRichiesta) {
+        DisponibilitaDAO.cancellaRichiestaRimozioneDAO(idRichiesta);
+    }
 
     //Utenti
     public static void modificaUtente(Scanner scanner) {
