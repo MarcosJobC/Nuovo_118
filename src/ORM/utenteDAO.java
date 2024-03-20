@@ -264,7 +264,6 @@ public class utenteDAO {
 
 
     public static void visualizzaDisponibilitaENotificheNonLetteDAO(Scanner scanner) {
-        //TODO metto nel Amministratorecontroller
         try {
             // Recupera le disponibilità non confermate
             String disponibilitaQuery = "SELECT matricola_volontario, data_disponibilita, tipologia FROM Disponibilita WHERE confermata = 'Non confermata'";
@@ -304,7 +303,6 @@ public class utenteDAO {
     }
 
     public static boolean ciSonoDisponibilitaENotificheNonLette() {
-        //TODO metto nel Utentecontroller
         try {
             // Verifica se ci sono disponibilità non confermate
             String disponibilitaQuery = "SELECT COUNT(*) FROM Disponibilita WHERE confermata = 'Non confermata'";
