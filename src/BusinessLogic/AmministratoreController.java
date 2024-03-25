@@ -1,13 +1,12 @@
 package BusinessLogic;
+import DomainModel.Mezzo;
+import DomainModel.Paziente;
 import ORM.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -20,7 +19,7 @@ public class AmministratoreController {
     // 3- qui vengono stampati i risultati contenuti nell' arraylist
 
     //Mezzi
-    public static void aggiungiMezzo(Scanner scanner) {
+    public static Mezzo aggiungiMezzo(Scanner scanner) {
         String siglaMezzo;
         String targa;
         String tipologia;
@@ -70,10 +69,13 @@ public class AmministratoreController {
                     tipologia = ""; // Imposta tipologia a vuoto per ripetere il ciclo
             }
         } while (tipologia.isEmpty());
-        //TODO passare solo mezzo come oggetto
-        mezzoDAO.aggiungiMezzoDAO(siglaMezzo,  targa, tipologia );
+
+        Mezzo mezzo = new Mezzo(siglaMezzo, targa, tipologia);
+        mezzoDAO.aggiungiMezzoDAO(mezzo);
         menuController.mostraMenuMezzi(scanner);
+        return mezzo; // Restituisce il mezzo appena creato
     }
+
     public static void modificaMezzo(Scanner scanner) {
         mezzoDAO.modificaMezzoDAO(scanner);
     }
@@ -82,7 +84,7 @@ public class AmministratoreController {
     }
 
     //Pazienti
-    public static void aggiungiPaziente(Scanner scanner){
+    public static Paziente aggiungiPaziente(Scanner scanner){
         System.out.println(" ");
         System.out.println("INSERIMENTO NUOVO PAZIENTE:");
 
@@ -144,18 +146,17 @@ public class AmministratoreController {
             }
         } while (indirizzoResidenza.isEmpty());
 
-        pazienteDAO.aggiungiPazienteDAO(scanner,nomePaziente, cognomePaziente, dataNascita, luogoNascita, indirizzoResidenza);
-
-        System.out.println(" ");
-        System.out.println(" ");
+        Paziente paziente = new Paziente(0, nomePaziente, cognomePaziente, dataNascita, luogoNascita, indirizzoResidenza);
+        pazienteDAO.aggiungiPazienteDAO(paziente);
         menuController.mostraMenuPazienti(scanner);
+        return paziente;
     }
-    public static void aggiungiPazientedaServizio(Scanner scanner,boolean newfromservizio,String dataServizio,LocalTime orarioServizio){
+    public static void aggiungiPazientedaServizio(Scanner scanner, boolean newfromservizio, String dataServizio, LocalTime orarioServizio) {
         System.out.println(" ");
         System.out.println("INSERIMENTO NUOVO PAZIENTE:");
 
-        String nomePaziente, cognomePaziente, dataNascitaString, luogoNascita, indirizzoResidenza;
-        LocalDate dataNascita = null;
+        String nomePaziente, cognomePaziente, luogoNascita, indirizzoResidenza;
+        LocalDate dataNascita = null; // Dichiarazione iniziale di dataNascita
 
         // Richiedi e valida il nome del paziente
         do {
@@ -176,6 +177,7 @@ public class AmministratoreController {
         } while (cognomePaziente.isEmpty());
 
         // Richiedi e valida la data di nascita del paziente
+        String dataNascitaString; // Dichiarazione della variabile dataNascitaString
         do {
             System.out.print("Inserisci la data di nascita del paziente (formato dd-MM-yyyy): ");
             dataNascitaString = scanner.nextLine();
@@ -212,11 +214,17 @@ public class AmministratoreController {
             }
         } while (indirizzoResidenza.isEmpty());
 
-        pazienteDAO.aggiungiPazientedaServizioDAO(scanner,nomePaziente, cognomePaziente, dataNascitaString, luogoNascita, indirizzoResidenza, dataNascita, dataServizio, orarioServizio);
+        // Crea un nuovo paziente con l'oggetto LocalDate per la data di nascita
+        Paziente nuovoPaziente = new Paziente(0, nomePaziente, cognomePaziente, dataNascita, luogoNascita, indirizzoResidenza);
+        pazienteDAO.aggiungiPazientedaServizioDAO(nuovoPaziente);
 
         System.out.println(" ");
         servizioDAO.aggiungiServizioInternoDAO(scanner, newfromservizio, dataServizio, orarioServizio);
     }
+
+
+
+
     public static void modificaPaziente(Scanner scanner) {
         pazienteDAO.modificaPazienteDAO(scanner);
     }

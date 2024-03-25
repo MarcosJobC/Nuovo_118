@@ -1,6 +1,7 @@
 package ORM;
 
 import BusinessLogic.menuController;
+import DomainModel.Mezzo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,14 +36,14 @@ public class mezzoDAO {
     }
 
     //TODO Utilizzare oggetto mezzo in modo da creare poi oggetto e passare parametri con getSiglaMezzo
-    public static void aggiungiMezzoDAO(String siglaMezzo, String targa,String tipologia ) {
+    public static void aggiungiMezzoDAO(Mezzo mezzo) {
         openConnection();
         try {
             String query = "INSERT INTO Mezzi (Sigla_mezzo, targa, tipologia) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, siglaMezzo);
-            preparedStatement.setString(2, targa);
-            preparedStatement.setString(3, tipologia);
+            preparedStatement.setString(1, mezzo.getSiglaMezzo());
+            preparedStatement.setString(2, mezzo.getTarga());
+            preparedStatement.setString(3, mezzo.getTipologia());
             preparedStatement.executeUpdate();
 
             System.out.println("Mezzo aggiunto con successo!");

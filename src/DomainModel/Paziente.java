@@ -1,16 +1,18 @@
 package DomainModel;
 
 
+import java.time.LocalDate;
+
 public class Paziente {
 
     private int id;
     private String nomePaziente;
     private String cognomePaziente;
-    private String dataNascita;
+    private LocalDate dataNascita; // Modifica il tipo di dato a LocalDate
     private String luogoNascita;
     private String indirizzoResidenza;
 
-    public Paziente(int id, String nomePaziente, String cognomePaziente, String dataNascita, String luogoNascita, String indirizzoResidenza) {
+    public Paziente(int id, String nomePaziente, String cognomePaziente, LocalDate dataNascita, String luogoNascita, String indirizzoResidenza) {
         this.id = id;
         this.nomePaziente = nomePaziente;
         this.cognomePaziente = cognomePaziente;
@@ -50,12 +52,12 @@ public class Paziente {
     }
 
     // Getter per dataNascita
-    public String getDataNascita() {
+    public LocalDate getDataNascita() {
         return dataNascita;
     }
 
     // Setter per dataNascita
-    public void setDataNascita(String dataNascita) {
+    public void setDataNascita(LocalDate dataNascita) {
         this.dataNascita = dataNascita;
     }
 

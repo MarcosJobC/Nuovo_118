@@ -1,6 +1,7 @@
 package ORM;
 
 import BusinessLogic.menuController;
+import DomainModel.Paziente;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -36,17 +37,16 @@ public class pazienteDAO {
         }
     }
 
-    public static void aggiungiPazienteDAO(Scanner scanner,String nomePaziente,String cognomePaziente,LocalDate dataNascita,String luogoNascita,String indirizzoResidenza){
+    public static void aggiungiPazienteDAO(Paziente paziente) {
         openConnection();
         try {
-
             String insertQuery = "INSERT INTO Pazienti (Nome, Cognome, DataNascita, LuogoNascita, IndirizzoResidenza) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
-            insertStatement.setString(1, nomePaziente);
-            insertStatement.setString(2, cognomePaziente);
-            insertStatement.setDate(3, Date.valueOf(dataNascita));
-            insertStatement.setString(4, luogoNascita);
-            insertStatement.setString(5, indirizzoResidenza);
+            insertStatement.setString(1, paziente.getNomePaziente());
+            insertStatement.setString(2, paziente.getCognomePaziente());
+            insertStatement.setDate(3, Date.valueOf(paziente.getDataNascita()));
+            insertStatement.setString(4, paziente.getLuogoNascita());
+            insertStatement.setString(5, paziente.getIndirizzoResidenza());
 
             insertStatement.executeUpdate();
 
@@ -56,21 +56,19 @@ public class pazienteDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(" ");
-        System.out.println(" ");
-        menuController.mostraMenuPazienti(scanner);
         closeConnection();
     }
-    public static void aggiungiPazientedaServizioDAO(Scanner scanner,String nomePaziente,String cognomePaziente,String dataNascitaString, String luogoNascita,String indirizzoResidenza,LocalDate dataNascita,String dataServizio,LocalTime orarioServizio){
+
+    public static void aggiungiPazientedaServizioDAO(Paziente paziente) {
         openConnection();
         try {
             String insertQuery = "INSERT INTO Pazienti (Nome, Cognome, DataNascita, LuogoNascita, IndirizzoResidenza) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
-            insertStatement.setString(1, nomePaziente);
-            insertStatement.setString(2, cognomePaziente);
-            insertStatement.setDate(3, Date.valueOf(dataNascita));
-            insertStatement.setString(4, luogoNascita);
-            insertStatement.setString(5, indirizzoResidenza);
+            insertStatement.setString(1, paziente.getNomePaziente());
+            insertStatement.setString(2, paziente.getCognomePaziente());
+            insertStatement.setDate(3, Date.valueOf(paziente.getDataNascita()));
+            insertStatement.setString(4, paziente.getLuogoNascita());
+            insertStatement.setString(5, paziente.getIndirizzoResidenza());
 
             insertStatement.executeUpdate();
 
@@ -84,6 +82,7 @@ public class pazienteDAO {
         }
         closeConnection();
     }
+
 
     public static void modificaPazienteDAO(Scanner scanner) {
         openConnection();
