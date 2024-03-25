@@ -1,5 +1,6 @@
 package BusinessLogic;
 
+import DomainModel.Utente;
 import ORM.*;
 
 import java.sql.Connection;
@@ -363,9 +364,15 @@ public class menuController {
             System.out.print("La password non può essere vuota. Inserisci la password: ");
             password = scanner.nextLine();
         }
-        utenteDAO.registrazioneDAO(nome,cognome,dataDiNascita,qualifica,codicefiscale,password);
 
+        // Creazione dell'oggetto Utente
+        Utente utente = new Utente(0, nome, cognome, dataDiNascita, qualifica, codicefiscale, password, false);
+
+        // Passaggio dell'oggetto Utente al metodo registrazioneDAO
+        utenteDAO.registrazioneDAO(utente);
+        menuController.menuIniziale(scanner);
     }
+
     public static void accesso(Scanner scanner, boolean sceltaValida) {
         sceltaValida = true;
         System.out.print("Inserisci il codice fiscale: ");

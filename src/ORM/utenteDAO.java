@@ -1,5 +1,7 @@
 package ORM;
 import BusinessLogic.*;
+import DomainModel.Utente;
+
 
 import java.sql.*;
 import java.time.LocalTime;
@@ -34,17 +36,17 @@ public class utenteDAO {
     }
 
 
-    public static void registrazioneDAO(String nome, String cognome, String dataDiNascita, String qualifica, String codicefiscale, String password) {
+    public static void registrazioneDAO(Utente utente) {
         openConnection();
         try {
             String query = "INSERT INTO Volontari (Nome, Cognome, data_di_nascita, Qualifica, codice_fiscale, Password, IsAdmin) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, nome);
-            preparedStatement.setString(2, cognome);
-            preparedStatement.setString(3, dataDiNascita);
-            preparedStatement.setString(4, qualifica);
-            preparedStatement.setString(5, codicefiscale);
-            preparedStatement.setString(6, password);
+            preparedStatement.setString(1, utente.getNome());
+            preparedStatement.setString(2, utente.getCognome());
+            preparedStatement.setString(3, utente.getDatadinascita());
+            preparedStatement.setString(4, utente.getQualifica());
+            preparedStatement.setString(5, utente.getCodiceFiscale());
+            preparedStatement.setString(6, utente.getPassword());
             preparedStatement.setString(7, "False");
             preparedStatement.executeUpdate();
 
@@ -56,6 +58,7 @@ public class utenteDAO {
         }
         closeConnection();
     }
+
     public static void accessoDAO(String codicefiscale,String password,Scanner scanner) {
         openConnection();
 
