@@ -10,8 +10,6 @@ public class Disponibilita {
     private String tipologia;
     private String stato; // Confermata o Non confermata
 
-
-    //TODO Al posto di matricolavolontario metti Utente utente, passato come oggetto
     public Disponibilita(int id, int matricolaVolontario, String dataDisponibilita, String tipologia, String stato) {
         this.id = id;
         this.matricolaVolontario = matricolaVolontario;

@@ -35,7 +35,6 @@ public class mezzoDAO {
         }
     }
 
-    //TODO Utilizzare oggetto mezzo in modo da creare poi oggetto e passare parametri con getSiglaMezzo
     public static void aggiungiMezzoDAO(Mezzo mezzo) {
         openConnection();
         try {
