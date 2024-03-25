@@ -23,12 +23,30 @@ public class DisponibilitaDAO {
 
     private static Connection connection;
 
-    public DisponibilitaDAO(Connection connection) {
-        this.connection = connection;
+    public static void openConnection() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                dbConnection.connectToDatabase();
+                connection = dbConnection.getConnection();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
+    public static void closeConnection() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void rimuoviDisponibilitaDAO(Scanner scanner, int matricolaVolontario) {
+        openConnection();
         scanner.nextLine();
 
         try {
@@ -105,9 +123,10 @@ public class DisponibilitaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
     public static void inserisciDisponibilitaDAO(Scanner scanner, int matricolaVolontario, String dataDisponibilita, String tipologia, LocalTime oraInizio, LocalTime oraFine) {
-
+        openConnection();
         try {
             // Verifica se esiste già una disponibilità per questa data e tipologia
             String verificaQuery = "SELECT COUNT(*) FROM Disponibilita WHERE Matricola_volontario = ? AND Data_disponibilita = ? AND Tipologia = ?";
@@ -155,12 +174,10 @@ public class DisponibilitaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
-
-
-
-
     public static void visualizzaRichiesteRimozioneDAO(Scanner scanner) {
+        openConnection();
         try {
             String query = "SELECT * FROM Disponibilita WHERE Richiesta_Rimozione = true";
             PreparedStatement statement = connection.prepareStatement(query);
@@ -202,8 +219,10 @@ public class DisponibilitaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
     public static void accettaRichiestaRimozioneDAO(int idRichiesta, Scanner scanner) {
+        openConnection();
         try {
             String query = "SELECT * FROM Disponibilita WHERE ID_disponibilita = ? AND Richiesta_Rimozione = true";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -233,8 +252,10 @@ public class DisponibilitaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
     public static void cancellaRichiestaRimozioneDAO(int idRichiesta) {
+        openConnection();
         try {
             String deleteQuery = "DELETE FROM Disponibilita WHERE ID_disponibilita = ?";
             PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
@@ -244,6 +265,7 @@ public class DisponibilitaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
 
 }

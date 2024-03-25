@@ -13,11 +13,31 @@ import java.sql.SQLException;
 
 public class pazienteDAO {
     private static Connection connection;
-    public pazienteDAO(Connection connection) {
-        this.connection = connection;
+
+    public static void openConnection() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                dbConnection.connectToDatabase();
+                connection = dbConnection.getConnection();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void closeConnection() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void aggiungiPazienteDAO(Scanner scanner,String nomePaziente,String cognomePaziente,LocalDate dataNascita,String luogoNascita,String indirizzoResidenza){
+        openConnection();
         try {
 
             String insertQuery = "INSERT INTO Pazienti (Nome, Cognome, DataNascita, LuogoNascita, IndirizzoResidenza) VALUES (?, ?, ?, ?, ?)";
@@ -39,8 +59,10 @@ public class pazienteDAO {
         System.out.println(" ");
         System.out.println(" ");
         menuController.mostraMenuPazienti(scanner);
+        closeConnection();
     }
     public static void aggiungiPazientedaServizioDAO(Scanner scanner,String nomePaziente,String cognomePaziente,String dataNascitaString, String luogoNascita,String indirizzoResidenza,LocalDate dataNascita,String dataServizio,LocalTime orarioServizio){
+        openConnection();
         try {
             String insertQuery = "INSERT INTO Pazienti (Nome, Cognome, DataNascita, LuogoNascita, IndirizzoResidenza) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
@@ -60,9 +82,11 @@ public class pazienteDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
 
     public static void modificaPazienteDAO(Scanner scanner) {
+        openConnection();
         System.out.println("MODIFICA PAZIENTE:");
 
         try {
@@ -170,8 +194,10 @@ public class pazienteDAO {
             e.printStackTrace();
         }
         menuController.mostraMenuPazienti(scanner);
+        closeConnection();
     }
     public static void eliminaPazienteDAO(Scanner scanner) {
+        openConnection();
         try {
             // Visualizza la lista dei pazienti
             String listaPazientiQuery = "SELECT * FROM Pazienti";
@@ -265,8 +291,10 @@ public class pazienteDAO {
         System.out.println(" ");
         System.out.println(" ");
         menuController.mostraMenuPazienti(scanner);
+        closeConnection();
     }
     public static void visualizzaPazientiDAO(Scanner scanner) {
+        openConnection();
         try {
             // Ottieni una lista di tutti i pazienti
             String listaPazientiQuery = "SELECT * FROM Pazienti";
@@ -297,6 +325,7 @@ public class pazienteDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
 
 }

@@ -11,13 +11,32 @@ import java.util.Scanner;
 public class mezzoDAO {
 
     private static Connection connection;
-    public mezzoDAO(Connection connection) {
-        this.connection = connection;
+
+    public static void openConnection() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                dbConnection.connectToDatabase();
+                connection = dbConnection.getConnection();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void closeConnection() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     //TODO Utilizzare oggetto mezzo in modo da creare poi oggetto e passare parametri con getSiglaMezzo
     public static void aggiungiMezzoDAO(String siglaMezzo, String targa,String tipologia ) {
-
+        openConnection();
         try {
             String query = "INSERT INTO Mezzi (Sigla_mezzo, targa, tipologia) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -34,8 +53,10 @@ public class mezzoDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
     public static void modificaMezzoDAO(Scanner scanner) {
+        openConnection();
         try {
             String query = "SELECT * FROM Mezzi";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -111,8 +132,10 @@ public class mezzoDAO {
             e.printStackTrace();
         }
         menuController.mostraMenuMezzi(scanner);
+        closeConnection();
     }
     public static void eliminaMezzoDAO(Scanner scanner) {
+        openConnection();
         try {
             String query = "SELECT * FROM Mezzi";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -172,6 +195,7 @@ public class mezzoDAO {
             e.printStackTrace();
         }
         menuController.mostraMenuMezzi(scanner);
+        closeConnection();
     }
 
 }

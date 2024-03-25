@@ -10,12 +10,32 @@ import java.util.Scanner;
 public class utenteDAO {
 
     private static Connection connection;
-    public utenteDAO(Connection connection) {
-        this.connection = connection;
+
+    public static void openConnection() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                dbConnection.connectToDatabase();
+                connection = dbConnection.getConnection();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void closeConnection() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
     public static void registrazioneDAO(String nome, String cognome, String dataDiNascita, String qualifica, String codicefiscale, String password) {
+        openConnection();
         try {
             String query = "INSERT INTO Volontari (Nome, Cognome, data_di_nascita, Qualifica, codice_fiscale, Password, IsAdmin) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -34,8 +54,10 @@ public class utenteDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
     public static void accessoDAO(String codicefiscale,String password,Scanner scanner) {
+        openConnection();
 
 
         try {
@@ -72,8 +94,10 @@ public class utenteDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
     public static void modificaUtenteDAO(Scanner scanner) {
+        openConnection();
         scanner.nextLine();
         try {
             String query = "SELECT * FROM Volontari";
@@ -158,8 +182,10 @@ public class utenteDAO {
             e.printStackTrace();
         }
         menuController.mostraMenuVolontari(scanner);
+        closeConnection();
     }
     public static void eliminaUtenteDAO(Scanner scanner) {
+        openConnection();
         scanner.nextLine();
         try {
             String query = "SELECT * FROM Volontari WHERE id <> 0";
@@ -259,11 +285,13 @@ public class utenteDAO {
             e.printStackTrace();
         }
         menuController.mostraMenuVolontari(scanner);
+        closeConnection();
     }
 
 
 
     public static void visualizzaDisponibilitaENotificheNonLetteDAO(Scanner scanner) {
+        openConnection();
         try {
             // Recupera le disponibilità non confermate
             String disponibilitaQuery = "SELECT matricola_volontario, data_disponibilita, tipologia FROM Disponibilita WHERE confermata = 'Non confermata'";
@@ -300,9 +328,11 @@ public class utenteDAO {
         System.out.println("Premi un tasto qualsiasi per tornare al menu precedente.");
         scanner.nextLine();
         menuController.mostraMenuAdmin(scanner);
+        closeConnection();
     }
 
     public static boolean ciSonoDisponibilitaENotificheNonLette() {
+        openConnection();
         try {
             // Verifica se ci sono disponibilità non confermate
             String disponibilitaQuery = "SELECT COUNT(*) FROM Disponibilita WHERE confermata = 'Non confermata'";
@@ -319,10 +349,12 @@ public class utenteDAO {
             int conteggioNotificheNonLette = notificheResultSet.getInt(1);
 
             // Restituisci true se ci sono disponibilità non confermate o notifiche non lette, altrimenti false
+            closeConnection();
             return conteggioDisponibilitaNonConfermate > 0 || conteggioNotificheNonLette > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            closeConnection();
             return false; // Gestione delle eccezioni: se si verifica un errore, restituisci false di default
         }
     }
@@ -331,6 +363,7 @@ public class utenteDAO {
 
 
     public static boolean haDisponibilita(int matricolaVolontario) {
+        openConnection();
         try {
             String query = "SELECT COUNT(*) FROM Disponibilita WHERE matricola_volontario = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -339,14 +372,17 @@ public class utenteDAO {
 
             if (resultSet.next()) {
                 int numeroDisponibilita = resultSet.getInt(1);
+                closeConnection();
                 return numeroDisponibilita > 0;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
         return false; // In caso di errore o nessuna disponibilità
     }
     public static boolean haServiziAssegnati(int matricolaVolontario) {
+        openConnection();
         try {
             // Query per verificare se il volontario ha servizi assegnati
             String serviziQuery = "SELECT * FROM Servizi WHERE Autista = ? OR Soccorritore = ?";
@@ -368,14 +404,17 @@ public class utenteDAO {
             serviziStatement.close();
             emergenzeStatement.close();
 
+            closeConnection();
             return haServiziAssegnati || haEmergenzeAssegnate; // Restituisci true se ci sono servizi o emergenze assegnate, altrimenti false
 
         } catch (SQLException e) {
             e.printStackTrace();
+            closeConnection();
             return false; // Gestione delle eccezioni: se si verifica un errore, restituisci false di default
         }
     }
     public static void mostraListaVolontariDAO(Scanner scanner) {
+        openConnection();
         try {
             // Prepara la query per ottenere la lista di tutti i volontari
             String query = "SELECT * FROM Volontari WHERE id <> 0";
@@ -407,11 +446,13 @@ public class utenteDAO {
         scanner.nextLine();
         System.out.println(" ");
         menuController.mostraMenuVolontari(scanner);
+        closeConnection();
     }
 
 
 
     public static int trovaVolontarioDisponibileNonConfermato(String dataServizio, LocalTime orarioServizio) {
+        openConnection();
         try {
             String disponibilitaQuery = "SELECT matricola_volontario, ora_inizio, ora_fine " +
                     "FROM Disponibilita WHERE data_disponibilita = ? " +
@@ -432,6 +473,7 @@ public class utenteDAO {
                 if (!verificaVolontarioAssegnato(dataServizio, volontarioDisponibile) &&
                         orarioServizio.isAfter(oraInizioDisponibilita) &&
                         orarioServizio.isBefore(oraFineDisponibilita)) {
+                    closeConnection();
                     return volontarioDisponibile;
                 }
             }
@@ -441,9 +483,11 @@ public class utenteDAO {
             e.printStackTrace();
         }
 
+        closeConnection();
         return 0; // Nessun volontario disponibile con tipologia "Servizi sociali" trovato
     }
     public static void cambiaStatoVolontario(int matricolaVolontario, String dataServizio) {
+        openConnection();
         try {
             String updateStatoQuery = "UPDATE Disponibilita SET confermata = 'Reclutato' WHERE matricola_volontario = ? AND data_disponibilita = ? AND confermata = 'Non confermata'";
             PreparedStatement updateStatoStatement = connection.prepareStatement(updateStatoQuery);
@@ -459,8 +503,10 @@ public class utenteDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
     public static boolean verificaVolontarioAssegnato(String dataServizio, int matricolaVolontario) {
+        openConnection();
         try {
             String verificaAssegnazioneQuery = "SELECT Id FROM Servizi WHERE (Autista = ? OR Soccorritore = ?) AND Data = ?";
             PreparedStatement verificaAssegnazioneStatement = connection.prepareStatement(verificaAssegnazioneQuery);
@@ -475,6 +521,7 @@ public class utenteDAO {
             return volontarioAssegnato;
         } catch (SQLException e) {
             e.printStackTrace();
+            closeConnection();
             return false; // In caso di errore, considera il volontario non assegnato
         }
     }

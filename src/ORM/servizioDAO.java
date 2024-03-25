@@ -24,11 +24,32 @@ import java.util.Calendar;
 
 public class servizioDAO {
     private static Connection connection;
-    public servizioDAO(Connection connection) {
-        this.connection = connection;
+
+    public static void openConnection() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                dbConnection.connectToDatabase();
+                connection = dbConnection.getConnection();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
+    public static void closeConnection() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public static void aggiungiServizioDAO(Scanner scanner) {
+        openConnection();
         boolean newfromservizio = false;
         scanner.nextLine();
 
@@ -215,9 +236,10 @@ public class servizioDAO {
         System.out.println(" ");
         System.out.println(" ");
         menuController.mostraMenuServizi(scanner);
+        closeConnection();
     }
     public static void aggiungiServizioInternoDAO(Scanner scanner, boolean newfromservizio,String dataServizio,LocalTime orarioServizio){
-
+        openConnection();
         try {
 
             String nomePaziente = "";
@@ -369,9 +391,11 @@ public class servizioDAO {
         System.out.println(" ");
         System.out.println(" ");
         menuController.mostraMenuServizi(scanner);
+        closeConnection();
     }
 
     public static void modificaServizioDAO(Scanner scanner) {
+        openConnection();
         scanner.nextLine();
         Time nuovoOrarioTime = null;
         try {
@@ -573,8 +597,10 @@ public class servizioDAO {
         System.out.println(" ");
         System.out.println(" ");
         menuController.mostraMenuServizi(scanner);
+        closeConnection();
     }
     public static void eliminaServizioDAO(Scanner scanner) {
+        openConnection();
         scanner.nextLine();
         boolean operazioneAnnullata = false;
 
@@ -653,9 +679,7 @@ public class servizioDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        if (!operazioneAnnullata) {
-        }
+        closeConnection();
 
     }
 
@@ -665,6 +689,7 @@ public class servizioDAO {
 
 
     public static void rimuoviAssegnazioneServizioDAO(String dataDisponibilita, int matricolaVolontario) {
+        openConnection();
         try {
             String updateQuery = "UPDATE Servizi SET Autista = CASE WHEN Autista = ? THEN 0 ELSE Autista END, Soccorritore = CASE WHEN Soccorritore = ? THEN 0 ELSE Soccorritore END WHERE Data = ?";
             PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
@@ -676,21 +701,26 @@ public class servizioDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
     public static boolean ciSonoRichiesteRimozioneDAO() {
+        openConnection();
         try {
             String query = "SELECT COUNT(*) FROM Disponibilita WHERE Richiesta_Rimozione = true";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             resultSet.next();
             int count = resultSet.getInt(1);
+            closeConnection();
             return count > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            closeConnection();
             return false;
         }
     }
     public static void rimuoviDisponibilitaScaduteDAO() {
+        openConnection();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Calendar cal = Calendar.getInstance();
         String oggi = dateFormat.format(cal.getTime()); // Ottieni la data odierna nel formato dd-MM-yyyy
@@ -705,8 +735,10 @@ public class servizioDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
     public static void rimuoviServiziScadutiDAO() {
+        openConnection();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Calendar cal = Calendar.getInstance();
         String oggi = dateFormat.format(cal.getTime()); // Ottieni la data odierna nel formato dd-MM-yyyy
@@ -721,12 +753,14 @@ public class servizioDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
 
 
 
 
     public static void assegnaAutistiAutomaticamenteDAO() {
+        openConnection();
         try {
 
             String serviziSenzaAutistaQuery = "SELECT * FROM Servizi WHERE Autista = 0";
@@ -760,8 +794,10 @@ public class servizioDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
     public static void assegnaSoccorritoriAutomaticamenteDAO() {
+        openConnection();
         try {
             String serviziSenzaSoccorritoreQuery = "SELECT * FROM Servizi WHERE Soccorritore = 0";
             PreparedStatement serviziSenzaSoccorritoreStatement = connection.prepareStatement(serviziSenzaSoccorritoreQuery);
@@ -793,9 +829,11 @@ public class servizioDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
 
     public static void visualizzaServiziAssegnatiDAO(Scanner scanner, int matricolaVolontario) {
+        openConnection();
         try {
             // Query per i servizi assegnati
             String serviziQuery = "SELECT 'BusinessLogic.Servizio' AS Tipo, Data, Orario, Sigla_Mezzo FROM Servizi WHERE Autista = ? OR Soccorritore = ?";
@@ -865,6 +903,7 @@ public class servizioDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
 
 }
