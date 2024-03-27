@@ -18,6 +18,9 @@ public class AmministratoreController {
     // 2- funzione in dao salva risultati in arraylist e ritorna arraylist qui
     // 3- qui vengono stampati i risultati contenuti nell' arraylist
 
+    //TODO Aggiungi visualizza mezzi
+    //TODO Aggiungi visualizza servizi
+
     //Mezzi
     public static Mezzo aggiungiMezzo(Scanner scanner) {
         String siglaMezzo;

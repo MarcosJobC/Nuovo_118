@@ -144,7 +144,6 @@ public class menuController {
                 System.out.println("Scelta non valida.");
         }
     }
-
     //MENU MEZZI
     public static void mostraMenuMezzi(Scanner scanner) {
         System.out.println("Menu Gestione Mezzi:");
@@ -267,7 +266,6 @@ public class menuController {
                 System.out.println("Scelta non valida.");
         }
     }
-
     public static void registrazione(Scanner scanner, boolean sceltaValida) {
         sceltaValida = true;
         System.out.print("Inserisci il nome: ");
@@ -372,7 +370,6 @@ public class menuController {
         utenteDAO.registrazioneDAO(utente);
         menuController.menuIniziale(scanner);
     }
-
     public static void accesso(Scanner scanner, boolean sceltaValida) {
         sceltaValida = true;
         System.out.print("Inserisci il codice fiscale: ");

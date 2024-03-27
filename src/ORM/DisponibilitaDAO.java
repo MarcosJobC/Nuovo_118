@@ -267,7 +267,6 @@ public class DisponibilitaDAO {
         }
         closeConnection();
     }
-
     public static void rimuoviDisponibilitaScaduteDAO() {
         openConnection();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
