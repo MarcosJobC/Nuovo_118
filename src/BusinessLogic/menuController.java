@@ -208,7 +208,8 @@ public class menuController {
         System.out.println("2. Modifica servizio");
         System.out.println("3. Elimina dati servizio");
         System.out.println("4. Assegna automaticamente i volontari");
-        System.out.println("5. Torna al menu amministratore");
+        System.out.println("5. Visualizza lista servizi");
+        System.out.println("6. Torna al menu amministratore");
         System.out.print("Seleziona un'opzione: ");
 
         int choice = scanner.nextInt();
@@ -227,6 +228,9 @@ public class menuController {
                 AmministratoreController.assegnaAutomaticamente(scanner);
                 break;
             case 5:
+                AmministratoreController.visualizzaServizi(scanner);
+                break;
+            case 6:
                 mostraMenuAdmin(scanner);
                 break;
             default:

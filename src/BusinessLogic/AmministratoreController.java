@@ -224,10 +224,6 @@ public class AmministratoreController {
         System.out.println(" ");
         servizioDAO.aggiungiServizioInternoDAO(scanner, newfromservizio, dataServizio, orarioServizio);
     }
-
-
-
-
     public static void modificaPaziente(Scanner scanner) {
         pazienteDAO.modificaPazienteDAO(scanner);
     }
@@ -237,7 +233,6 @@ public class AmministratoreController {
     public static void visualizzaPazienti(Scanner scanner) {
         pazienteDAO.visualizzaPazientiDAO(scanner);
     }
-
     //Servizi
     public static void aggiungiServizio(Scanner scanner) {
         servizioDAO.aggiungiServizioDAO(scanner);
@@ -256,6 +251,12 @@ public class AmministratoreController {
         System.out.println(" ");
         menuController.mostraMenuServizi(scanner);
     }
+
+
+    public static void visualizzaServizi(Scanner scanner) {
+        servizioDAO.visualizzaServiziDAO(scanner);
+    }
+
 
     //Disponibilità
     public static void visualizzaRichiesteRimozione(Scanner scanner) {

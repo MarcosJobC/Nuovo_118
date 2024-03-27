@@ -23,6 +23,9 @@ import java.util.Calendar;
 
 
 public class servizioDAO {
+
+
+    //TODO passare questi da qui a databaseconnection.
     private static Connection connection;
 
     public static void openConnection() {
@@ -878,6 +881,45 @@ public class servizioDAO {
 
             menuController.mostraMenuUtenteNormale(scanner, matricolaVolontario);
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        closeConnection();
+    }
+    public static void visualizzaServiziDAO(Scanner scanner) {
+        openConnection();
+        try {
+            // Ottieni una lista di tutti i servizi
+            String listaServiziQuery = "SELECT * FROM Servizi";
+            PreparedStatement listaServiziStatement = connection.prepareStatement(listaServiziQuery);
+            ResultSet serviziResultSet = listaServiziStatement.executeQuery();
+
+            System.out.println();
+            System.out.println();
+            System.out.println("Lista dei servizi:");
+            while (serviziResultSet.next()) {
+                int idServizio = serviziResultSet.getInt("ID");
+                String dataServizio = serviziResultSet.getString("Data");
+                LocalTime orarioServizio = serviziResultSet.getTime("Orario").toLocalTime();
+                int idPaziente = serviziResultSet.getInt("Paziente");
+                String siglaMezzo = serviziResultSet.getString("Sigla_Mezzo");
+                int idAutista = serviziResultSet.getInt("Autista");
+                int idSoccorritore = serviziResultSet.getInt("Soccorritore");
+
+                System.out.print("ID: " + idServizio);
+                System.out.print("| Data: " + dataServizio + " | Orario: " + orarioServizio);
+                System.out.print("| ID Paziente: " + idPaziente + " | Sigla Mezzo: " + siglaMezzo);
+                System.out.print("| ID Autista: " + idAutista + " | ID Soccorritore: " + idSoccorritore);
+                System.out.println();
+                System.out.println();
+            }
+
+            System.out.println("Premi un tasto qualsiasi per tornare al menu servizi.");
+            scanner.nextLine();
+            scanner.nextLine();
+            menuController.mostraMenuServizi(scanner);
+
+            listaServiziStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
