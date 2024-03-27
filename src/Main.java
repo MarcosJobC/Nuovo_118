@@ -12,7 +12,7 @@ import java.util.Scanner;
             Scanner scanner = new Scanner(System.in);
 
             // Rimuovi le disponibilità scadute e le notifiche lette
-            servizioDAO.rimuoviDisponibilitaScaduteDAO();
+            DisponibilitaDAO.rimuoviDisponibilitaScaduteDAO();
             notificaDAO.eliminaNotificheLetteDAO();
 
             // Rimuovi i servizi scaduti

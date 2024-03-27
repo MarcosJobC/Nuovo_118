@@ -268,4 +268,22 @@ public class DisponibilitaDAO {
         closeConnection();
     }
 
+    public static void rimuoviDisponibilitaScaduteDAO() {
+        openConnection();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Calendar cal = Calendar.getInstance();
+        String oggi = dateFormat.format(cal.getTime()); // Ottieni la data odierna nel formato dd-MM-yyyy
+
+        String deleteDisponibilitaQuery = "DELETE FROM Disponibilita WHERE TO_DATE(data_disponibilita, 'dd-MM-yyyy') < TO_DATE(?, 'dd-MM-yyyy')";
+        try {
+            PreparedStatement deleteDisponibilitaStatement = connection.prepareStatement(deleteDisponibilitaQuery);
+            deleteDisponibilitaStatement.setString(1, oggi); // Passa la data odierna come stringa nel formato dd-MM-yyyy
+            int rowCount = deleteDisponibilitaStatement.executeUpdate();
+            deleteDisponibilitaStatement.close();
+            /*System.out.println(rowCount + " disponibilità scadute sono state rimosse.");*/
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        closeConnection();
+    }
 }
