@@ -198,4 +198,30 @@ public class mezzoDAO {
         closeConnection();
     }
 
+    public static void visualizzaMezziDAO(Scanner scanner) {
+        openConnection();
+        try {
+            String query = "SELECT * FROM Mezzi";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            System.out.println("Lista dei mezzi:");
+            while (resultSet.next()) {
+                String siglaMezzo = resultSet.getString("Sigla_mezzo");
+                String targa = resultSet.getString("targa");
+                String tipologia = resultSet.getString("tipologia");
+                System.out.println("Sigla mezzo: " + siglaMezzo + " | Targa: " + targa + " | Tipologia: " + tipologia);
+            }
+
+            System.out.println("Premi un tasto qualsiasi per tornare al menu mezzi.");
+            scanner.nextLine(); // Attendi l'input dell'utente per tornare al menu
+            menuController.mostraMenuMezzi(scanner);
+
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        closeConnection();
+    }
 }
+

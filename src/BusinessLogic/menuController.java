@@ -147,10 +147,11 @@ public class menuController {
     //MENU MEZZI
     public static void mostraMenuMezzi(Scanner scanner) {
         System.out.println("Menu Gestione Mezzi:");
-        System.out.println("1. Aggiungi mezzo");
-        System.out.println("2. Modifica mezzo");
-        System.out.println("3. Elimina mezzo");
-        System.out.println("4. Torna al menu amministratore");
+        System.out.println("1. Visualizza mezzi");
+        System.out.println("2. Aggiungi mezzo");
+        System.out.println("3. Modifica mezzo");
+        System.out.println("4. Elimina mezzo");
+        System.out.println("5. Torna al menu amministratore");
         System.out.print("Seleziona un'opzione: ");
 
         int choice = scanner.nextInt();
@@ -158,15 +159,18 @@ public class menuController {
 
         switch (choice) {
             case 1:
-                AmministratoreController.aggiungiMezzo(scanner);
+                AmministratoreController.visualizzaMezzi(scanner);
                 break;
             case 2:
-                AmministratoreController.modificaMezzo(scanner);
+                AmministratoreController.aggiungiMezzo(scanner);
                 break;
             case 3:
-                AmministratoreController.eliminaMezzo(scanner);
+                AmministratoreController.modificaMezzo(scanner);
                 break;
             case 4:
+                AmministratoreController.eliminaMezzo(scanner);
+                break;
+            case 5:
                 mostraMenuAdmin(scanner);
                 break;
             default:

@@ -18,8 +18,6 @@ public class AmministratoreController {
     // 2- funzione in dao salva risultati in arraylist e ritorna arraylist qui
     // 3- qui vengono stampati i risultati contenuti nell' arraylist
 
-    //TODO Aggiungi visualizza mezzi
-    //TODO Aggiungi visualizza servizi
 
     //Mezzi
     public static Mezzo aggiungiMezzo(Scanner scanner) {
@@ -84,6 +82,9 @@ public class AmministratoreController {
     }
     public static void eliminaMezzo(Scanner scanner) {
         mezzoDAO.eliminaMezzoDAO(scanner);
+    }
+    public static void visualizzaMezzi(Scanner scanner) {
+        mezzoDAO.visualizzaMezziDAO(scanner);
     }
 
     //Pazienti
@@ -251,8 +252,6 @@ public class AmministratoreController {
         System.out.println(" ");
         menuController.mostraMenuServizi(scanner);
     }
-
-
     public static void visualizzaServizi(Scanner scanner) {
         servizioDAO.visualizzaServiziDAO(scanner);
     }
