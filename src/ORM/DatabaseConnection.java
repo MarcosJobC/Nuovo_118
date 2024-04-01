@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private Connection connection; // Aggiungi questa variabile di istanza
+    private static Connection connection;
 
     public void connectToDatabase() {
         String url = "jdbc:postgresql://localhost:5432/Gestionale_118_db";
@@ -20,7 +20,6 @@ public class DatabaseConnection {
             e.printStackTrace();
         }
     }
-
     public Connection getConnection() {
         return connection;
     }
