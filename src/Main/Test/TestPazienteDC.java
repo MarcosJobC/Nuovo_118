@@ -1,6 +1,5 @@
 package Main.Test;
 
-import Main.BusinessLogic.menuController;
 import Main.DomainModel.Paziente;
 import Main.ORM.DatabaseConnection;
 import org.junit.AfterClass;
@@ -18,7 +17,7 @@ import java.time.LocalDate;
 import static org.junit.Assert.*;
 
 
-public class TestPaziente {
+public class TestPazienteDC {
 
     private static Connection connection;
 

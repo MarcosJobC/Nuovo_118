@@ -6,7 +6,7 @@ import java.sql.*;
 
 import static org.junit.Assert.*;
 
-public class TestServizio {
+public class TestServizioDC {
 
     private static Connection connection;
 

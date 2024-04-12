@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 import java.sql.*;
 
-public class TestUtente {
+public class TestUtenteDC {
 
 
 
