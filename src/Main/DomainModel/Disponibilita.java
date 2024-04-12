@@ -1,7 +1,4 @@
-package DomainModel;
-
-import java.sql.Time;
-import java.util.List;
+package Main.DomainModel;
 
 public class Disponibilita {
     private int id;

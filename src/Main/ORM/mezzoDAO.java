@@ -1,7 +1,7 @@
-package ORM;
+package Main.ORM;
 
-import BusinessLogic.menuController;
-import DomainModel.Mezzo;
+import Main.BusinessLogic.menuController;
+import Main.DomainModel.Mezzo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

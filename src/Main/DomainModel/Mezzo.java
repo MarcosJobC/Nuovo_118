@@ -1,4 +1,4 @@
-package DomainModel;
+package Main.DomainModel;
 
 public class Mezzo {
     private String siglaMezzo;

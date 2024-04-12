@@ -1,7 +1,6 @@
-package DomainModel;
+package Main.DomainModel;
 
 import java.sql.Time;
-import java.util.List;
 
 public class Servizio {
     private int id;

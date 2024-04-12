@@ -1,6 +1,6 @@
-package ORM;
+package Main.ORM;
 
-import BusinessLogic.*;
+import Main.BusinessLogic.*;
 
 import java.sql.*;
 import java.time.LocalDate;

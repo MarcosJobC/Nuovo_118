@@ -1,6 +1,6 @@
-package ORM;
+package Main.ORM;
 
-import BusinessLogic.*;
+import Main.BusinessLogic.*;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -24,8 +24,6 @@ import java.util.Calendar;
 
 public class servizioDAO {
 
-
-    //TODO passare questi da qui a databaseconnection.
     private static Connection connection;
 
     public static void openConnection() {
@@ -220,7 +218,7 @@ public class servizioDAO {
 
                 preparedStatement.executeUpdate();
 
-                System.out.println("BusinessLogic.Servizio aggiunto con successo!");
+                System.out.println("Main.BusinessLogic.Servizio aggiunto con successo!");
 
                 preparedStatement.close();
             } catch (SQLException e) {
@@ -375,7 +373,7 @@ public class servizioDAO {
 
                 preparedStatement.executeUpdate();
 
-                System.out.println("BusinessLogic.Servizio aggiunto con successo!");
+                System.out.println("Main.BusinessLogic.Servizio aggiunto con successo!");
 
                 preparedStatement.close();
             } catch (SQLException e) {
@@ -418,7 +416,7 @@ public class servizioDAO {
                 int Autista = serviziResultSet.getInt("Autista");
                 int Soccorritore = serviziResultSet.getInt("Soccorritore");
 
-                System.out.println("ID: " + idServizio + " | Data: " + dataServizio + " | Orario: " + orarioServizioString + " | BusinessLogic.Mezzo: " + siglaMezzo +" | Autista: " + Autista + " | Soccorritore: " + Soccorritore  );
+                System.out.println("ID: " + idServizio + " | Data: " + dataServizio + " | Orario: " + orarioServizioString + " | Main.BusinessLogic.Mezzo: " + siglaMezzo +" | Autista: " + Autista + " | Soccorritore: " + Soccorritore  );
             }
             System.out.println(" ");
 
@@ -584,7 +582,7 @@ public class servizioDAO {
 
             int righeModificate = updateServizioStatement.executeUpdate();
             if (righeModificate > 0) {
-                System.out.println("BusinessLogic.Servizio modificato con successo!");
+                System.out.println("Main.BusinessLogic.Servizio modificato con successo!");
             } else {
                 System.out.println("Si è verificato un errore durante la modifica del servizio.");
             }
@@ -619,7 +617,7 @@ public class servizioDAO {
                 String pazienteServizio = resultSet.getString("Paziente");
                 String mezzoServizio = resultSet.getString("Sigla_mezzo");
 
-                System.out.println("ID: " + idServizio + " | Data: " + dataServizio + " | Paziente: " + pazienteServizio + " | BusinessLogic.Mezzo: " + mezzoServizio);
+                System.out.println("ID: " + idServizio + " | Data: " + dataServizio + " | Paziente: " + pazienteServizio + " | Main.BusinessLogic.Mezzo: " + mezzoServizio);
             }
 
             System.out.println(" ");
@@ -655,7 +653,7 @@ public class servizioDAO {
                                 int rowsAffected = deleteStatement.executeUpdate();
 
                                 if (rowsAffected > 0) {
-                                    System.out.println("BusinessLogic.Servizio con ID " + idServizioDaEliminare + " eliminato con successo!");
+                                    System.out.println("Main.BusinessLogic.Servizio con ID " + idServizioDaEliminare + " eliminato con successo!");
                                     System.out.println(" ");
                                     System.out.println(" ");
                                     menuController.mostraMenuServizi(scanner);
@@ -817,7 +815,7 @@ public class servizioDAO {
         openConnection();
         try {
             // Query per i servizi assegnati
-            String serviziQuery = "SELECT 'BusinessLogic.Servizio' AS Tipo, Data, Orario, Sigla_Mezzo FROM Servizi WHERE Autista = ? OR Soccorritore = ?";
+            String serviziQuery = "SELECT 'Main.BusinessLogic.Servizio' AS Tipo, Data, Orario, Sigla_Mezzo FROM Servizi WHERE Autista = ? OR Soccorritore = ?";
             PreparedStatement serviziStatement = connection.prepareStatement(serviziQuery);
             serviziStatement.setInt(1, matricolaVolontario);
             serviziStatement.setInt(2, matricolaVolontario);
@@ -843,8 +841,8 @@ public class servizioDAO {
                 StringBuilder risultato = new StringBuilder();
                 risultato.append("Tipo: ").append(tipo).append(" - Data: ").append(data);
 
-                if (tipo.equals("BusinessLogic.Servizio")) {
-                    risultato.append(" - Orario: ").append(orario).append(" - BusinessLogic.Mezzo: ").append(siglaMezzo);
+                if (tipo.equals("Main.BusinessLogic.Servizio")) {
+                    risultato.append(" - Orario: ").append(orario).append(" - Main.BusinessLogic.Mezzo: ").append(siglaMezzo);
                 } else if (tipo.equals("Emergenza")) {
                     String turno = serviziResultSet.getString("Turno");
                     risultato.append(" - Turno: ").append(turno);

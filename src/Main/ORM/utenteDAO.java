@@ -1,12 +1,10 @@
-package ORM;
-import BusinessLogic.*;
-import DomainModel.Utente;
+package Main.ORM;
+import Main.BusinessLogic.*;
+import Main.DomainModel.Utente;
 
 
 import java.sql.*;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class utenteDAO {
@@ -174,7 +172,7 @@ public class utenteDAO {
                     System.out.println("  ");
                     volontarioTrovato = true;
                 } else {
-                    System.out.println("BusinessLogic.Volontario non trovato.");
+                    System.out.println("Volontario non trovato.");
                 }
 
                 verificaStatement.close();
@@ -222,7 +220,7 @@ public class utenteDAO {
                 ResultSet risultatoVerifica = verificaStatement.executeQuery();
 
                 if (risultatoVerifica.next()) {
-                    System.out.println("BusinessLogic.Volontario trovato. Sei sicuro di volerlo eliminare? (s/n)");
+                    System.out.println("Volontario trovato. Sei sicuro di volerlo eliminare? (s/n)");
                     String conferma = scanner.nextLine();
 
                     if (conferma.equalsIgnoreCase("s")) {
@@ -271,7 +269,7 @@ public class utenteDAO {
                         updateStatementServizi.setInt(2, idVolontario);
                         updateStatementServizi.executeUpdate();
 
-                        System.out.println("BusinessLogic.Volontario eliminato con successo!");
+                        System.out.println("Main.BusinessLogic.Volontario eliminato con successo!");
                         System.out.println("  ");
                         System.out.println("  ");
                         volontarioTrovato = true;
@@ -279,7 +277,7 @@ public class utenteDAO {
                         System.out.println("Operazione di eliminazione annullata.");
                     }
                 } else {
-                    System.out.println("BusinessLogic.Volontario non trovato.");
+                    System.out.println("Main.BusinessLogic.Volontario non trovato.");
                 }
                 verificaStatement.close();
             }

@@ -1,9 +1,8 @@
-package BusinessLogic;
+package Main.BusinessLogic;
 
-import DomainModel.Utente;
-import ORM.*;
+import Main.DomainModel.Utente;
+import Main.ORM.*;
 
-import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;

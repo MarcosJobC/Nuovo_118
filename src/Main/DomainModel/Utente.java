@@ -1,4 +1,4 @@
-package DomainModel;
+package Main.DomainModel;
 
 
 public class Utente {
@@ -23,6 +23,7 @@ public class Utente {
         this.password = password;
         this.isAdmin = false;
     }
+
 
     // Metodi getter
     public int getMatricola() {

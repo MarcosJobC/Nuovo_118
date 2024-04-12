@@ -36,7 +36,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "ORM.assegnazioneAutomaticaDAODAO",
+					"name": "Main.ORM.assegnazioneAutomaticaDAODAO",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -203,7 +203,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uhy6E+Lyg="
 							},
-							"name": "ORM.assegnazioneAutomaticaDAODAO",
+							"name": "Main.ORM.assegnazioneAutomaticaDAODAO",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -343,7 +343,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "ORM.DatabaseConnection",
+					"name": "Main.ORM.DatabaseConnection",
 					"attributes": [
 						{
 							"_type": "UMLAttribute",
@@ -888,7 +888,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "BusinessLogic.menuControllerler",
+					"name": "Main.BusinessLogic.menuControllerler",
 					"ownedElements": [
 						{
 							"_type": "UMLDependency",
@@ -991,7 +991,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uh7aF2+ec="
 							},
-							"name": "BusinessLogic.menuControllerler",
+							"name": "Main.BusinessLogic.menuControllerler",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -1210,7 +1210,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "ORM.mezziManagerDAODAO",
+					"name": "Main.ORM.mezziManagerDAODAO",
 					"ownedElements": [
 						{
 							"_type": "UMLDependency",
@@ -1248,7 +1248,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uh+aGMZGk="
 							},
-							"name": "ORM.mezziManagerDAODAO",
+							"name": "Main.ORM.mezziManagerDAODAO",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -1365,7 +1365,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "BusinessLogic.MezzoController",
+					"name": "Main.BusinessLogic.MezzoController",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -1435,7 +1435,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uh+qGYznA="
 							},
-							"name": "BusinessLogic.MezzoController",
+							"name": "Main.BusinessLogic.MezzoController",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -1616,7 +1616,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "ORM.servizioDAO					"ownedElements": [
+					"name": "Main.ORM.servizioDAO					"ownedElements": [
 						{
 							"_type": "UMLDependency",
 							"_id": "AAAAAAGKO3ahhrtmXi0=",
@@ -1679,7 +1679,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uiEKGsm7Y="
 							},
-							"name": "ORM.servizioDAO							"stereotype": "constructor",
+							"name": "Main.ORM.servizioDAO							"stereotype": "constructor",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -1825,7 +1825,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "BusinessLogic.ServizioController",
+					"name": "Main.BusinessLogic.ServizioController",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -1987,7 +1987,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uiFaG7Fas="
 							},
-							"name": "BusinessLogic.ServizioController",
+							"name": "Main.BusinessLogic.ServizioController",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -2325,7 +2325,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "ORM.utenteDAO	"ownedElements": [
+					"name": "Main.ORM.utenteDAO	"ownedElements": [
 						{
 							"_type": "UMLDependency",
 							"_id": "AAAAAAGKO3C4gmpjCtU=",
@@ -2362,7 +2362,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uiLqHb7n4="
 							},
-							"name": "ORM.utenteDAO			"stereotype": "constructor",
+							"name": "Main.ORM.utenteDAO			"stereotype": "constructor",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -2647,7 +2647,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGKO0uhd6E9rAU="
 					},
-					"name": "BusinessLogic.AmministratoreController",
+					"name": "Main.BusinessLogic.AmministratoreController",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -3040,7 +3040,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGKO0uiMKH43r0="
 							},
-							"name": "BusinessLogic.AmministratoreController",
+							"name": "Main.BusinessLogic.AmministratoreController",
 							"stereotype": "constructor",
 							"parameters": [
 								{
@@ -3408,7 +3408,7 @@
 											"top": 27,
 											"width": 156.04443359375,
 											"height": 13,
-											"text": "ORM.assegnazioneAutomaticaDAODAO"
+											"text": "Main.ORM.assegnazioneAutomaticaDAODAO"
 										},
 										{
 											"_type": "LabelView",
@@ -3510,7 +3510,7 @@
 											"top": 5,
 											"width": 481.62841796875,
 											"height": 13,
-											"text": "«constructor»+ORM.assegnazioneAutomaticaDAODAO(connection: Connection)",
+											"text": "«constructor»+Main.ORM.assegnazioneAutomaticaDAODAO(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -3685,7 +3685,7 @@
 											"top": 62,
 											"width": 129.3017578125,
 											"height": 13,
-											"text": "ORM.DatabaseConnection"
+											"text": "Main.ORM.DatabaseConnection"
 										},
 										{
 											"_type": "LabelView",
@@ -4534,7 +4534,7 @@
 											"top": 167,
 											"width": 88.130859375,
 											"height": 13,
-											"text": "BusinessLogic.menuControllerler"
+											"text": "Main.BusinessLogic.menuControllerler"
 										},
 										{
 											"_type": "LabelView",
@@ -4636,7 +4636,7 @@
 											"top": 5,
 											"width": 446.90673828125,
 											"height": 13,
-											"text": "«constructor»+BusinessLogic.menuControllerler(connection: Connection)",
+											"text": "«constructor»+Main.BusinessLogic.menuControllerler(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -4847,7 +4847,7 @@
 											"top": 202,
 											"width": 88.86083984375,
 											"height": 13,
-											"text": "ORM.mezziManagerDAODAO"
+											"text": "Main.ORM.mezziManagerDAODAO"
 										},
 										{
 											"_type": "LabelView",
@@ -4949,7 +4949,7 @@
 											"top": 5,
 											"width": 316.138671875,
 											"height": 13,
-											"text": "«constructor»+ORM.mezziManagerDAODAO(connection: Connection)",
+											"text": "«constructor»+Main.ORM.mezziManagerDAODAO(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5106,7 +5106,7 @@
 											"top": 237,
 											"width": 39,
 											"height": 13,
-											"text": "BusinessLogic.MezzoController"
+											"text": "Main.BusinessLogic.MezzoController"
 										},
 										{
 											"_type": "LabelView",
@@ -5241,7 +5241,7 @@
 											"top": 5,
 											"width": 414.38134765625,
 											"height": 13,
-											"text": "«constructor»+BusinessLogic.MezzoController(siglaMezzo: String, targa: String, tipologia: String)",
+											"text": "«constructor»+Main.BusinessLogic.MezzoController(siglaMezzo: String, targa: String, tipologia: String)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5446,7 +5446,7 @@
 											"top": 272,
 											"width": 93.9326171875,
 											"height": 13,
-											"text": "ORM.servizioDAO									},
+											"text": "Main.ORM.servizioDAO									},
 										{
 											"_type": "LabelView",
 											"_id": "AAAAAAGKO0uiXKOC9H4=",
@@ -5547,7 +5547,7 @@
 											"top": 5,
 											"width": 322.98779296875,
 											"height": 13,
-											"text": "«constructor»+ORM.servizioDAOnnection: Connection)",
+											"text": "«constructor»+Main.ORM.servizioDAOnnection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5722,7 +5722,7 @@
 											"top": 307,
 											"width": 49.8544921875,
 											"height": 13,
-											"text": "BusinessLogic.ServizioController"
+											"text": "Main.BusinessLogic.ServizioController"
 										},
 										{
 											"_type": "LabelView",
@@ -5891,7 +5891,7 @@
 											"top": 5,
 											"width": 608.9814453125,
 											"height": 13,
-											"text": "«constructor»+BusinessLogic.ServizioController(id: int, data: String, orario: Time, volontariAssegnati: Integer[*], siglaMezzo: String)",
+											"text": "«constructor»+Main.BusinessLogic.ServizioController(id: int, data: String, orario: Time, volontariAssegnati: Integer[*], siglaMezzo: String)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -6164,7 +6164,7 @@
 											"top": 342,
 											"width": 108.3544921875,
 											"height": 13,
-											"text": "ORM.utenteDAO					},
+											"text": "Main.ORM.utenteDAO					},
 										{
 											"_type": "LabelView",
 											"_id": "AAAAAAGKO0uiXKOWTFk=",
@@ -6265,7 +6265,7 @@
 											"top": 5,
 											"width": 439.68310546875,
 											"height": 13,
-											"text": "«constructor»+ORM.utentiManagernnection: Connection)",
+											"text": "«constructor»+Main.ORM.utentiManagernnection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -6494,7 +6494,7 @@
 											"top": 377,
 											"width": 63.3115234375,
 											"height": 13,
-											"text": "BusinessLogic.AmministratoreController"
+											"text": "Main.BusinessLogic.AmministratoreController"
 										},
 										{
 											"_type": "LabelView",
@@ -6663,7 +6663,7 @@
 											"top": 5,
 											"width": 632.60107421875,
 											"height": 13,
-											"text": "«constructor»+BusinessLogic.AmministratoreController(matricola: int, nome: String, cognome: String, codiceFiscale: String, qualifica: String)",
+											"text": "«constructor»+Main.BusinessLogic.AmministratoreController(matricola: int, nome: String, cognome: String, codiceFiscale: String, qualifica: String)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -7446,7 +7446,7 @@
 											"top": 471,
 											"width": 481.62841796875,
 											"height": 13,
-											"text": "ORM.assegnazioneAutomaticaDAODAO"
+											"text": "Main.ORM.assegnazioneAutomaticaDAODAO"
 										},
 										{
 											"_type": "LabelView",
@@ -7553,7 +7553,7 @@
 											"top": 517,
 											"width": 481.62841796875,
 											"height": 13,
-											"text": "«constructor»+ORM.assegnazioneAutomaticaDAODAO(connection: Connection)",
+											"text": "«constructor»+Main.ORM.assegnazioneAutomaticaDAODAO(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -8381,7 +8381,7 @@
 											"top": 783,
 											"width": 446.90673828125,
 											"height": 13,
-											"text": "BusinessLogic.menuControllerler"
+											"text": "Main.BusinessLogic.menuControllerler"
 										},
 										{
 											"_type": "LabelView",
@@ -8488,7 +8488,7 @@
 											"top": 829,
 											"width": 446.90673828125,
 											"height": 13,
-											"text": "«constructor»+BusinessLogic.menuControllerler(connection: Connection)",
+											"text": "«constructor»+Main.BusinessLogic.menuControllerler(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -8704,7 +8704,7 @@
 											"top": 1415,
 											"width": 316.138671875,
 											"height": 13,
-											"text": "ORM.mezziManagerDAODAO"
+											"text": "Main.ORM.mezziManagerDAODAO"
 										},
 										{
 											"_type": "LabelView",
@@ -8811,7 +8811,7 @@
 											"top": 1461,
 											"width": 316.138671875,
 											"height": 13,
-											"text": "«constructor»+ORM.mezziManagerDAODAO(connection: Connection)",
+											"text": "«constructor»+Main.ORM.mezziManagerDAODAO(connection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -8973,7 +8973,7 @@
 											"top": 1119,
 											"width": 414.38134765625,
 											"height": 13,
-											"text": "BusinessLogic.MezzoController"
+											"text": "Main.BusinessLogic.MezzoController"
 										},
 										{
 											"_type": "LabelView",
@@ -9113,7 +9113,7 @@
 											"top": 1195,
 											"width": 414.38134765625,
 											"height": 13,
-											"text": "«constructor»+BusinessLogic.MezzoController(siglaMezzo: String, targa: String, tipologia: String)",
+											"text": "«constructor»+Main.BusinessLogic.MezzoController(siglaMezzo: String, targa: String, tipologia: String)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -9323,7 +9323,7 @@
 											"top": 799,
 											"width": 322.98779296875,
 											"height": 13,
-											"text": "ORM.servizioDAO									},
+											"text": "Main.ORM.servizioDAO									},
 										{
 											"_type": "LabelView",
 											"_id": "AAAAAAGKO0uiw6a6in0=",
@@ -9429,7 +9429,7 @@
 											"top": 845,
 											"width": 322.98779296875,
 											"height": 13,
-											"text": "«constructor»+ORM.servizioDAOnnection: Connection)",
+											"text": "«constructor»+Main.ORM.servizioDAOnnection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -9609,7 +9609,7 @@
 											"top": 727,
 											"width": 608.9814453125,
 											"height": 13,
-											"text": "BusinessLogic.ServizioController"
+											"text": "Main.BusinessLogic.ServizioController"
 										},
 										{
 											"_type": "LabelView",
@@ -9783,7 +9783,7 @@
 											"top": 833,
 											"width": 608.9814453125,
 											"height": 13,
-											"text": "«constructor»+BusinessLogic.ServizioController(id: int, data: String, orario: Time, volontariAssegnati: Integer[*], siglaMezzo: String)",
+											"text": "«constructor»+Main.BusinessLogic.ServizioController(id: int, data: String, orario: Time, volontariAssegnati: Integer[*], siglaMezzo: String)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -10061,7 +10061,7 @@
 											"top": 111,
 											"width": 439.68310546875,
 											"height": 13,
-											"text": "ORM.utenteDAO					},
+											"text": "Main.ORM.utenteDAO					},
 										{
 											"_type": "LabelView",
 											"_id": "AAAAAAGKO0uiw6bOZ9c=",
@@ -10167,7 +10167,7 @@
 											"top": 157,
 											"width": 439.68310546875,
 											"height": 13,
-											"text": "«constructor»+ORM.utentiManagernnection: Connection)",
+											"text": "«constructor»+Main.ORM.utentiManagernnection: Connection)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -10401,7 +10401,7 @@
 											"top": 295,
 											"width": 632.60107421875,
 											"height": 13,
-											"text": "BusinessLogic.AmministratoreController"
+											"text": "Main.BusinessLogic.AmministratoreController"
 										},
 										{
 											"_type": "LabelView",
@@ -10575,7 +10575,7 @@
 											"top": 401,
 											"width": 632.60107421875,
 											"height": 13,
-											"text": "«constructor»+BusinessLogic.AmministratoreController(matricola: int, nome: String, cognome: String, codiceFiscale: String, qualifica: String)",
+											"text": "«constructor»+Main.BusinessLogic.AmministratoreController(matricola: int, nome: String, cognome: String, codiceFiscale: String, qualifica: String)",
 											"horizontalAlignment": 0
 										},
 										{

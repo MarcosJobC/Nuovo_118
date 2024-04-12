@@ -1,5 +1,5 @@
-import BusinessLogic.menuController;
-import ORM.*;
+import Main.BusinessLogic.menuController;
+import Main.ORM.*;
 
 import java.util.Scanner;
 

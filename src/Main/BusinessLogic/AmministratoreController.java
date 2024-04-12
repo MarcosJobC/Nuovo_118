@@ -1,7 +1,7 @@
-package BusinessLogic;
-import DomainModel.Mezzo;
-import DomainModel.Paziente;
-import ORM.*;
+package Main.BusinessLogic;
+import Main.DomainModel.Mezzo;
+import Main.DomainModel.Paziente;
+import Main.ORM.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

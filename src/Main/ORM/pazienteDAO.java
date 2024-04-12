@@ -1,11 +1,10 @@
-package ORM;
+package Main.ORM;
 
-import BusinessLogic.menuController;
-import DomainModel.Paziente;
+import Main.BusinessLogic.menuController;
+import Main.DomainModel.Paziente;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Scanner;
 import java.sql.Date;
 import java.sql.PreparedStatement;

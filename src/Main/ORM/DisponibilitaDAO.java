@@ -1,19 +1,13 @@
-package ORM;
+package Main.ORM;
 
-import BusinessLogic.*;
+import Main.BusinessLogic.*;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.sql.ResultSet;
 
-import java.sql.Date;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -191,7 +185,7 @@ public class DisponibilitaDAO {
                 String tipologia = resultSet.getString("Tipologia");
                 String motivoRimozione = resultSet.getString("Motivo_Rimozione");
 
-                System.out.println("ID: " + idDisponibilita + " - Matricola BusinessLogic.Volontario: " + matricolaVolontario + " - Data Disponibilità: " + dataDisponibilita + " - Tipologia: " + tipologia + " - Motivo Rimozione: " + motivoRimozione);
+                System.out.println("ID: " + idDisponibilita + " - Matricola Main.BusinessLogic.Volontario: " + matricolaVolontario + " - Data Disponibilità: " + dataDisponibilita + " - Tipologia: " + tipologia + " - Motivo Rimozione: " + motivoRimozione);
             }
 
             // Aggiungi il messaggio per accettare o tornare indietro
